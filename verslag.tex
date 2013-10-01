@@ -12,11 +12,15 @@ Tekst in subsectie.
 
 \chapter{Technisch Ontwerp}
 \section{Architectuur}
-Canvas.hs heeft een ietwat ingewikkelde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met onze, te ontwikkelen, Haskell API.
+Canvas.hs heeft een ietwat ingewikkelde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met de, te ontwikkelen, Haskell API voor het bouwen van interfaces.
 \includegraphics{architecture.png}
 \subsection{Haskell}
+
 \subsubsection{API}
-\subsubsection{Server}
+\subsubsection{Verbinding met de interface}
+De verbinding met het canvas wordt bewerkstelligd met een eenvoudige HTTP server. Deze server biedt de gebruiker de mogelijkheid om via een webbrowser het Haskell programma te benaderen. De HTTP server biedt pagina's aan waarin JavaScript en HTML samenwerken om het canvas te betekenen.
+
+Als via de API van Canvas.hs begonnen wordt met tekenen zal de HTTP server automatisch gestart worden. Het bestuuringssysteem wordt aangeroepen voor het openen van de standaard browser—verwijzende naar het adres van de lokaal draaiende HTTP server.
 \subsection{Protocol}
 \subsubsection{Restful vs RPC}
 \subsubsection{Websockets}
