@@ -1,5 +1,6 @@
 \documentclass[a4paper]{report}
 \usepackage[dutch]{babel}
+\usepackage{graphicx}
 
 \begin{document}
 \input{./titlepage.tex}
@@ -11,6 +12,8 @@ Tekst in subsectie.
 
 \chapter{Technisch Ontwerp}
 \section{Architectuur}
+Canvas.hs heeft een ietwat ingewikkelde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met onze, te ontwikkelen, Haskell API.
+\includegraphics{architecture.png}
 \subsection{Haskell}
 \subsubsection{API}
 \subsubsection{Server}
