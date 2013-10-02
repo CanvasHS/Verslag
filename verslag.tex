@@ -15,8 +15,11 @@ Tekst in subsectie.
 Canvas.hs heeft een ietwat ingewikkelde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met de, te ontwikkelen, Haskell API voor het bouwen van interfaces.
 \includegraphics[keepaspectratio,width=0.9\textwidth]{architecture.png}
 \subsection{Haskell}
+Canvas.hs is een library die de programmeur kan importeren in zijn programma en daarna met de API die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee kan bouwen. Canvas.hs zal zich focusen op elementaire input en geen ondersteuning hebben voor high level interface elementen zoals buttons en textarea's. Deze elementen zouden met behulp van Canvas.hs wel eenvoudig te implementerne moeten zijn.
 
 \subsubsection{API}
+De programmeur die gebruik maakt van Canvas.hs zal op een eenvoudige wijze gebruik moeten maken van onze library. Daarom is het belangrijk dat er een API aangeboden wordt die eenvoudig te begrijpen is en niet teveel features bevat maar daarnaast wel de flexibiliteit biedt om een zeer complexe interface mee te bouwen. Dit is dan ook wat wij gaan doen. Het tekenen van elementen zal zo opgezet worden zodat de programmeur met een blik op zijn code goed kan begrijpen wat er getekend wordt.
+
 \subsubsection{Verbinding met de interface}
 De verbinding met het canvas wordt bewerkstelligd met een eenvoudige HTTP server. Deze server biedt de gebruiker de mogelijkheid om via een webbrowser het Haskell programma te benaderen. De HTTP server biedt pagina's aan waarin JavaScript en HTML samenwerken om het canvas te betekenen.
 
@@ -38,11 +41,13 @@ Events zijn de gegevens die de browser terug stuurt naar de HTTP server. Deze ge
 
 \subsection{Javascript}
 Voor het tekenen van de interface op het HTML Canvas alsmede de communicatie vanuit de browser met de server, zal er gebruik worden gemaakt van JavaScript. jQuery biedt een prima uitbreiding op JavaScript waarbij de mogelijkheid wordt geboden verschillende zogenaamde jQuery plugins te gebruiken. In het geval van Canvas.hs zijn twee plugins belangrijk: Kinetic.js en jQuery-websockets.
-\subsubsection{Communicatie}
-\subsubsection{Tekenen}
+
+Kinetic.js zal gebruikt worden voor het tekenen van de verschillende elementen op het canvas. Daarbij heeft Kinetic.js in compinatie met jQuery ook uitstekende ondersteuning voor het doorgeven van input events, die door bijvoorbeeld muisbeweginen aangeroepen worden. 
+
+jQuery-websockets is een plugin die het gemakkelijk maakt gegevensoverdracht tussen websockets af te vangen en daar snel actie op te ondernemen. Deze lichtgewicht library maakt het mogelijk snel, zonder veel overhead opdrachten door te sturen naar Kinetic.js zodat deze op het canvas getekend worden.
 
 \subsubsection{Debug Console}
-
+Voor de programmeur die gebruik gaat maken van de Canvas.hs library is het belangrijk dat zijn interface er zo uit ziet zoals hij dit wil. Ongetwijfeld zal een programmeur tegen problemen aanlopen bij het bouwen van de interface die hij niet had voorzien bij het schrijven van zijn code. Daarom vinden wij het belangrijk dat de interface van Canvas.hs een zogenaamde dubug console bevat waar het aanroepen van teken functies en de invloed van deze API aanroepen goed visueel en tekstueel inzichtelijk worden.
 
 \newpage
 \bibliographystyle{abbrv}
