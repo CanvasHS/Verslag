@@ -12,17 +12,24 @@ Tekst in subsectie.
 
 \chapter{Technisch Ontwerp}
 \section{Architectuur}
-Canvas.hs heeft een ietwat ingewikkelde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met de, te ontwikkelen, Haskell API voor het bouwen van interfaces.
-\includegraphics[keepaspectratio,width=0.9\textwidth]{architecture.png}
-\subsection{Haskell}
+Canvas.hs heeft een ietwat ingewikkelde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met de te ontwikkelen Haskell API voor het bouwen van interfaces.
 
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio,width=0.9\textwidth]{architecture.png}
+\caption{Overzicht van de architectuur van Canvas.hs}
+\label{fig:overzicht_architectuur}
+\end{center}
+\end{figure}
+
+\subsection{Haskell}
 \subsubsection{API}
 \subsubsection{Verbinding met de interface}
 De verbinding met het canvas wordt bewerkstelligd met een eenvoudige HTTP server. Deze server biedt de gebruiker de mogelijkheid om via een webbrowser het Haskell programma te benaderen. De HTTP server biedt pagina's aan waarin JavaScript en HTML samenwerken om het canvas te betekenen.
 
 Als via de API van Canvas.hs begonnen wordt met tekenen zal de HTTP server automatisch gestart worden. Het bestuuringssysteem wordt aangeroepen voor het openen van de standaard browser—verwijzende naar het adres van de lokaal draaiende HTTP server.
 \subsection{Protocol}
-De gegevens die verstuurd worden volgens het protocol zullen op een primaire gegevensstructuur moeten aanhouden. Hiervoor kunnen twee voor de hand liggende conventies gekozen worden—XML en JSON. Ons protocol zal gegevens coderen in JSON, JavaScript Object Notation. De voordelen van JSON zijn onder andere; dat de data met weinig moeite direct gebruikt kan worden in JavaScript, lichtgewicht is en makkelijk te lezen.
+De gegevens die verstuurd worden volgens het protocol zullen op een primaire gegevensstructuur moeten aanhouden. Hiervoor kunnen twee voor de hand liggende conventies gekozen worden: XML en JSON. Ons protocol zal gegevens coderen in JSON (JavaScript Object Notation). De voordelen van JSON zijn onder andere dat de data met weinig moeite direct gebruikt kan worden in JavaScript, lichtgewicht is en makkelijk te lezen is.
 \subsubsection{Websockets}
 Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren zonder een al te groote vertraging. Er zijn in de communicatie tussen een HTTP server en client verschillende mogelijkheden waarbij websockets de meestvoordehand liggende is. Websockets is een relatief nieuwe feature van HTTP en wordt op dit moment alleen ondersteund in de nieuwe browsers. Het gebruik van websockets zou als gevolg hebben dat Canvas.hs geen ondersteuning heeft voor oudere browsers.
 \subsubsection{Restful vs RPC}
