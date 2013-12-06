@@ -1,8 +1,32 @@
 \documentclass[a4paper]{report}
-\usepackage[dutch]{babel}
+\usepackage[dutch]{babel} % Set language to Dutch.
 \usepackage{graphicx}
 \usepackage{enumerate}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
+\usepackage{hyperref} % Turn references into links.
+\usepackage[hypcap]{caption} % Make figure references point to top of figure.
+
+% Necessary to make \autoref command display nice Dutch words.
+  \def\equationautorefname{Vergelijking}
+  \def\footnoteautorefname{voetnoot}
+  \def\itemautorefname{item}
+  \def\figureautorefname{Figuur}
+  \def\tableautorefname{Tabel}
+  \def\partautorefname{Deel}
+  \def\appendixautorefname{Appendix}
+  \def\chapterautorefname{Hoofdstuk}
+  \def\sectionautorefname{sectie}
+  \def\subsectionautorefname{subsectie}
+  \def\subsubsectionautorefname{subsubsectie}
+  \def\paragraphautorefname{paragraaf}
+  \def\subparagraphautorefname{subparagraaf}
+  \def\FancyVerbLineautorefname{regel}
+  \def\theoremautorefname{Theorema}
+  \def\pageautorefname{pagina}
+
+% Two new commands to display references a certain way.
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}} \nameref*{#1}}
+\newcommand*{\halfref}[1]{\hyperref[{#1}]{\ref*{#1}} \nameref*{#1}}
 
 \makeindex
 \begin{document}
@@ -10,7 +34,7 @@
 \tableofcontents
 
 \input{./Hoofdstukken/inleiding.tex}
-\input{./Hoofdstukken/ontwerp.tex}
+\input{./Hoofdstukken/ontwerp.tex} 
 \input{./Hoofdstukken/conclusie.tex}
 \input{./Hoofdstukken/evaluatie.tex}
 
