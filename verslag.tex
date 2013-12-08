@@ -1,3 +1,4 @@
+% !TEX spellcheck = nl_NL
 \documentclass[a4paper]{report}
 \usepackage[dutch]{babel} % Set language to Dutch.
 \usepackage{graphicx}
@@ -6,6 +7,16 @@
 \usepackage{hyperref} % Turn references into links.
 \usepackage[hypcap]{caption} % Make figure references point to top of figure.
 \usepackage{listings} % listings to include code samples
+
+% To enable these accents inside lstlisting environments.
+\lstset{
+  breaklines=true,
+  literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+           {ë}{{\"e}}1
+           {ï}{{\"i}}1
+}
 
 % Necessary to make \autoref command display nice Dutch words.
   \def\equationautorefname{Vergelijking}
