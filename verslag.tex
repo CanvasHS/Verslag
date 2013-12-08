@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
 \usepackage{hyperref} % Turn references into links.
 \usepackage[hypcap]{caption} % Make figure references point to top of figure.
+\usepackage{listings} % listings to include code samples
 
 % Necessary to make \autoref command display nice Dutch words.
   \def\equationautorefname{Vergelijking}
@@ -23,6 +24,9 @@
   \def\FancyVerbLineautorefname{regel}
   \def\theoremautorefname{Theorema}
   \def\pageautorefname{pagina}
+  
+% set default language for listings (code samples) to haskell
+\lstset{language=Haskell} 
 
 % Two new commands to display references a certain way.
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}} \nameref*{#1}}

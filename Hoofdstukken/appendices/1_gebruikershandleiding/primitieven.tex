@@ -1,0 +1,230 @@
+\chapter{Primitieven}
+Nu we hebben gezien hoe we op verschillende \events kunnen reageren, en hoe we op basis daarvan Output kunnen genereren in de vorm van \shapes en \actions is het tijd om een volledig overzicht te geven van alle mogelijke \events , \shapes , en \actions.
+
+Vergeet hierbij niet, zoals in het vorige hoofdstuk besproken, de types die belangrijk zijn voor canvas.hs:
+
+\begin{lstlisting}
+-- Je functie die inkomende events afhandelt, State is hierbij een zelf te definiëren (data)type.
+handler :: State -> Event -> (State, Output)
+
+-- zie voor de verschillende Events hieronder
+data Event = ...
+
+data Output = Block BlockingAction | Out RegularOutput
+
+--zie voor de verschillende BlockingActions hieronder
+data BlockingAction = ... 
+
+-- vergeet niet dat (Nothing, _) er voor zal zorgen dat er niets wordt getekend 
+-- en (_, []) dat er geen acties zullen worden uitgevoerd
+data RegularOutput = (Maybe Shape, [Action])
+
+-- zie voor de verschillende Shapes hieronder
+data Shape = ...
+
+--zie voor de verschillende Actions hieronder
+data Action = ...
+\end{lstlisting}
+
+\section{Shapes}
+Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luisterd naar Events.
+
+\subsection{Primitieven}
+Voor de primitieve shapes worden een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
+
+\paragraph{Point}
+Een \type{Point} definieert een punt op het canvas als een tuple van een x en een y coördinaat. \lstinline$type Point = (Int, Int)$
+
+\paragraph{Path}
+Een \type{Path} definieert een pad, als een lijst van punten. \lstinline$type Path = [Point]$.
+
+\subsubsection{Rect}
+\type{Rect} staat voor Rectangle en definieert een rechthoek. 
+\begin{lstlisting}
+data Shape = ..
+			| Rect Point Int Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de linkerbovenhoek van de rechthoek
+	\item \type{Int}, de breedte van de rechthoek
+	\item \type{Int}, de hoogte van de rechthoek
+\end{itemize}
+
+\subsubsection{Circle}
+\type{Circle} definieert een cirkel met een bepaald middelpunt en straal
+\begin{lstlisting}
+data Shape = ...
+			| Cicle Point Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point},het middenpunt van de cirkel
+	\item \type{Int}, de straal van de cirkel
+\end{itemize}
+
+\subsubsection{Line}
+\type{Line} definieert een lijn over een \type{Path}, dit pad wordt niet gesloten.
+\begin{lstlisting}
+data Shape = ...
+			| Line Path
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Path}, het pad waarover de lijn getrokken moet worden
+\end{itemize}		
+
+\subsubsection{Polygon}	
+\type{Polygon} definieert een polygoon over een \type{Path}, het eindpunt zal aan het beginpunt worden gekoppeld waardoor een gesloten figuur ontstaat.
+\begin{lstlisting}
+data Shape = ...
+			| Polygon Path
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Path}, het pad waarlangs de randen van de polygoon lopen.
+\end{itemize}
+
+\subsection{Text}
+Het is ook mogelijk om tekst weer te geven met de \type{Text} Shape.
+\begin{lstlisting}
+data Shape = ...
+			| Text Point String TextData
+\end{lstlisting} 
+\begin{itemize}
+	\item \type{Point}, het punt waar rond de text getekend zal worden, m.b.v. \type{TextData}, kan dit verandert worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
+	\item \type{String}, de te tekenen tekst
+	\item \type{TextData}, een aantal opties om tekst anders weer te geven, zoals lettertype en lettergrootte, zie hieronder.
+\end{itemize}
+
+\subsubsection{TextData}
+\type{TextData} is een record om een aantal opties mee te kunnen geven bij het tekenen van \type{Text}. Het is een instantie van \type{Defaults}.
+\begin{lstlisting}
+type FontSize = Int
+
+data Alignment = Start | End | Center
+
+data TextData = TextData {
+    font :: String,
+    size :: FontSize,
+    bold :: Bool,
+    italic :: Bool,
+    underline :: Bool,
+    alignment :: Alignment
+} deriving (Eq, Show)
+
+instance Defaults TextData where
+    defaults = TextData "Arial" 12 False False False Center
+\end{lstlisting}
+\begin{itemize}
+	\item font, het font van de te tekenen tekst. Dit font moet door de browser ondersteunt worden, als dit niet zo is zal de browser terugvallen op het standaard font
+	\item size, de grootte van de te tekenen tekst
+	\item bold, of de tekst dikgedrukt getekend moet worden
+	\item italic, of de tekst schuingedrukt getekend moet worden
+	\item underline, of de tekst onderstreept getekent moet worden
+	\item alignment, de uitlijning van de te tekenen tekst. 
+		\begin{itemize}
+			\item \type{Left}, de linkerbovenhoek van de tekst wordt op het punt uitgelijnd.
+			\item \type{Center}, het middenpunt van de tekst wordt op het punt uigelijnd.
+			\item \type{Right}, de rechterbovenhoek van de tekst wordt op het punt uitegelijnd.
+		\end{itemize}
+\end{itemize}
+
+\subsection{Translaties}
+De getekende primitieven (waaronder \type{Text}) kunnen d.m.v. translaties aangepast worden. Zo kunnen ze bijvoorbeeld gekleurd, van een rand voorzien, of geroteerd worden. Deze translaties zijn zelf ook \shapes, hierdoor is het mogelijk om meerdere translaties op elkaar uit te voeren. 
+
+\paragraph{Color}
+Color definieert een kleur. De kleur wordt gedefinieert door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \lstinline$type Color = (Int, Int, Int, Float)$
+
+\subsubsection{Fill}
+\type{Fill} definieert dat een \shape een fill van een bepaalde kleur moet krijgen. 
+\begin{lstlisting}
+data Shape = ...
+			| Fill Color Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Color}, de kleur waarmee de \shape gevuld moet worden
+	\item \type{Shape}, de te kleuren \shape
+\end{itemize}
+
+\subsubsection{Stroke}
+\type{Stroke} definieert dat een \shape voorzien moet worden van een rand van een bepaalde kleur en dikte.
+\begin{lstlisting}
+data Shape = ...
+			| Stroke Color Int Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Color}, de kleur van de rand
+	\item \type{Int}, de dikte van de rand
+	\item \type{Shape}, de \shape die van een rand moet worden voorzien
+\end{itemize}
+
+\subsubsection{Rotate}
+\type{Rotate} definieert dat een \shape een aantal graden tegen de klok in geroteerd moet worden rond zijn linkerbovenhoek. Van niet rechthoekige \shapes wordt de rechterbovenhoek van de rechthoek die de \shape insluit gekozen. M.b.v. \type{Offset} kan dit rotatiepunt verandert worden, zie hieronder.
+\begin{lstlisting}
+data Shape = ...
+			| Rotate Int Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de rotatie in graden (tegen de klok in)
+	\item \type{Shape}, de \shape om te roteren
+\end{itemize}
+
+\subsubsection{Scale}
+\type{Scale} definieert dat een \shape in de x en y richting geschaald moet worden. M.b.v. \type{Offset} kan het referentiepunt voor dit schalen verandert worden (zie hieronder).
+\begin{lstlisting}
+data Shape = ...
+			| Scale Float Float Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Float}, de schaal in de x-richting
+	\item \type{Float}, de schaal in de y-richting
+	\item \type{Shape}, de te schalen \shape
+\end{itemize}
+
+\subsubsection{Offset}
+\type{Offset} definieert een ander referentiepunt voor \type{Rotate} en \type{Scale}.
+\begin{lstlisting{
+data Shape = ...
+			| Offset Point Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, het punt wat als referentiepunt zal dienen
+	\item \type{Shape}, de \shape om het referentiepunt van te veranderen
+\end{itemize}
+
+\subsubsection{Translate}
+\type{Translate} definieert dat een \shape in de x en y richting verplaatst moet worden.
+\begin{lstlisting}
+data Shape = ...
+			| Translate Int Int Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de verplaatsing in de x-richting
+	\item \type{Int}, de verplaatsing in de y-richting,
+	\item \type{Shape}, de \shape om te verplaatsen. 
+\end{itemize}
+
+\subsection{Luisteren naar Events}
+
+\subsection{Containers}
+\shapes kunnen worden samengebracht in \type{Container}'s. Deze zijn zelf ook weer een \shape zodat ze op hun beurt weer kunnen worden samengebracht, er translaties op kunnen worden uitgevoerd en kan worden aangegeven dat ze geïnteresserd zijn in \events. 
+\begin{lstlisting}
+data Shape = ...
+			| Container Int Int [Shape]
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de breedte van de \type{Contrainer}
+	\item \type{Int}, de hoogte van de \type{Contrainer}
+	\item \type{[Shape]}, de \shapes die in deze container zitten
+\end{itemize}
+
+\paragraph{Translaties}
+In het geval van translaties worden deze altijd op de hele \type{Container} toegepast. Dit betekent het volgende:
+\begin{itemize}
+	\item \type{Fill}, alle \shapes in de \type{Container} worden gekleurd
+	\item \type{Stroke}, alle \shapes in de \type{Container} worden van een rand voorzien
+	\item \type{Rotate}, de \type{Container} wordt in z'n geheel gedraaid
+	\item \type{Scale}, de \type{Container} wordt in z'n geheel geschaald
+	\item \type{Translate}, de \type{Container} wordt in z'n geheel verplaatst
+\end{itemize}
+
+\section{Actions}
+
+\section{Events}
