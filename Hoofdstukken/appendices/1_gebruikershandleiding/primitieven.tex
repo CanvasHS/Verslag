@@ -1,6 +1,6 @@
 % !TEX spellcheck = nl_NL
 \section{Primitieven}
-Nu we hebben gezien hoe we op verschillende \events kunnen reageren, en hoe we op basis daarvan Output kunnen genereren in de vorm van \shapes en \actions is het tijd om een volledig overzicht te geven van alle mogelijke \events , \shapes , en \actions.
+Nu we hebben gezien hoe we op verschillende \events kunnen reageren, en hoe we op basis daarvan \type{Output} kunnen genereren in de vorm van \shapes en \actions is het tijd om een volledig overzicht te geven van alle mogelijke \events , \shapes , en \actions.
 
 Vergeet hierbij niet, zoals in het vorige hoofdstuk besproken, de types die belangrijk zijn voor canvas.hs:
 
@@ -34,10 +34,10 @@ Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginne
 Voor de primitieve shapes worden een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
 
 \subparagraph{Point}
-Een \type{Point} definieert een punt op het canvas als een tuple van een x en een y coördinaat. \lstinline$type Point = (Int, Int)$
+Een \type{Point} definieert een punt op het canvas als een tuple van een x en een y coördinaat. \inlinecode{type Point = (Int, Int)}
 
 \subparagraph{Path}
-Een \type{Path} definieert een pad, als een lijst van punten. \lstinline$type Path = [Point]$.
+Een \type{Path} definieert een pad, als een lijst van punten. \inlinecode{type Path = [Point]}.
 
 \myparagraph{Rect}
 \type{Rect} staat voor Rectangle en definieert een rechthoek. 
@@ -131,7 +131,7 @@ instance Defaults TextData where
 De getekende primitieven (waaronder \type{Text}) kunnen d.m.v. translaties aangepast worden. Zo kunnen ze bijvoorbeeld gekleurd, van een rand voorzien, of geroteerd worden. Deze translaties zijn zelf ook \shapes, hierdoor is het mogelijk om meerdere translaties op elkaar uit te voeren. 
 
 \subparagraph{Color}
-Color definieert een kleur. De kleur wordt gedefinieert door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \lstinline$type Color = (Int, Int, Int, Float)$
+Color definieert een kleur. De kleur wordt gedefinieert door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \inlinecode{type Color = (Int, Int, Int, Float)}
 
 \myparagraph{Fill}
 \type{Fill} definieert dat een \shape een fill van een bepaalde kleur moet krijgen. 
