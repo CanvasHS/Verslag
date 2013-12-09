@@ -1,5 +1,5 @@
 % !TEX spellcheck = nl_NL
-\chapter{Primitieven}
+\section{Primitieven}
 Nu we hebben gezien hoe we op verschillende \events kunnen reageren, en hoe we op basis daarvan Output kunnen genereren in de vorm van \shapes en \actions is het tijd om een volledig overzicht te geven van alle mogelijke \events , \shapes , en \actions.
 
 Vergeet hierbij niet, zoals in het vorige hoofdstuk besproken, de types die belangrijk zijn voor canvas.hs:
@@ -27,19 +27,19 @@ data Shape = ...
 data Action = ...
 \end{lstlisting}
 
-\section{Shapes}
+\subsection{Shapes}
 Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luisterd naar Events.
 
-\subsection{Primitieven}
+\subsubsection{Primitieven}
 Voor de primitieve shapes worden een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
 
-\paragraph{Point}
+\subparagraph{Point}
 Een \type{Point} definieert een punt op het canvas als een tuple van een x en een y coördinaat. \lstinline$type Point = (Int, Int)$
 
-\paragraph{Path}
+\subparagraph{Path}
 Een \type{Path} definieert een pad, als een lijst van punten. \lstinline$type Path = [Point]$.
 
-\subsubsection{Rect}
+\myparagraph{Rect}
 \type{Rect} staat voor Rectangle en definieert een rechthoek. 
 \begin{lstlisting}
 data Shape = ..
@@ -51,7 +51,7 @@ data Shape = ..
 	\item \type{Int}, de hoogte van de rechthoek
 \end{itemize}
 
-\subsubsection{Circle}
+\myparagraph{Circle}
 \type{Circle} definieert een cirkel met een bepaald middelpunt en straal
 \begin{lstlisting}
 data Shape = ...
@@ -62,7 +62,7 @@ data Shape = ...
 	\item \type{Int}, de straal van de cirkel
 \end{itemize}
 
-\subsubsection{Line}
+\myparagraph{Line}
 \type{Line} definieert een lijn over een \type{Path}, dit pad wordt niet gesloten.
 \begin{lstlisting}
 data Shape = ...
@@ -72,7 +72,7 @@ data Shape = ...
 	\item \type{Path}, het pad waarover de lijn getrokken moet worden
 \end{itemize}		
 
-\subsubsection{Polygon}	
+\myparagraph{Polygon}	
 \type{Polygon} definieert een polygoon over een \type{Path}, het eindpunt zal aan het beginpunt worden gekoppeld waardoor een gesloten figuur ontstaat.
 \begin{lstlisting}
 data Shape = ...
@@ -82,7 +82,7 @@ data Shape = ...
 	\item \type{Path}, het pad waarlangs de randen van de polygoon lopen.
 \end{itemize}
 
-\subsection{Text}
+\subsubsection{Text}
 Het is ook mogelijk om tekst weer te geven met de \type{Text} Shape.
 \begin{lstlisting}
 data Shape = ...
@@ -94,7 +94,7 @@ data Shape = ...
 	\item \type{TextData}, een aantal opties om tekst anders weer te geven, zoals lettertype en lettergrootte, zie hieronder.
 \end{itemize}
 
-\subsubsection{TextData}
+\myparagraph{TextData}
 \type{TextData} is een record om een aantal opties mee te kunnen geven bij het tekenen van \type{Text}. Het is een instantie van \type{Defaults}.
 \begin{lstlisting}
 type FontSize = Int
@@ -127,13 +127,13 @@ instance Defaults TextData where
 		\end{itemize}
 \end{itemize}
 
-\subsection{Translaties}
+\subsubsection{Translaties}
 De getekende primitieven (waaronder \type{Text}) kunnen d.m.v. translaties aangepast worden. Zo kunnen ze bijvoorbeeld gekleurd, van een rand voorzien, of geroteerd worden. Deze translaties zijn zelf ook \shapes, hierdoor is het mogelijk om meerdere translaties op elkaar uit te voeren. 
 
-\paragraph{Color}
+\subparagraph{Color}
 Color definieert een kleur. De kleur wordt gedefinieert door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \lstinline$type Color = (Int, Int, Int, Float)$
 
-\subsubsection{Fill}
+\myparagraph{Fill}
 \type{Fill} definieert dat een \shape een fill van een bepaalde kleur moet krijgen. 
 \begin{lstlisting}
 data Shape = ...
@@ -144,7 +144,7 @@ data Shape = ...
 	\item \type{Shape}, de te kleuren \shape
 \end{itemize}
 
-\subsubsection{Stroke}
+\myparagraph{Stroke}
 \type{Stroke} definieert dat een \shape voorzien moet worden van een rand van een bepaalde kleur en dikte.
 \begin{lstlisting}
 data Shape = ...
@@ -156,7 +156,7 @@ data Shape = ...
 	\item \type{Shape}, de \shape die van een rand moet worden voorzien
 \end{itemize}
 
-\subsubsection{Rotate}
+\myparagraph{Rotate}
 \type{Rotate} definieert dat een \shape een aantal graden tegen de klok in geroteerd moet worden rond zijn linkerbovenhoek. Van niet rechthoekige \shapes wordt de rechterbovenhoek van de rechthoek die de \shape insluit gekozen. M.b.v. \type{Offset} kan dit rotatiepunt verandert worden, zie hieronder.
 \begin{lstlisting}
 data Shape = ...
@@ -167,7 +167,7 @@ data Shape = ...
 	\item \type{Shape}, de \shape om te roteren
 \end{itemize}
 
-\subsubsection{Scale}
+\myparagraph{Scale}
 \type{Scale} definieert dat een \shape in de x en y richting geschaald moet worden. M.b.v. \type{Offset} kan het referentiepunt voor dit schalen verandert worden (zie hieronder).
 \begin{lstlisting}
 data Shape = ...
@@ -179,7 +179,7 @@ data Shape = ...
 	\item \type{Shape}, de te schalen \shape
 \end{itemize}
 
-\subsubsection{Offset}
+\myparagraph{Offset}
 \type{Offset} definieert een ander referentiepunt voor \type{Rotate} en \type{Scale}.
 \begin{lstlisting}
 data Shape = ...
@@ -190,7 +190,7 @@ data Shape = ...
 	\item \type{Shape}, de \shape om het referentiepunt van te veranderen
 \end{itemize}
 
-\subsubsection{Translate}
+\myparagraph{Translate}
 \type{Translate} definieert dat een \shape in de x en y richting verplaatst moet worden.
 \begin{lstlisting}
 data Shape = ...
@@ -202,9 +202,9 @@ data Shape = ...
 	\item \type{Shape}, de \shape om te verplaatsen. 
 \end{itemize}
 
-\subsection{Luisteren naar Events}
+\subsubsection{Luisteren naar Events}
 
-\subsection{Containers}
+\subsubsection{Containers}
 \shapes kunnen worden samengebracht in \type{Container}'s. Deze zijn zelf ook weer een \shape zodat ze op hun beurt weer kunnen worden samengebracht, er translaties op kunnen worden uitgevoerd en kan worden aangegeven dat ze geïnteresserd zijn in \events. 
 \begin{lstlisting}
 data Shape = ...
@@ -216,7 +216,7 @@ data Shape = ...
 	\item \type{[Shape]}, de \shapes die in deze container zitten
 \end{itemize}
 
-\paragraph{Translaties}
+\subparagraph{Translaties}
 In het geval van translaties worden deze altijd op de hele \type{Container} toegepast. Dit betekent het volgende:
 \begin{itemize}
 	\item \type{Fill}, alle \shapes in de \type{Container} worden gekleurd
@@ -226,6 +226,6 @@ In het geval van translaties worden deze altijd op de hele \type{Container} toeg
 	\item \type{Translate}, de \type{Container} wordt in z'n geheel verplaatst
 \end{itemize}
 
-\section{Actions}
+\subsection{Actions}
 
-\section{Events}
+\subsection{Events}
