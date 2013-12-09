@@ -203,6 +203,49 @@ data Shape = ...
 \end{itemize}
 
 \subsubsection{Luisteren naar Events}
+je kunt aangeven dat je geïnteresseerd bent in de acties van de gebruiker op een \shape d.m.v. de \type{Event}-shape. Hierbij geef je een data record op met daarin het type events waarin je geïnteresserd bent.
+
+\begin{lstlisting}
+data Shape = ...
+			| Event EventData Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{EventData}, zie hieronder
+	\item \type{Shape}, de \shape waarop de \events moeten plaatsvinden
+\end{itemize}
+
+\myparagraph{EventData}
+\type{EventData} is het record waarin de event opties voor deze \shape worden bijgehouden. Dit zijn een aantal \type{Bool}'s voor de verschillende typen \events om naar te luisteren en een id wat aan elk binnenkomend \type{Event} wat van deze \shape komt wordt gekoppeld om te kunnen identificeren.
+Zie voor meer details over de \events die hierdoor kunnen ontstaa hieronder onder 'Events'.
+\type{EventData} is een instantie van \type{Defaults}
+
+\begin{lstlisting}
+data EventData = EventData {
+    eventId :: String,
+    mouseDown :: Bool,
+    mouseClick :: Bool,
+    mouseUp :: Bool,
+    mouseDoubleClick :: Bool,
+    mouseDrag :: Bool,
+    mouseOver :: Bool,
+    mouseOut :: Bool,
+    scroll :: Bool
+} deriving (Eq, Show)
+
+instance Defaults EventData where
+    defaults = EventData "" False False False False False False False False
+\end{lstlisting} 
+\begin{itemize}
+	\item eventId, het id van de \shape, deze wordt bij een \type{Event} op deze \shape meegegeven. 
+	\item mouseDown, of er interesse is in het moment dat de muisknop wordt ingedruk op de \shape. Resulteert in een \type{MouseDown-Event} 
+	\item mouseClick, of er interesse is in het klikken op de \shape (een mouseDown en mouseUp op deze \shape). Resulteert in een \type{MouseClick-Event}
+	\item mouseUp, of er interesse is in het moment dat de muisknop wordt losgelaten op deze \shape. Resulteert in een \type{MouseUp-Event}
+	\item mouseDoubleClick, of er interesse is in het dubbel klikken op deze \shape. Of twee kliks een dubbele klik zijn wordt bepaald door het besturingssysteem. Resulteert in een \type{MouseDoubleClick-Event}
+	\item mouseDrag, of er interesse is in het slepen op deze \shape. {\bf Let Op!} Dit resulteert er niet in dat de \shape sleepbaar is, alleen dat muisbewegingen op deze \shape waarbij de muisknop wordt ingedrukt een \type{MouseDrag-Event} zullen opleveren. Met behulp van dit \type{Event} kan dan sleepbaarheid worden geïmplementeerd.
+	\item mouseOver, of er interesse is in muisbewegingen binnen deze \shape. Resulteert in een \type{MouseOver-Event}
+	\item mouseOut, of er interesse is in het verlaten van de muis van deze \shape. Resulteert in een \type{MouseOut-Event}
+	\item scroll, of er interesse is in het scrollen terwijl de muis zich in deze \shape bevindt. Resulteert in een \type{Scroll-Event}	
+\end{itemize}
 
 \subsubsection{Containers}
 \shapes kunnen worden samengebracht in \type{Container}'s. Deze zijn zelf ook weer een \shape zodat ze op hun beurt weer kunnen worden samengebracht, er translaties op kunnen worden uitgevoerd en kan worden aangegeven dat ze geïnteresserd zijn in \events. 
