@@ -270,5 +270,114 @@ In het geval van translaties worden deze altijd op de hele \type{Container} toeg
 \end{itemize}
 
 \subsection{Actions}
+Zoals eerder gezien bestaat \type{Output} uit of een \type{BlockingAction} of een tuple van misschien een \shape en een lijst van \actions. 
+\begin{lstlisting}
+data Output = Block BlockingAction | Out RegularOutput
+data BlockingAction = ... 
+data RegularOutput = (Maybe Shape, [Action])
+\end{lstlisting}
+
+Met behulp van \actions is het mogelijk om uit te voeren acties te definieëren, hierbij kan gedacht worden aan het veranderen van de weergavestijl van het canvas, het opslaan of laden van bestanden, etc.
+Acties zijn op te delen in twee categorieën, acties die onmiddelijk tot een resultaat leiden (in de vorm van een \type{Event}), dit zijn de \type{BlockingAction}'s. Daarnaast zijn er de acties die niet, of eventueel ooit tot een \type{Event} kunnen leiden, zoals het opslaan van een bestand, of het aangeven dat bestanden van drag'n'drop kunnen worden aangeboden door de gebruiker. Dit zijn de gewone \actions.
+
+\subsubsection{BlockingAction}
+Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}, de eerste opent het bestand als \type{String}, dit nuttig voor textbestanden, de tweede opent het bestand als \type{ByteString}, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
+\begin{lstlisting}
+data BlockingAction = 
+					  LoadFileString String
+					| LoadFileBinary String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, is voor beide varianten het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
+\end{itemize}
+
+\subsubsection{Action}
+\myparagraph{SaveFileString}
+Slaat een \type{String} op in een bepaalt bestand.
+\begin{lstlisting}
+data Action = ...
+			| SaveFileString String String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
+	\item \type{String}, de inhoud van het op te slaan bestand
+\end{itemize}
+
+\myparagraph{SaveFileBinary}
+Slaat een \type{ByteString} op in een bepaalt bestand.
+\begin{lstlisting}
+data Action = ...
+			| SaveFileByteString String ByteString
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
+	\item \type{ByteString}, de inhoud van het op te slaan bestand
+\end{itemize}
+
+\myparagraph{Download}
+Stuurt een bestand naar de canvas om daar te downloaden. Hierbij kan een bestandsnaam worden opgegeven en wordt de inhoud van het bestand als \type{String} meegegeven.
+\begin{lstlisting}
+data Action = ...
+			| Download String String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de naam van het bestand
+	\item \type{String}, de inhoud van het te downloaden bestand
+\end{itemize}
+
+\myparagraph{RequestUpload}
+Vraagt de gebruiker om één of meer bestanden te uploaden. Na een succesvolle upload resulteert dit in één of meerdere \type{UploadComplete-Event}'s.
+\begin{lstlisting}
+data Action = ...
+			| RequestUpload Bool
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Bool}, of de gebruiker meerdere bestanden mag selecteren (\type{True}) of niet (\type{False})
+\end{itemize}
+
+\myparagraph{drag'n'drop}
+Het is mogelijk om het uploaden van bestanden te accepteren via drag'n'drop op het canvas. D.m.v. deze \type{Action} is het mogelijk om het accepteren hiervan aan en uit te schakelen, daarnaast is het mogelijk om aan te geven of de gebruiker meerdere bestanden in één keer kan uploaden of niet. Het succesvol uploaden van een bestand resulteert in een \type{UploadComplete-Event}.
+\begin{lstlisting}
+data Action = 
+			| DragNDrop Bool Bool
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Bool}, of drag'n'drop is geactiveerd, \type{True} voor geactiveerd, \type{False} voor gedeäctiveerd
+	\item \type{Bool}, of het mogelijk is om meerdere bestanden tegelijk te drag'n'droppen (\type{True}) of niet (\type{False})
+\end{itemize}
+
+\myparagraph{Timer}
+
+\myparagraph{DisplayType}
+
+\myparagraph{Debug}
 
 \subsection{Events}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
