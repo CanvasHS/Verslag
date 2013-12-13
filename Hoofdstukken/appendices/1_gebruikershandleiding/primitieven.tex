@@ -1,0 +1,383 @@
+% !TEX spellcheck = nl_NL
+\section{Primitieven}
+Nu we hebben gezien hoe we op verschillende \events kunnen reageren, en hoe we op basis daarvan \type{Output} kunnen genereren in de vorm van \shapes en \actions is het tijd om een volledig overzicht te geven van alle mogelijke \events , \shapes , en \actions.
+
+Vergeet hierbij niet, zoals in het vorige hoofdstuk besproken, de types die belangrijk zijn voor canvas.hs:
+
+\begin{lstlisting}
+-- Je functie die inkomende events afhandelt, State is hierbij een zelf te definiëren (data)type.
+handler :: State -> Event -> (State, Output)
+
+-- zie voor de verschillende Events hieronder
+data Event = ...
+
+data Output = Block BlockingAction | Out RegularOutput
+
+--zie voor de verschillende BlockingActions hieronder
+data BlockingAction = ... 
+
+-- vergeet niet dat (Nothing, _) er voor zal zorgen dat er niets wordt getekend 
+-- en (_, []) dat er geen acties zullen worden uitgevoerd
+data RegularOutput = (Maybe Shape, [Action])
+
+-- zie voor de verschillende Shapes hieronder
+data Shape = ...
+
+--zie voor de verschillende Actions hieronder
+data Action = ...
+\end{lstlisting}
+
+\subsection{Shapes}
+Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luisterd naar Events.
+
+\subsubsection{Primitieven}
+Voor de primitieve shapes worden een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
+
+\subparagraph{Point}
+Een \type{Point} definieert een punt op het canvas als een tuple van een x en een y coördinaat. \inlinecode{type Point = (Int, Int)}
+
+\subparagraph{Path}
+Een \type{Path} definieert een pad, als een lijst van punten. \inlinecode{type Path = [Point]}.
+
+\myparagraph{Rect}
+\type{Rect} staat voor Rectangle en definieert een rechthoek. 
+\begin{lstlisting}
+data Shape = ..
+			| Rect Point Int Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de linkerbovenhoek van de rechthoek
+	\item \type{Int}, de breedte van de rechthoek
+	\item \type{Int}, de hoogte van de rechthoek
+\end{itemize}
+
+\myparagraph{Circle}
+\type{Circle} definieert een cirkel met een bepaald middelpunt en straal
+\begin{lstlisting}
+data Shape = ...
+			| Cicle Point Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point},het middenpunt van de cirkel
+	\item \type{Int}, de straal van de cirkel
+\end{itemize}
+
+\myparagraph{Line}
+\type{Line} definieert een lijn over een \type{Path}, dit pad wordt niet gesloten.
+\begin{lstlisting}
+data Shape = ...
+			| Line Path
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Path}, het pad waarover de lijn getrokken moet worden
+\end{itemize}		
+
+\myparagraph{Polygon}	
+\type{Polygon} definieert een polygoon over een \type{Path}, het eindpunt zal aan het beginpunt worden gekoppeld waardoor een gesloten figuur ontstaat.
+\begin{lstlisting}
+data Shape = ...
+			| Polygon Path
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Path}, het pad waarlangs de randen van de polygoon lopen.
+\end{itemize}
+
+\subsubsection{Text}
+Het is ook mogelijk om tekst weer te geven met de \type{Text} Shape.
+\begin{lstlisting}
+data Shape = ...
+			| Text Point String TextData
+\end{lstlisting} 
+\begin{itemize}
+	\item \type{Point}, het punt waar rond de text getekend zal worden, m.b.v. \type{TextData}, kan dit verandert worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
+	\item \type{String}, de te tekenen tekst
+	\item \type{TextData}, een aantal opties om tekst anders weer te geven, zoals lettertype en lettergrootte, zie hieronder.
+\end{itemize}
+
+\myparagraph{TextData}
+\type{TextData} is een record om een aantal opties mee te kunnen geven bij het tekenen van \type{Text}. Het is een instantie van \type{Defaults}.
+\begin{lstlisting}
+type FontSize = Int
+
+data Alignment = Start | End | Center
+
+data TextData = TextData {
+    font :: String,
+    size :: FontSize,
+    bold :: Bool,
+    italic :: Bool,
+    underline :: Bool,
+    alignment :: Alignment
+} deriving (Eq, Show)
+
+instance Defaults TextData where
+    defaults = TextData "Arial" 12 False False False Center
+\end{lstlisting}
+\begin{itemize}
+	\item font, het font van de te tekenen tekst. Dit font moet door de browser ondersteunt worden, als dit niet zo is zal de browser terugvallen op het standaard font
+	\item size, de grootte van de te tekenen tekst
+	\item bold, of de tekst dikgedrukt getekend moet worden
+	\item italic, of de tekst schuingedrukt getekend moet worden
+	\item underline, of de tekst onderstreept getekent moet worden
+	\item alignment, de uitlijning van de te tekenen tekst. 
+		\begin{itemize}
+			\item \type{Left}, de linkerbovenhoek van de tekst wordt op het punt uitgelijnd.
+			\item \type{Center}, het middenpunt van de tekst wordt op het punt uigelijnd.
+			\item \type{Right}, de rechterbovenhoek van de tekst wordt op het punt uitegelijnd.
+		\end{itemize}
+\end{itemize}
+
+\subsubsection{Translaties}
+De getekende primitieven (waaronder \type{Text}) kunnen d.m.v. translaties aangepast worden. Zo kunnen ze bijvoorbeeld gekleurd, van een rand voorzien, of geroteerd worden. Deze translaties zijn zelf ook \shapes, hierdoor is het mogelijk om meerdere translaties op elkaar uit te voeren. 
+
+\subparagraph{Color}
+Color definieert een kleur. De kleur wordt gedefinieert door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \inlinecode{type Color = (Int, Int, Int, Float)}
+
+\myparagraph{Fill}
+\type{Fill} definieert dat een \shape een fill van een bepaalde kleur moet krijgen. 
+\begin{lstlisting}
+data Shape = ...
+			| Fill Color Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Color}, de kleur waarmee de \shape gevuld moet worden
+	\item \type{Shape}, de te kleuren \shape
+\end{itemize}
+
+\myparagraph{Stroke}
+\type{Stroke} definieert dat een \shape voorzien moet worden van een rand van een bepaalde kleur en dikte.
+\begin{lstlisting}
+data Shape = ...
+			| Stroke Color Int Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Color}, de kleur van de rand
+	\item \type{Int}, de dikte van de rand
+	\item \type{Shape}, de \shape die van een rand moet worden voorzien
+\end{itemize}
+
+\myparagraph{Rotate}
+\type{Rotate} definieert dat een \shape een aantal graden tegen de klok in geroteerd moet worden rond zijn linkerbovenhoek. Van niet rechthoekige \shapes wordt de rechterbovenhoek van de rechthoek die de \shape insluit gekozen. M.b.v. \type{Offset} kan dit rotatiepunt verandert worden, zie hieronder.
+\begin{lstlisting}
+data Shape = ...
+			| Rotate Int Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de rotatie in graden (tegen de klok in)
+	\item \type{Shape}, de \shape om te roteren
+\end{itemize}
+
+\myparagraph{Scale}
+\type{Scale} definieert dat een \shape in de x en y richting geschaald moet worden. M.b.v. \type{Offset} kan het referentiepunt voor dit schalen verandert worden (zie hieronder).
+\begin{lstlisting}
+data Shape = ...
+			| Scale Float Float Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Float}, de schaal in de x-richting
+	\item \type{Float}, de schaal in de y-richting
+	\item \type{Shape}, de te schalen \shape
+\end{itemize}
+
+\myparagraph{Offset}
+\type{Offset} definieert een ander referentiepunt voor \type{Rotate} en \type{Scale}.
+\begin{lstlisting}
+data Shape = ...
+			| Offset Point Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, het punt wat als referentiepunt zal dienen
+	\item \type{Shape}, de \shape om het referentiepunt van te veranderen
+\end{itemize}
+
+\myparagraph{Translate}
+\type{Translate} definieert dat een \shape in de x en y richting verplaatst moet worden.
+\begin{lstlisting}
+data Shape = ...
+			| Translate Int Int Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de verplaatsing in de x-richting
+	\item \type{Int}, de verplaatsing in de y-richting,
+	\item \type{Shape}, de \shape om te verplaatsen. 
+\end{itemize}
+
+\subsubsection{Luisteren naar Events}
+je kunt aangeven dat je geïnteresseerd bent in de acties van de gebruiker op een \shape d.m.v. de \type{Event}-shape. Hierbij geef je een data record op met daarin het type events waarin je geïnteresserd bent.
+
+\begin{lstlisting}
+data Shape = ...
+			| Event EventData Shape
+\end{lstlisting}
+\begin{itemize}
+	\item \type{EventData}, zie hieronder
+	\item \type{Shape}, de \shape waarop de \events moeten plaatsvinden
+\end{itemize}
+
+\myparagraph{EventData}
+\type{EventData} is het record waarin de event opties voor deze \shape worden bijgehouden. Dit zijn een aantal \type{Bool}'s voor de verschillende typen \events om naar te luisteren en een id wat aan elk binnenkomend \type{Event} wat van deze \shape komt wordt gekoppeld om te kunnen identificeren.
+Zie voor meer details over de \events die hierdoor kunnen ontstaa hieronder onder 'Events'.
+\type{EventData} is een instantie van \type{Defaults}
+
+\begin{lstlisting}
+data EventData = EventData {
+    eventId :: String,
+    mouseDown :: Bool,
+    mouseClick :: Bool,
+    mouseUp :: Bool,
+    mouseDoubleClick :: Bool,
+    mouseDrag :: Bool,
+    mouseOver :: Bool,
+    mouseOut :: Bool,
+    scroll :: Bool
+} deriving (Eq, Show)
+
+instance Defaults EventData where
+    defaults = EventData "" False False False False False False False False
+\end{lstlisting} 
+\begin{itemize}
+	\item eventId, het id van de \shape, deze wordt bij een \type{Event} op deze \shape meegegeven. 
+	\item mouseDown, of er interesse is in het moment dat de muisknop wordt ingedruk op de \shape. Resulteert in een \type{MouseDown-Event} 
+	\item mouseClick, of er interesse is in het klikken op de \shape (een mouseDown en mouseUp op deze \shape). Resulteert in een \type{MouseClick-Event}
+	\item mouseUp, of er interesse is in het moment dat de muisknop wordt losgelaten op deze \shape. Resulteert in een \type{MouseUp-Event}
+	\item mouseDoubleClick, of er interesse is in het dubbel klikken op deze \shape. Of twee kliks een dubbele klik zijn wordt bepaald door het besturingssysteem. Resulteert in een \type{MouseDoubleClick-Event}
+	\item mouseDrag, of er interesse is in het slepen op deze \shape. {\bf Let Op!} Dit resulteert er niet in dat de \shape sleepbaar is, alleen dat muisbewegingen op deze \shape waarbij de muisknop wordt ingedrukt een \type{MouseDrag-Event} zullen opleveren. Met behulp van dit \type{Event} kan dan sleepbaarheid worden geïmplementeerd.
+	\item mouseOver, of er interesse is in muisbewegingen binnen deze \shape. Resulteert in een \type{MouseOver-Event}
+	\item mouseOut, of er interesse is in het verlaten van de muis van deze \shape. Resulteert in een \type{MouseOut-Event}
+	\item scroll, of er interesse is in het scrollen terwijl de muis zich in deze \shape bevindt. Resulteert in een \type{Scroll-Event}	
+\end{itemize}
+
+\subsubsection{Containers}
+\shapes kunnen worden samengebracht in \type{Container}'s. Deze zijn zelf ook weer een \shape zodat ze op hun beurt weer kunnen worden samengebracht, er translaties op kunnen worden uitgevoerd en kan worden aangegeven dat ze geïnteresserd zijn in \events. 
+\begin{lstlisting}
+data Shape = ...
+			| Container Int Int [Shape]
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de breedte van de \type{Contrainer}
+	\item \type{Int}, de hoogte van de \type{Contrainer}
+	\item \type{[Shape]}, de \shapes die in deze container zitten
+\end{itemize}
+
+\subparagraph{Translaties}
+In het geval van translaties worden deze altijd op de hele \type{Container} toegepast. Dit betekent het volgende:
+\begin{itemize}
+	\item \type{Fill}, alle \shapes in de \type{Container} worden gekleurd
+	\item \type{Stroke}, alle \shapes in de \type{Container} worden van een rand voorzien
+	\item \type{Rotate}, de \type{Container} wordt in z'n geheel gedraaid
+	\item \type{Scale}, de \type{Container} wordt in z'n geheel geschaald
+	\item \type{Translate}, de \type{Container} wordt in z'n geheel verplaatst
+\end{itemize}
+
+\subsection{Actions}
+Zoals eerder gezien bestaat \type{Output} uit of een \type{BlockingAction} of een tuple van misschien een \shape en een lijst van \actions. 
+\begin{lstlisting}
+data Output = Block BlockingAction | Out RegularOutput
+data BlockingAction = ... 
+data RegularOutput = (Maybe Shape, [Action])
+\end{lstlisting}
+
+Met behulp van \actions is het mogelijk om uit te voeren acties te definieëren, hierbij kan gedacht worden aan het veranderen van de weergavestijl van het canvas, het opslaan of laden van bestanden, etc.
+Acties zijn op te delen in twee categorieën, acties die onmiddelijk tot een resultaat leiden (in de vorm van een \type{Event}), dit zijn de \type{BlockingAction}'s. Daarnaast zijn er de acties die niet, of eventueel ooit tot een \type{Event} kunnen leiden, zoals het opslaan van een bestand, of het aangeven dat bestanden van drag'n'drop kunnen worden aangeboden door de gebruiker. Dit zijn de gewone \actions.
+
+\subsubsection{BlockingAction}
+Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}, de eerste opent het bestand als \type{String}, dit nuttig voor textbestanden, de tweede opent het bestand als \type{ByteString}, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
+\begin{lstlisting}
+data BlockingAction = 
+					  LoadFileString String
+					| LoadFileBinary String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, is voor beide varianten het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
+\end{itemize}
+
+\subsubsection{Action}
+\myparagraph{SaveFileString}
+Slaat een \type{String} op in een bepaalt bestand.
+\begin{lstlisting}
+data Action = ...
+			| SaveFileString String String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
+	\item \type{String}, de inhoud van het op te slaan bestand
+\end{itemize}
+
+\myparagraph{SaveFileBinary}
+Slaat een \type{ByteString} op in een bepaalt bestand.
+\begin{lstlisting}
+data Action = ...
+			| SaveFileByteString String ByteString
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
+	\item \type{ByteString}, de inhoud van het op te slaan bestand
+\end{itemize}
+
+\myparagraph{Download}
+Stuurt een bestand naar de canvas om daar te downloaden. Hierbij kan een bestandsnaam worden opgegeven en wordt de inhoud van het bestand als \type{String} meegegeven.
+\begin{lstlisting}
+data Action = ...
+			| Download String String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de naam van het bestand
+	\item \type{String}, de inhoud van het te downloaden bestand
+\end{itemize}
+
+\myparagraph{RequestUpload}
+Vraagt de gebruiker om één of meer bestanden te uploaden. Na een succesvolle upload resulteert dit in één of meerdere \type{UploadComplete-Event}'s.
+\begin{lstlisting}
+data Action = ...
+			| RequestUpload Bool
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Bool}, of de gebruiker meerdere bestanden mag selecteren (\type{True}) of niet (\type{False})
+\end{itemize}
+
+\myparagraph{drag'n'drop}
+Het is mogelijk om het uploaden van bestanden te accepteren via drag'n'drop op het canvas. D.m.v. deze \type{Action} is het mogelijk om het accepteren hiervan aan en uit te schakelen, daarnaast is het mogelijk om aan te geven of de gebruiker meerdere bestanden in één keer kan uploaden of niet. Het succesvol uploaden van een bestand resulteert in een \type{UploadComplete-Event}.
+\begin{lstlisting}
+data Action = 
+			| DragNDrop Bool Bool
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Bool}, of drag'n'drop is geactiveerd, \type{True} voor geactiveerd, \type{False} voor gedeäctiveerd
+	\item \type{Bool}, of het mogelijk is om meerdere bestanden tegelijk te drag'n'droppen (\type{True}) of niet (\type{False})
+\end{itemize}
+
+\myparagraph{Timer}
+
+\myparagraph{DisplayType}
+
+\myparagraph{Debug}
+
+\subsection{Events}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

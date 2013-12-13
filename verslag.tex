@@ -1,18 +1,67 @@
+% !TEX spellcheck = nl_NL
 \documentclass[a4paper]{report}
-\usepackage[dutch]{babel}
+\usepackage[dutch]{babel} % Set language to Dutch.
 \usepackage{graphicx}
 \usepackage{enumerate}
+\usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
+\usepackage{hyperref} % Turn references into links.
+\usepackage[hypcap]{caption} % Make figure references point to top of figure.
+\usepackage{listings} % listings to include code samples
+\usepackage[usenames]{xcolor} % to change color in code listings
+\usepackage{xspace} % Keeps space after lstinline commands.
+
+% set parameters for lstlisting and lstinline
+\lstset{
+  breaklines=true, % Enables wrapping in lstlisting environment.
+  backgroundcolor=\color[HTML]{D6D6D6},
+  commentstyle=\color[HTML]{1A9E00},
+  keepspaces=true, 
+  language=Haskell,
+  numbers=left, %we need line numbers to make line wrapping obvious
+  tabsize=4,
+  literate={ö}{{\"o}}1 %handle some special chars
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+           {ë}{{\"e}}1
+           {ï}{{\"i}}1  
+}
+% command to properly show inline code
+\newcommand{\inlinecode}{\lstinline[basicstyle=\ttfamily,keywordstyle={}]}
+
+% Necessary to make \autoref command display nice Dutch words.
+  \def\equationautorefname{Vergelijking}
+  \def\footnoteautorefname{voetnoot}
+  \def\itemautorefname{item}
+  \def\figureautorefname{Figuur}
+  \def\tableautorefname{Tabel}
+  \def\partautorefname{Deel}
+  \def\appendixautorefname{Appendix}
+  \def\chapterautorefname{Hoofdstuk}
+  \def\sectionautorefname{sectie}
+  \def\subsectionautorefname{subsectie}
+  \def\subsubsectionautorefname{subsubsectie}
+  \def\paragraphautorefname{paragraaf}
+  \def\subparagraphautorefname{subparagraaf}
+  \def\FancyVerbLineautorefname{regel}
+  \def\theoremautorefname{Theorema}
+  \def\pageautorefname{pagina}
+
+% Two new commands to display references a certain way.
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}} \nameref*{#1}}
+\newcommand*{\halfref}[1]{\hyperref[{#1}]{\ref*{#1}} \nameref*{#1}}
 
 \makeindex
 \begin{document}
 \input{./titlepage.tex}
 \tableofcontents
 
-\input{./Hoofdstukken/introductie.tex}
-\input{./Hoofdstukken/ontwerp.tex}
+\input{./Hoofdstukken/inleiding.tex}
+\input{./Hoofdstukken/ontwerp.tex} 
 \input{./Hoofdstukken/conclusie.tex}
 \input{./Hoofdstukken/evaluatie.tex}
 
+\newpage
+\input{./Hoofdstukken/appendices.tex}
 
 
 
