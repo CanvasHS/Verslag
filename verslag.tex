@@ -1,6 +1,5 @@
 % !TEX spellcheck = nl_NL
 \documentclass[a4paper]{report}
-\usepackage[dutch]{babel} % Set language to Dutch.
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
@@ -13,12 +12,15 @@
 % set parameters for lstlisting and lstinline
 \lstset{
   breaklines=true, % Enables wrapping in lstlisting environment.
-  backgroundcolor=\color[HTML]{D6D6D6},
+  basicstyle=\small\ttfamily, % the size of the fonts that are used for the code
+  backgroundcolor=\color[HTML]{F0F0F0},
   commentstyle=\color[HTML]{1A9E00},
   keepspaces=true, 
   language=Haskell,
   numbers=left, %we need line numbers to make line wrapping obvious
   tabsize=4,
+  xleftmargin=-1.85cm, % Alters margin for listings to fit more code on a line.
+  xrightmargin=-1.85cm, % Alters margin for listings to fit more code on a line.
   literate={ö}{{\"o}}1 %handle some special chars
            {ä}{{\"a}}1
            {ü}{{\"u}}1

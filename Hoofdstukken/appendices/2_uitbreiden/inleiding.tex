@@ -1,0 +1,5 @@
+% !TEX spellcheck = nl_NL
+\section{Inleiding}
+De Canvas.hs-omgeving is ontwikkeld met de wens voor gebruiksgemak en eenvoud in het achterhoofd zonder daarbij de mogelijkheid tot uitbreiding en het toevoegen van geavanceerde functionaliteit onnodig te beperken. Deze appendix behandelt het uitbreiden van Canvas.hs.
+
+Canvas.hs heeft twee soorten berichten die tussen de Haskell- en JavaScript-zijde worden uitgewisseld, namelijk Shapes en Events. Canvas.hs kan redelijk gemakkelijk worden uitgebreid met nieuwe Shapes of Events. Hiervoor moet aan de Haskell-zijde en aan de JavaScript-zijde code toegevoegd worden. In de volgende secties wordt eerst beschreven hoe nieuwe Shapes ondersteund kunnen worden en vervolgens hoe Events toegevoegd kunnen worden. Voor beide mogelijkheden wordt voor zowel de Haskell- als de JavaScript-zijde beschreven waar aanpassingen gemaakt moeten worden.
