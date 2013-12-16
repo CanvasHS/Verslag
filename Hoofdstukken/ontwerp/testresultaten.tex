@@ -1,1 +1,9 @@
 \section{Testresultaten} \label{sec:testresultaten}
+
+Door de gebruik van voornamelijk twee verschillende programmeertalen zijn de tests voor deze toepassingen ook apart geschreven. Alle tests kunnen gezamelijk via cabal test aangeroepen worden. Dit vereist wel enige configuratie. Uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: http://canvashs.github.io/test.html
+
+\subsection{JavaScript}
+Voor de JavaScript code zijn unit test ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten.
+
+\subsection{Haskell}
+Voor de Haskell code zijn unit test ontwikkeld. De code coverage van de tests is gemeten met hpc waarvoor standaard een commando is meegeleverd in Cabal.

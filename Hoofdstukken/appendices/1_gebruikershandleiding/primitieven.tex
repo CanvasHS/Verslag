@@ -10,6 +10,7 @@ handler :: State -> Event -> (State, Output)
 
 -- zie voor de verschillende Events hieronder
 data Event = ...
+		deriving(Eq, Show)
 
 data Output = Block BlockingAction | Out RegularOutput
 
@@ -22,13 +23,15 @@ data RegularOutput = (Maybe Shape, [Action])
 
 -- zie voor de verschillende Shapes hieronder
 data Shape = ...
+		deriving(Eq, Show)
 
 --zie voor de verschillende Actions hieronder
 data Action = ...
+		deriving(Eq, Show)
 \end{lstlisting}
 
 \subsection{Shapes}
-Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luisterd naar Events.
+Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luisterd naar \events.
 
 \subsubsection{Primitieven}
 Voor de primitieve shapes worden een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
@@ -347,25 +350,236 @@ data Action =
 \end{itemize}
 
 \myparagraph{Timer}
+Het is mogelijk om timers te starten. Deze zorgen periodiek voor een \type{Tick-Event}. \type{Timer}'s krijgen een naam mee waarmee de \type{Tick} kan worden geïdentificeerd.
+\begin{lstlisting}
+data Action = ...
+			| Timer Int String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, het interval in milliseconden waarop deze timer moet afgaan.
+	\item \type{String}, de naam van deze timer.
+\end{itemize}
 
 \myparagraph{DisplayType}
+Het is mogelijk om het weergavetype van de canvas te veranderen. Standaard is deze op \type{FixedSize} met een breedte van 900 en een hoogte van 600, het is echter ook mogelijk om het canvas op volledig scherm (\type{FullScreen}) weer te geven en de canvas de volledige grootte van het browserscherm te laten innemen (\type{FullWindow}). Het veranderen van de grootte van het canvas zal resulteren in een {\color{red} \type{CanvasResizeEvent OID, UITZOEKEN!!!}}.
+\begin{lstlisting}
+data Action = ...
+			| DisplayType WindowDisplayType
+			
+data WindowDisplayType = FullWindow | FullScreen | FixedSize Int Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{WindowDisplayType}, het nieuwe weergavetype. Is één van de volgende drie opties:
+		\begin{itemize}
+			\item \type{FullWindow}, het canvas zal de grootte van het volledige brwoserscherm innemen.
+			\item \type{FullScreen}, het canvas zal op volledig scherm worden weergeven.
+			\item \type{FixedSize}, het canvas zal een bepaalde grootte innemen. 
+				\begin{itemize}
+					\item \type{Int}, breedte
+					\item \type{Int}, hoogte
+				\end{itemize}
+		\end{itemize}
+\end{itemize}
 
 \myparagraph{Debug}
+Met de \type{Debug-Action} is het mogelijk om in de browser gedetailleerde informatie over hetgeen op het canvas getekend wordt weer te geven. Dit kan nuttig zijn bij het begrijpen van, en opsporen van fouten in, de handler-functie.
+\begin{lstlisting}
+data Action = ...
+			| Debug Bool
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Bool}, of het debugscherm moet worden weergegeven (\type{True}) of niet (\type{False}).
+\end{itemize}
 
 \subsection{Events}
+\events zijn samen met de huidige \type{State} de invoer voor de handler functie. De handler reageert op deze \events met een \type{Output}. \events ontstaan door acties van de gebruiker, zoals toetsaanslagen, muisklikken e.d. op geïnteresseerde \shapes, of resulteren uit een \type{Action}, zoals bijvoorbeeld de \type{Tick} van een \type{Timer}.
+Onderstaand wordt van elk \type{Event} een korte omschrijving gegeven.
 
+\myparagraph{StartEvent}
+Dit is het allereerste \type{Event} wat ontstaat. Dit \type{Event} betekent het begin van het programma. Het is de eerste mogelijkheid om \type{output} op te leveren.
+\begin{lstlisting}
+data Event = 
+			| StartEvent
+\end{lstlisting}
 
+\subsubsection{Mouse Events}
+Voor deze \events: \type{MouseDown, MouseClick, MouseUp, MouseDoubleClick, MouseDrag, MouseOver, MouseOut} en \type{Scroll} is onder het kopje EventData onder Shapes al een omschrijving gegeven wanneer deze precies afgaan. Deze omschrijving is hieronder dan ook niet weer gegeven.
 
+\myparagraph{MouseDown}
+\begin{lstlisting}
+data Event = ...
+			| MouseDown Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waarop de muisknop werd ingedrukt
+	\item \type{String}, het id van de \shape waarop de muisknop werd ingedrukt
+\end{itemize}
 
+\myparagraph{MouseUp}
+\begin{lstlisting}
+data Event = ...
+			| MouseUp Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waarop de muisknop werd losgelaten
+	\item \type{String}, het id van de \shape waarop de muisknop werd losgelaten
+\end{itemize}
 
+\myparagraph{MouseClick}
+\begin{lstlisting}
+data Event = ...
+			| MouseClick Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waarop geklikt werd
+	\item \type{String}, het id van de \shape waarop geklikt werd
+\end{itemize}
 
+\myparagraph{MouseDoubleClick}
+\begin{lstlisting}
+data Event = ...
+			| MouseDoubleClick Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waarop dubbel geklikt werd
+	\item \type{String}, het id van de \shape waarop dubbel geklikt werd
+\end{itemize}
 
+\myparagraph{MouseDrag}
+\begin{lstlisting}
+data Event = ...
+			| MouseDrag Point String Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waarop begonnen werd met slepen
+	\item \type{String}, het id van de \shape waarop begonnen werd met slepen
+	\item \type{Point}, de coördinaten waarop gestopt werd met slepen
+	\item \type{String}, het id van de \shape waarop gestopt werd met slepen {\color{red} WAT ALS GESTOPT WORD MET SLEPEN OP EEN SHAPE DIE DAAR NIET IN GEINTERESSERD IS, OF UBERHAUPT GEEN ID HEEFT?}
+\end{itemize}
 
+\myparagraph{MouseOver}
+\begin{lstlisting}
+data Event = ...
+			| MouseOver Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waarover de muis bewoog
+	\item \type{String}, het id van de \shape waarover de muis bewoog
+\end{itemize}
 
+\myparagraph{MouseOut}
+\begin{lstlisting}
+data Event = ...
+			| MouseOut Point String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Point}, de coördinaten waar de muis de \shape verliet
+	\item \type{String}, het id van de \shape die de muis verliet
+\end{itemize}
 
+\myparagraph{Scroll}
+\begin{lstlisting}
+data Event = ...
+			| Scroll String Int Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het id van de \shape waarin gescrolld werd
+	\item \type{Int}, de afstand die in de x-richting werd gescrolld
+	\item \type{Int}, de afstand die in de y-richting werd gescrolld
+\end{itemize}
 
+\subsubsection{Key Events}
+De volgende \events gaan af als de gebruiker op een toets op het toetsenbord drukt. Deze hangen logischerwijze niet aan een \shape. 
+Bij deze \events wordt van een tweetal types gebruik gemaakt. 
 
+\paragraph{Ingedrukte Toets}
+Deingedrukte toets wordt weergegeven met een \type{String}. Deze bevat een omschrijving van de ingedrukte toets, bijvoorbeeld \inlinecode{"a"}, \inlinecode{"E"} of \inlinecode{"1"} maar ook \inlinecode{"backspace"}, \inlinecode{"shift"} of \inlinecode{"F12"}.
 
+\paragraph{Modifier}
+Bij een Key Event wordt altijd een lijst van \type{Modifier}'s meegegeven. Deze geeft aan of de toetsen Ctrl, Alt of Shift waren ingedrukt tijdens het indrukken van de toets. Let op dat deze toetsen daarnaast ook in hun eigen Key Event zullen resulteren.
+\begin{lstlisting}
+Data Modifier = Shift | Ctrl | Alt
+		deriving(Eq, Show)
+\end{lstlisting}
+
+\myparagraph{KeyDown}
+Dit \type{Event} ontstaat als een gebruiker een toets indrukt.
+\begin{lstlisting}
+data Event = ...
+			| KeyDown String [Modifier]
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de toets die werd ingedrukt
+	\item \type{[Modifier]}, de modifiertoetsen die met deze toets werden ingedrukt
+\end{itemize}
+
+\myparagraph{KeyUp}
+Dit \type{Event} ontstaat als een gebruiker een toets loslaat.
+\begin{lstlisting}
+data Event =
+			| KeyUp String [Modifier]
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de toets die werd losgelaten
+	\item \type{[Modifier]}, de modifiertoetsen die waren ingedrukt terwijl de toets werd losgelaten
+\end{itemize}
+
+\myparagraph{KeyClick}
+Dit \type{Event} ontstaat als een gebruiker een toets aanslaat (indrukt en loslaat)
+\begin{lstlisting}
+data Event = ...
+			| KeyClick String [Modifier]
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de toets die werd aangeslagen
+	\item \type{[Modifier]}, de modifiertoetsen die ingedrukt waren terwijl deze toets werd aangeslagen.
+\end{itemize}
+
+\subsubsection{Events uit Actions}
+Onderstaande \events ontstaan uit \actions.
+
+\myparagraph{FileLoadedString}
+Dit \type{Event} ontstaat als een bestand dat was opgevraagd d.m.v. de \type{LoadFileString-BlockingAction} was opgevraagd daadwerkelijk is geladen.
+\begin{lstlisting}
+data Event = ...
+			| FileLoadedString String String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het pad naar het geladen bestand
+	\item \type{String}, de inhoud van het geladen bestand
+\end{itemize}
+
+\myparagraph{FileLoadedBinary}
+Dit \type{Event} ontstaat als een bestand dat was opgevraagd d.m.v. de \type{LoadFileBinary-BlockingAction} was opgevraagd daadwerkelijk is geladen.
+\begin{lstlisting}
+data Event = ...
+			| FileLoadedBinary String ByteString
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het pad naar het geladen bestand
+	\item \type{ByteString}, de inhoud van het geladen bestand
+\end{itemize}
+
+\myparagraph{UploadComplete}
+Dit \type{Event} ontstaat als een door de gebruiker geüpload bestand is ontvangen. Hiervoor moet uploaden wel mogelijk zijn gemaakt d.m.v. de \type{RequestUpload-Action} of \type{DragNDrop-Action}.
+\begin{lstlisting}
+data Event = ...
+			| UploadComplete String (String, ByteString)
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de naam van het geuploade bestand
+	\item \type{(String, ByteString)}, de inhoud van het bestand. Deze tuple bevat zowel de inhoud van het bestand als String als als ByteString.
+\end{itemize}
+
+\myparagraph{Tick}
+Dit \type{Event} ontstaat als een timer ontstaan door een \type{Timer-Action} afgaat. Om deze te identificeren wordt de naam hiervan aan het \type{Event} verbonden.
+\begin{lstlisting}
+data Event = ...
+			| Tick String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de naam van de timer die afgaat.
+\end{itemize}
 
 
 
