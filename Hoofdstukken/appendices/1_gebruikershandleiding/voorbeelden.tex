@@ -1,0 +1,17 @@
+% !TEX spellcheck = nl_NL
+\section{Voorbeelden}
+Om het gebruik van Canvas.Hs te illustreren zal hieronder een aantal voorbeelden uitgewerkt worden. De eerste voorbeelden zullen in uitgebreid detail besproken worden, waarna een aantal geavanceerde voorbeelden kort besproken worden.
+
+\myparagraph{Canvas.Hs 101}
+Elke taal begint met een Hello World, voor Canvas.Hs is dat het tekenen van een rondje. In Canvas.Hs moet daarvoor een eventhandler toegevoegd worden. Eventhandlers zijn eigenlijk functies die vanuit Canvas.HS uitgevoerd worden, als er events gebeuren op het canvas zal je eventhandler aangeroepen worden. Je eventhandler moet van het type \inlinecode{handler :: State -> Event -> (State, Output)} zijn, hierin is State een type dat je zelf mag bepalen, de state zal elke keer dat er een event gebeurd automatisch aan de handler functie gegeven worden.
+
+\lstinputlisting{Examples/CanvasHs101.hs}
+
+Zoals je hier kan zien wordt er een \inlinecode{handler} aangemaakt, die via de \inlinecode{installEventHandler} aan Canvas.Hs gegeven wordt, vervolgens wordt deze functie aangeroepen als het StartEvent plaatsvind. De output die de handler geeft is weer zijn state (die mogelijk aangepast wordt), en een output. De output hier bestaat uit een container met daarin een (zwarte) cirkel.
+
+\myparagraph{Events}
+Stel dat we het rondje van kleur willen laten veranderen als er op geklikt wordt, dan moet het rondje zich interesseren voor klikevents, verder moeten we een case toevoegen aan onze handler om te specificeren wat er moet gebeuren als er op het rondje geklikt wordt.
+
+\lstinputlisting{Examples/Events.hs}
+
+Hierin is dus een \type{Event} shape toegevoegd voor onze cirkel, hierin wordt een evenId toegevoegd waar later naar gerefereerd kan worden. Daarnaast wordt vermeld dat deze shape geinteresseerd is in muiskliks. Als de muiskliks dan daadwerkelijk gebeurd wordt de tweede pattern van \inlinecode{handler} uitgevoerd, waar naast de \type{Event} ook nog een \type{Fill} over de cirkel toegepast wordt.
