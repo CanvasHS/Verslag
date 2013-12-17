@@ -17,6 +17,7 @@ Websockets zijn een hoeksteen van onze library, alle communicatie tussen de java
 \subsection{mtl}
 \subsection{text}
 \subsection{directory}
+Stelt de programmeur in staat te werken met directories in het filesystem, wordt in Canvas.Hs gebruikt om een lijst van bestanden in een map te bepalen.
 \subsection{aeson}
 Aeson is een JSON parser in haskell, hoewel het schrijven van een JSON parser binnen haskell geen probleem is, is het gebruiken van een library vaak makkelijker en minder foutgevoelig. Aeson is een veelgebruikte library en is genoeg documentatie over te vinden. Binnen Aeson is het van en naar JSON converteren eenvoudig, er dient een record type gemaakt te worden met welke keys (en daarbijbehorende value typen) er mogelijk in de JSON staan en Aeson zoekt de rest uit. Hieronder staat een voorbeeld van hoe Aeson gebruikt kan worden om een (simpel) record automatisch om te zetten in een JSON string. Dit voorbeeld maakt gebruik van Template Haskell, een "GHC extension" die de programmeur toestaat code te schrijven die code genereerd, in dit voorbeeld worden automatisch to- en fromJSON instances gegenereerd voor JSONRGBAColor.
 \begin{lstlisting}
@@ -34,8 +35,10 @@ data JSONRGBAColor
     } deriving (Show)
 
 $(deriveJSON defaultOptions{omitNothingFields=True, fieldLabelModifier = drop 3} ''JSONRGBAColor)
-\end{lstlisting} 
+\end{lstlisting}
+Een mogelijk andere keuze voor een JSON parser was Text.JSON, maar hoewel deze library in gebruik ongeveer hetzelfde is, is hij slechter gedocumenteerd. Verder biedt hij niet zoals Aeson een oplossing voor record veldnamen (Het is in haskell niet mogelijk twee records met dezelfde veldnaam te hebben, of zelfs de naam van een ingebouwde functie te gebruiken, denk aan ``""id").
 \subsection{bytestring}
+Bytestrings zijn een efficiënte manier om binaire (of ascii) strings te representeren in Haskell, bytestrings worden veelvuldig gebruikt door warp en websockets.
 \subsection{split}
 \subsection{ghc-prim}
 \subsection{base64-bytestring}
