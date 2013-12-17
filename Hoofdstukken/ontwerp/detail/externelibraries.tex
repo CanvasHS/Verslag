@@ -1,1 +1,46 @@
-\subsection{Externe libraries}
+\section{Externe libraries}
+Onze library maakt gebruik van een aantal dependencies, om zo voor ons de taak te verlichten, en niet het wiel opnieuw uit te hoeven vinden. In deze sectie wordt de lijst van dependencies en hun functie beschreven.
+\subsection{base}
+Het base package bevat een aantal basislibraries, zo voegt het modules toe waarmee eenvoudig over Monads geredeneerd kan worden. Ook worden er datatypes en typeklassen toegevoegd die programmeren in haskell vereenvoudigen. Eigenlijk begint elk haskell project met base.
+\subsection{QuickCheck}
+QuickCheck is een testingframework binnen Haskell, het stelt de programmeur in staat om testcode te schrijven voor Haskell source. Het mooiste aan QuickCheck is dat het kiezen van interessante randgevallen door QuickCheck zelf geregeld wordt, in tegenstelling tot imperatieve talen waar de programmeur na dient te denken over testcases. QuickCheck zal de code tegen een aantal inputs aanleggen en op basis daarvan te concluderen of de code werkt.
+\subsection{websockets}
+Websockets zijn een hoeksteen van onze library, alle communicatie tussen de javascript en de Haskell gebeurd over een websocket. Het was voor ons dan ook nodig een stabiele library te zoeken voor websockets en dit is de 'de facto' standaard voor websockets in Haskell. De library is goed ondersteund, en bied bijna alle websocket standaarden aan. Tijdens het project hebben we websockets nog geupdate naar 0.8.0.0, daarmee hebben we support voor RFC6455 (ookwel Hybi-13) verkregen. Onze verwachting is dat dit protocol een standaard wordt, en is ondersteund door de meeste browser (Internet Explorer 10, Firefox 11, Chrome 16, Safari 6 etc.), zo maken we Canvas.Hs klaar voor de toekomst.
+\subsection{warp}
+
+\subsection{blaze-html}
+\subsection{blaze-builder}
+\subsection{utf8-string}
+\subsection{wai}
+\subsection{process}
+\subsection{http-types}
+\subsection{mtl}
+\subsection{text}
+\subsection{directory}
+\subsection{aeson}
+Aeson is een JSON parser in haskell, hoewel het schrijven van een JSON parser binnen haskell geen probleem is, is het gebruiken van een library vaak makkelijker en minder foutgevoelig. Aeson is een veelgebruikte library en is genoeg documentatie over te vinden. Binnen Aeson is het van en naar JSON converteren eenvoudig, er dient een record type gemaakt te worden met welke keys (en daarbijbehorende value typen) er mogelijk in de JSON staan en Aeson zoekt de rest uit. Hieronder staat een voorbeeld van hoe Aeson gebruikt kan worden om een (simpel) record automatisch om te zetten in een JSON string. Dit voorbeeld maakt gebruik van Template Haskell, een "GHC extension" die de programmeur toestaat code te schrijven die code genereerd, in dit voorbeeld worden automatisch to- en fromJSON instances gegenereerd voor JSONRGBAColor.
+\begin{lstlisting}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
+
+import Data.Aeson.TH
+
+data JSONRGBAColor
+    = JSONRGBAColor {
+        colr :: Int,
+        colg :: Int,
+        colb :: Int,
+        cola :: Float
+    } deriving (Show)
+
+$(deriveJSON defaultOptions{omitNothingFields=True, fieldLabelModifier = drop 3} ''JSONRGBAColor)
+\end{lstlisting} 
+\subsection{bytestring}
+\subsection{split}
+\subsection{ghc-prim}
+\subsection{base64-bytestring}
+\subsection{timers}
+Een library die simpele timers toevoegt, stelt ons in staat de handler functie van de gebruiker een aantal keer achter elkaar aan te roepen (Om zo bijvoorbeeld animaties te ondersteunen).  
+\subsection{suspend}
+Dependency van timers, stelt haskell in staat een thread voor lange tijd in slaapstand te zetten.
+\subsection{filepath}
