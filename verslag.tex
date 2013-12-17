@@ -36,7 +36,7 @@
   keywordstyle=\idstyle,
   identifierstyle=\idstyle,
   keywords={as, case, of, class, data, data family, data instance, default, deriving, deriving instance, do, forall, foreign, hiding, if, then, else, import, infix, infixl, infixr, instance, let, in, mdo, module, newtype, proc, qualified, rec, type, type family, type instance, where},
-  keywordstyle=\color[HTML]{333333}\bfseries,
+  keywordstyle=\color[HTML]{333333}\bfseries, 
   numbers=left, %we need line numbers to make line wrapping obvious
   numberstyle=\color[HTML]{888888}, %we want line numbers to blend in
   tabsize=4,
@@ -89,8 +89,8 @@
 }
 \makeatother
 % command to properly show inline code
-\newcommand{\inlinecode}[1]{\lstinline[basicstyle=\ttfamily,keywordstyle=\bfseries]|#1|}
-\newcommand{\inlinecodequotes}{\lstinline[basicstyle=\ttfamily,keywordstyle=\bfseries,keywordstyle=\bfseries]} %If it starts with quotes it otherwise doesn't work
+\newcommand{\inlinecode}[1]{\lstinline[basicstyle=\ttfamily,keywordstyle=\bfseries,identifierstyle=\bfseries,stringstyle=\bfseries,literate={}]|#1|}
+\newcommand{\inlinecodequotes}{\lstinline[basicstyle=\ttfamily,keywordstyle=\bfseries,identifierstyle=\bfseries,literate={}]} %If it starts with quotes it otherwise doesn't work
 
 % Necessary to make \autoref command display nice Dutch words.
   \def\equationautorefname{Vergelijking}
