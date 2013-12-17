@@ -1,7 +1,7 @@
 % !TEX spellcheck = nl_NL
 \documentclass[a4paper]{report}
-\usepackage[dutch]{babel} % Set language to Dutch.
 \usepackage{graphicx}
+\usepackage[dutch]{babel} 
 \usepackage{enumerate}
 \usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
 \usepackage{hyperref} % Turn references into links.
@@ -23,6 +23,7 @@
   breaklines=true, % Enables wrapping in lstlisting environment.
   backgroundcolor=\color[HTML]{F8F8F8},
   frame=tlrb,
+  basicstyle=\ttfamily, % the size of the fonts that are used for the code
   keepspaces=true, 
   language=Haskell,
   framextopmargin=5pt,
@@ -64,6 +65,14 @@
            {.7}{{{\color[HTML]{009999}{.7}}}}{1}
            {.8}{{{\color[HTML]{009999}{.8}}}}{1}
            {.9}{{{\color[HTML]{009999}{.9}}}}{1}
+}
+  % Use this to fit more code in the block
+\lstdefinestyle{densecode}{
+  aboveskip=1cm,
+  belowskip=1cm,
+  xleftmargin=-1.85cm, % Alters margin for listings to fit more code on a line.
+  xrightmargin=-1.85cm, % Alters margin for listings to fit more code on a line.
+  basicstyle=\small\ttfamily
 }
 \makeatletter
 \newcommand*\idstyle{%
