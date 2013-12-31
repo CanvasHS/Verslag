@@ -10,15 +10,18 @@ De architectuur van een applicatie die Canvas.hs gebruikt bestaat uit drie compo
 \end{figure}
 
 \subsubsection{Communicatie}
-Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. De gebruiker moet geen vertraging ervaren in de grafische interface.
+Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. Vanuit de module ontvangt de client de grafische elementen die getekend moeten worden. De gebruiker moet geen vertraging ervaren in de grafische interface.
 
 
 \paragraph{Websockets}
 Het is mogelijk om doormiddel van XMLHttpRequest of WebSockets een verbinding te onderhouden tussen de Module en de Clientomgeving. XMLHttpRequests worden door alle webbrowsers ondersteund, en kan doormiddel van longpolling technieken (Comet) een verbinding onderhouden met de webserver. De meest recente browsers ondersteunen WebSockets. Dit bied een socket verbinding tussen de client en de server. WebSockets bieden een betere performance dan alle technieken op basis van XMLHttpRequests en bied een groter implementatiegemak. Door het gebruik van het HTML canvas element zal de browser ondersteuning al beperkt zijn tot de meest recente browsers. Canvas.hs maakt gebruik van WebSockets.
 
 \paragraph{Protocol}
+Het formaat van het protocol is JSON, dit is praktisch doordat dit eenvoudig in JavaScript te gebruiken is. In tegenstelling to XML heeft JSON bovendien weinig overhead.
 
-Het formaat van het protocol is JSON, dit is praktisch doordat dit eenvoudig in JavaScript te gebruiken is. In tegenstelling to XML heeft JSON bovendien weinig overheid.
+Het protocol tussen de client en de server bevat voornamelijk interface data. De structuur en de attributen moeten vertaald worden van de Haskell omgeving om gebruikt te worden om te tekenen in het Canvas en vervolgens input van de gebruiker in de browseromgeving te ondersteunen. Voor optimale performance word de structuur zo snel mogelijk vertaald naar de structuur van KineticJS.
+
+-Ondersteunen van acties in het protocol
 
 \subsubsection{Module}
 
@@ -40,8 +43,6 @@ Als via de API van Canvas.hs begonnen wordt met tekenen zal de HTTP server autom
 
 
 
-\paragraph{Interface data}
-De gegevens die door de HTTP server naar de browser gestuurd worden zullen voornamelijk bestaan uit interface data. Hoe, is de interface opgebouwd, elke elementen staan waar, welke attributen hebben deze elementen en zijn deze elementen in staat input van de gebruiker te accepteren. Hierbij zal er in het protocol rekening gehouden worden met de weergave van de elementen. De elementen die Kinetic.js ondersteund bieden hier een goede basis voor.
 
 \paragraph{Events}
 Events zijn de gegevens die de browser terug stuurt naar de HTTP server. Deze gegevens zullen vooral informatie bevatten over interface acties die de gebruiker uitvoerd. Het gaat hierbij om bijvoorbeeld muisbewegingen, muisklikken en toetsaanslagen. Het is belangrijk dat deze events snel door de server worden ontvangen en verwerkt naar nieuwe output zodat de gebruiker geen zichtbare vertraging ziet in de werking van het programma.
