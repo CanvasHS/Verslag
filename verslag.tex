@@ -10,6 +10,9 @@
 \usepackage{xspace} % Keeps space after lstinline commands.
 \usepackage{caption}
 \usepackage{xcolor} % to change color in code listings
+\usepackage[T1]{fontenc}  
+\usepackage{textcomp}  
+\usepackage{lmodern}  
 
 \DeclareCaptionFont{white}{ \color{white} }
 \DeclareCaptionFormat{listing}{
@@ -65,6 +68,8 @@
            {.7}{{{\color[HTML]{009999}{.7}}}}{1}
            {.8}{{{\color[HTML]{009999}{.8}}}}{1}
            {.9}{{{\color[HTML]{009999}{.9}}}}{1}
+           {"}{\textquotedbl}1
+           {'}{\textquotesingle}1
 }
   % Use this to fit more code in the block
 \lstdefinestyle{densecode}{
