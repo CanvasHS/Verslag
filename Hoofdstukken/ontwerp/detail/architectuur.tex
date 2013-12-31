@@ -1,13 +1,31 @@
 \subsection{Architectuur}
-Canvas.hs heeft een redelijk gecompliceerde architectuur. Dit komt vooral door de verschillende technologieën die nodig zijn om het HTML5 Canvas te verbinden met de te ontwikkelen Haskell API voor het bouwen van interfaces. In \autoref{fig:overzicht_architectuur} is een schematische weergave van de architectuur weergegeven.
+De architectuur van een applicatie die Canvas.hs gebruikt bestaat uit drie componenten. De applicatie van de gebruiker, de Canvas.hs module en de JavaScript Canvas.hs applicatie. De Canvas.hs module bied functies aan die de programmeur kan gebruiken om te tekenen en bepaalde acties uit te voeren in de browser. De module draait een server om te communiceren met de browseromgeving. De browseromgeving verbind doormiddel van websockets met de server en geeft de output van het programma weer in een canvas HTML-element. In \autoref{fig:overzicht_architectuur} is een schematische weergave van de architectuur weergegeven.
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio,width=\textwidth]{./Hoofdstukken/architecture.png}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/architectuur_overzicht.pdf}
 \caption{Overzicht van de architectuur van Canvas.hs}
 \label{fig:overzicht_architectuur}
 \end{center}
 \end{figure}
+
+\subsubsection{Communicatie}
+Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. De gebruiker moet geen vertraging ervaren in de grafische interface.
+
+
+\paragraph{Websockets}
+Het is mogelijk om doormiddel van XMLHttpRequest of WebSockets een verbinding te onderhouden tussen de Module en de Clientomgeving. XMLHttpRequests worden door alle webbrowsers ondersteund, en kan doormiddel van longpolling technieken (Comet) een verbinding onderhouden met de webserver. De meest recente browsers ondersteunen WebSockets. Dit bied een socket verbinding tussen de client en de server. WebSockets bieden een betere performance dan alle technieken op basis van XMLHttpRequests en bied een groter implementatiegemak. Door het gebruik van het HTML canvas element zal de browser ondersteuning al beperkt zijn tot de meest recente browsers. Canvas.hs maakt gebruik van WebSockets.
+
+\paragraph{Protocol}
+
+Het formaat van het protocol is JSON, dit is praktisch doordat dit eenvoudig in JavaScript te gebruiken is. In tegenstelling to XML heeft JSON bovendien weinig overheid.
+
+\subsubsection{Module}
+
+
+\subsubsection{Canvas}
+
+
 
 \subsubsection{Haskell}
 Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de API die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs zal zich focussen op elementaire input en geen ondersteuning hebben voor high level interface elementen zoals buttons en textarea's. Deze elementen zouden met behulp van Canvas.hs wel eenvoudig te implementeren moeten zijn.
@@ -19,10 +37,7 @@ De programmeur die gebruik maakt van Canvas.hs zal op een eenvoudige wijze gebru
 De verbinding met het canvas wordt bewerkstelligd met een eenvoudige HTTP server. Deze server biedt de gebruiker de mogelijkheid om via een webbrowser het Haskell programma te benaderen. De HTTP server biedt pagina's aan waarin JavaScript en HTML samenwerken om op het canvas te tekenen.
 
 Als via de API van Canvas.hs begonnen wordt met tekenen zal de HTTP server automatisch gestart worden. Het besturingssysteem wordt aangeroepen voor het openen van de standaard browser --verwijzende naar het adres van de lokaal draaiende HTTP server.
-\subsubsection{Protocol}
-De gegevens die verstuurd worden volgens het protocol zullen op een primaire gegevensstructuur moeten aanhouden. Hiervoor kunnen twee voor de hand liggende conventies gekozen worden: XML en JSON. Ons protocol zal gegevens coderen in JSON (JavaScript Object Notation). De voordelen van JSON zijn onder andere dat de data met weinig moeite direct gebruikt kan worden in JavaScript, lichtgewicht is en makkelijk te lezen is.
-\paragraph{Websockets}
-Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren zonder een al te groote vertraging. Er zijn in de communicatie tussen een HTTP server en client verschillende mogelijkheden waarbij websockets de meestvoordehand liggende is. Websockets is een relatief nieuwe feature van HTTP en wordt op dit moment alleen ondersteund in de recente browserversies. Het gebruik van websockets heeft als gevolg dat Canvas.hs geen ondersteuning heeft voor browsers die nog geen websockets ondersteunen.
+
 
 \paragraph{Restful vs RPC}
 Naast de manier waarop gegevens worden gecodeerd is het ook belangrijk via welke wegen deze aan de server worden aangeboden—alsmede hoe deze door de server worden verstrekt.
