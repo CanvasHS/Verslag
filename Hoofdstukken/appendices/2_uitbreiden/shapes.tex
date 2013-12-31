@@ -1,0 +1,52 @@
+% !TEX spellcheck = nl_NL
+\section{Shapes}
+Deze sectie zal beschrijven hoe nieuwe Shapes toegevoegd kunnen worden aan de Canvas.hs-omgeving. Eerst wordt beschreven welke aanpassingen aan de JavaScript-zijde moeten plaatsvinden en vervolgens zullen de benodigde aanpassingen aan de Haskell-zijde besproken worden.
+
+\subsection{JavaScript}
+Om ondersteuning voor een Shape toe te voegen in de JavaScript-code, moeten aanpassingen gemaakt worden in het bestand \emph{main.js} dat in de map `\textbackslash canvashs-client\textbackslash js' te vinden is.
+
+\emph{main.js} bevat de functie \inlinecode{shapeFromData} dat delen van berichten die van de server komen vertaald naar Shapes. In de \inlinecode{shapeFromData} functie bevindt zich een \inlinecode{switch}-statement dat op de string \inlinecode{message.type} switcht.
+
+Stel nu dat het figuur cirkel nog niet ondersteund wordt en dat we deze toe willen voegen. We zouden dan aan het \inlinecode{switch}-statement in \inlinecode{shapeFromData} een \inlinecode{case} toevoegen voor ``circle''. In dit \inlinecode{case} statement zou dan een \inlinecode{Kinetic.Circle} gemaakt worden. Als het JSON-object \inlinecode{data} dat vanaf de Haskell-zijde ontvangen is, compatibel is met \inlinecode{Kinetic.Circle} dan kan dit rechtstreeks meegegeven worden aan diens constructor, anders moet dit bericht eerst aangepast worden. Vervolgens is het mogelijk een debug bericht te plaatsen als dit wenselijk is. Dit voorbeeld staat hieronder uitgewerkt.
+
+\begin{lstlisting}[language=JavaScript]
+function shapeFromData(message) {
+	...
+	switch (message.type) {
+		case "circle":
+			shape = new Kinetic.Circle(data);
+			debugMessage += "width x:"+data.x+" y:"+data.y+" and radius:"+data.radius;
+			break;
+	...
+}
+\end{lstlisting}
+
+Ter illustratie van een geavanceerder geval, is hieronder een deel van de code in de \inlinecode{shapeFromData} functie weergegeven dat een tekst-Shape maakt. In dit geval is het \inlinecode{data} JSON-object niet geheel compatibel met de representatie die Kinetic.js ondersteunt. Zo wordt in \inlinecode{data} aangegeven of een tekst-object dik- of schuingedrukt afgebeeld moet worden door de velden \inlinecode{data.bold} en respectievelijk \inlinecode{data.italic} op \inlinecode{true} ofwel \inlinecode{false} te zetten, terwijl de \inlinecode{Kinetic.Text}-constructor een \inlinecode{fontStyle}-veld verwacht met daarin een string die ``bold'' en/of ``italic'' bevat wanneer dit van toepassing is.
+
+\begin{lstlisting}[language=JavaScript]
+function shapeFromData(message) {
+	...
+	switch (message.type) {
+		case "text":
+			var fontStyle;
+			if(data.bold) {
+				fontStyle = "bold";
+				delete data.bold;
+			}
+			if(data.italic) {
+				fontStyle += " italic";
+				delete data.italic;
+			}
+			
+			data.fontStyle = fontStyle;
+			shape = new Kinetic.Text(data);
+			...
+			break;
+	...
+}
+\end{lstlisting}
+
+Voor het toevoegen van Shapes aan de JavaScript-zijde van Canvas.hs is het toevoegen van een case voor de nieuwe Shape aan het \inlinecode{switch}-statement in de \inlinecode{shapeFromData} functie in \emph{main.js} dus genoeg.
+
+\subsection{Haskell}
+
