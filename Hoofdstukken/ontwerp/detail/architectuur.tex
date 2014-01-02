@@ -10,7 +10,7 @@ De architectuur van een applicatie die Canvas.hs gebruikt bestaat uit drie compo
 \end{figure}
 
 \subsubsection{Communicatie}
-Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. Vanuit de module ontvangt de client de grafische elementen die getekend moeten worden. De gebruiker moet geen vertraging ervaren in de grafische interface.
+Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. Om de grafische elementen in de browser weer te geven moeten de output van de grafische interface naar de browser gecomunniceert worden. Wanneer de gebruiker interactie heeft met de interface moet dit naar het programma van de gebruiker gecommuniceerd worden. Verder zal het programma bepaalde acties moeten kunnen uitvoeren op de webbrowser, zoals fullscreen laten gaan van de browser. Een belangrijke overwegingen is dat de grafische interface zo min mogelijk vertraging heeft.
 
 
 \paragraph{Websockets}
@@ -19,9 +19,10 @@ Het is mogelijk om doormiddel van XMLHttpRequest of WebSockets een verbinding te
 \paragraph{Protocol}
 Het formaat van het protocol is JSON, dit is praktisch doordat dit eenvoudig in JavaScript te gebruiken is. In tegenstelling to XML heeft JSON bovendien weinig overhead.
 
-Het protocol tussen de client en de server bevat voornamelijk interface data. De structuur en de attributen moeten vertaald worden van de Haskell omgeving om gebruikt te worden om te tekenen in het Canvas en vervolgens input van de gebruiker in de browseromgeving te ondersteunen. Voor optimale performance word de structuur zo snel mogelijk vertaald naar de structuur van KineticJS.
+Het protocol tussen de client en de server bevat voornamelijk interface data. De structuur en de attributen moeten vertaald worden van de Haskell omgeving om gebruikt te worden om te tekenen in het Canvas en vervolgens input van de gebruiker in de browseromgeving te ondersteunen. Voor optimale performance word de structuur zo snel mogelijk vertaald naar de structuur van KineticJS. De programmeur bepaald wanneer er interface data verstuurd word en wanneer acties verstuurd worden naar de client.
 
--Ondersteunen van acties in het protocol
+\paragraph{Stateless client}
+In functioneel programmeren is het gebruikelijk om veel gebruik te maken van functies die puur werken zonder state bij te houden in verschillende variabelen. In de huidige opzet van het vak functioneel programmeren bied de grafische module een state object aan waarin de gebruiker alle state variabelen in kan opslaan. Wanneer de gebruiker de grafische interface update doet hij dit door de volledige boom van grafische elementen aan te passen of door over de huidige output te tekenen. Dit maakt het overzichtelijk voor de programmeur omdat de grafische interface dan geen eigen state bijhoud. Dit maakt de grafische interface op de client stateless. Een groot nadeel hiervan is dat iedere keer dat de grafische interface geupdate wordt ook de volledige grafische output weer naar de client verstuurd dient te worden. De enige state die de client vasthoud worden veroorzaakt door acties.
 
 \subsubsection{Module}
 
