@@ -35,38 +35,25 @@ De module is de Haskell bibliotheek die de programmeur gebruikt om de grafische 
 
 -TODO: Plaatje toevoegen van wat er gebeurd bij het opstarten 
 
-\paragraph{Servers}
-Canvas.hs draait een simpele server op port 80 die statische bestanden kan serveren. Waaronder de index pagina, de javascript bestanden en eventueel plaatjes. Op port 8080 draait er een websocket server die de verbinding met de client onderhoud.
-
 \paragraph{Input/output}
+De module handeld input en output af door events naar de eventhandler van de programmeur te sturen. Bijvoorbeeld: wanneer een gebruiker op een rondje klikt zal het programma de event handler aanroepen met de ID van dat rondje en de lokatie van de muisklik. De event handler van de programmeur kan dan nieuwe output genereren op basis van dit event. Zoals een nieuw menu weergeven of het uitvoeren van een actie zoals het opvragen van een bestand van de gebruiker.
 
-\subsubsection{Canvas}
+-TODO: Een weergave van de I/O
 
-
-
-\subsubsection{Haskell}
-Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de API die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs zal zich focussen op elementaire input en geen ondersteuning hebben voor high level interface elementen zoals buttons en textarea's. Deze elementen zouden met behulp van Canvas.hs wel eenvoudig te implementeren moeten zijn.
-
-\paragraph{API}
-De programmeur die gebruik maakt van Canvas.hs zal op een eenvoudige wijze gebruik kunnen maken van onze library. Daarom is het belangrijk dat er een API aangeboden wordt die eenvoudig te begrijpen is en niet teveel features bevat maar daarnaast wel de flexibiliteit biedt om een zeer complexe interface mee te bouwen.
-
-\paragraph{Verbinding met de interface}
-De verbinding met het canvas wordt bewerkstelligd met een eenvoudige HTTP server. Deze server biedt de gebruiker de mogelijkheid om via een webbrowser het Haskell programma te benaderen. De HTTP server biedt pagina's aan waarin JavaScript en HTML samenwerken om op het canvas te tekenen.
-
-Als via de API van Canvas.hs begonnen wordt met tekenen zal de HTTP server automatisch gestart worden. Het besturingssysteem wordt aangeroepen voor het openen van de standaard browser --verwijzende naar het adres van de lokaal draaiende HTTP server.
+\paragraph{Servers}
+Canvas.hs draait een simpele server op port 80 die statische bestanden kan serveren. Waaronder de index pagina, de javascript bestanden en eventueel plaatjes. Op port 8080 draait een websocket server die de verbinding met de client onderhoud.
 
 
+\subsubsection{Client}
+Het voornaamste onderdeel van de client is het canvas-element waarin de output getekend wordt door Kinetic.js. Daarboven zit de Canvas.hs javascriptcode die de verbinding onderhoud met de module en dit doorspeeld naar Kinetic.js om te tekenen.
+
+-TODO: Plaatje van de Client
 
 
-\paragraph{Events}
-Events zijn de gegevens die de browser terug stuurt naar de HTTP server. Deze gegevens zullen vooral informatie bevatten over interface acties die de gebruiker uitvoerd. Het gaat hierbij om bijvoorbeeld muisbewegingen, muisklikken en toetsaanslagen. Het is belangrijk dat deze events snel door de server worden ontvangen en verwerkt naar nieuwe output zodat de gebruiker geen zichtbare vertraging ziet in de werking van het programma.
+\paragraph{Acties}
+De programmeur kan een aantal specifieke acties uitvoeren op de client. De state van deze acties wordt onderhouden door de client zelf. 
 
-\subsubsection{Javascript}
-Voor het tekenen van de interface op het HTML Canvas alsmede de communicatie vanuit de browser met de server, zal er gebruik worden gemaakt van JavaScript. jQuery biedt een prima uitbreiding op JavaScript waarbij de mogelijkheid wordt geboden verschillende zogenaamde jQuery plugins te gebruiken. In het geval van Canvas.hs zijn twee plugins belangrijk: Kinetic.js en jQuery-websockets.
 
-Kinetic.js zal gebruikt worden voor het tekenen van de verschillende elementen op het canvas. Daarbij heeft Kinetic.js in compinatie met jQuery ook uitstekende ondersteuning voor het doorgeven van input events, die door bijvoorbeeld muisbeweginen aangeroepen worden. 
-
-jQuery-websockets is een plugin die het gemakkelijk maakt gegevensoverdracht tussen websockets af te vangen en daar snel actie op te ondernemen. Deze lichtgewicht library maakt het mogelijk snel, zonder veel overhead opdrachten door te sturen naar Kinetic.js zodat deze op het canvas getekend worden.
 
 \paragraph{Debug Console}
-Voor de programmeur die gebruik gaat maken van de Canvas.hs library is het belangrijk dat zijn interface er zo uit ziet zoals hij dit wil. Ongetwijfeld zal een programmeur tegen problemen aanlopen bij het bouwen van de interface die hij niet had voorzien bij het schrijven van zijn code. Om probleemoplossing hiervan te vergemakkelijken bevat Canvas.hs een debug console bevat waar het aanroepen van teken functies en de invloed van deze API aanroepen goed visueel en tekstueel inzichtelijk worden.
+Voor de programmeur die gebruik gaat maken van de Canvas.hs library is het belangrijk dat zijn interface er zo uit ziet zoals hij dit wil. Ongetwijfeld zal een programmeur tegen problemen aanlopen bij het bouwen van de interface die hij niet had voorzien bij het schrijven van zijn code. Om probleemoplossing hiervan te vergemakkelijken bevat Canvas.hs een debug console bevat waar het aanroepen van teken functies en de invloed van deze API aanroepen goed visueel en tekstueel inzichtelijk worden. Doormiddel van een actie vanuit het programma van de gebruiker kan de debug console tevoorschijn gehaald worden.
