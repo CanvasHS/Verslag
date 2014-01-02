@@ -10,7 +10,7 @@ De architectuur van een applicatie die Canvas.hs gebruikt bestaat uit drie compo
 \end{figure}
 
 \subsubsection{Communicatie}
-Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. Om de grafische elementen in de browser weer te geven moeten de output van de grafische interface naar de browser gecomunniceert worden. Wanneer de gebruiker interactie heeft met de interface moet dit naar het programma van de gebruiker gecommuniceerd worden. Verder zal het programma bepaalde acties moeten kunnen uitvoeren op de webbrowser, zoals fullscreen laten gaan van de browser. Een belangrijke overwegingen is dat de grafische interface zo min mogelijk vertraging heeft.
+Gegevensoverdracht tussen de HTTP server en de browser moet snel gebeuren. Om de grafische elementen in de browser weer te geven moeten de output van de grafische interface naar de browser gecomunniceert worden. Wanneer de gebruiker interactie heeft met de interface moet dit naar het programma van de gebruiker gecommuniceerd worden. Verder zal het programma bepaalde acties moeten kunnen uitvoeren op de webbrowser, zoals fullscreen laten gaan van de browser. Een belangrijke overwegingen is dat de grafische interface zo min mogelijk vertraging moet hebben.
 
 
 \paragraph{Websockets}
@@ -27,7 +27,18 @@ In functioneel programmeren is het gebruikelijk om veel gebruik te maken van fun
 Een alternatief voor het versturen van volledige grafen is een vorm van delta updates. Waarbij de programmeur opgeeft wat er veranderd is in de inteface of dat de module zelf uitvind welke delen in de boom aangepast zijn. Beide mogelijkheden voegen veel extra complexiteit voor respectievelijk de programmeur en voor het systeem. De bandbreedte van lokale websockets is groot en heeft geen last van latency waardoor de performance van de connectie hierdoor niet beperkt wordt.
 
 \subsubsection{Module}
+De module is de Haskell bibliotheek die de programmeur gebruikt om de grafische interface in de client te bedienen. Naar de programmeur is de gebruiksvriendelijkheid van de biblotheek een van de belangrijkste overwegingen voor het ontwerp. De module bestaat uit een aantal onderdelen: de server die de statische bestanden serveert, de websocket server die de verbinding met de client onderhoud, en de laag die de input en output verwerkt.
 
+-TODO: Basic architectuur tekening van de module
+
+\paragraph{Gebruik} Wanneer de programmeur gebruik wil maken van de Canvas.hs moet hij gebruik maken van de installEventHandler functie. Bij het aanroepen van deze functie moet de programmeur een event handler meegeven die alle events vanuit de interface afhandeld. Om het gebruik van Canvas.hs zo makkelijk mogelijk te houden zal bij het aanroepen van installEventHandler automatisch de statische server en de websocket server gestart worden, en daarna automatisch de browserpagina geopend worden.
+
+-TODO: Plaatje toevoegen van wat er gebeurd bij het opstarten 
+
+\paragraph{Servers}
+Canvas.hs draait een simpele server op port 80 die statische bestanden kan serveren. Waaronder de index pagina, de javascript bestanden en eventueel plaatjes. Op port 8080 draait er een websocket server die de verbinding met de client onderhoud.
+
+\paragraph{Input/output}
 
 \subsubsection{Canvas}
 
