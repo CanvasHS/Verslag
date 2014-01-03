@@ -27,9 +27,16 @@ In functioneel programmeren is het gebruikelijk om veel gebruik te maken van fun
 Een alternatief voor het versturen van volledige grafen is een vorm van delta updates. Waarbij de programmeur opgeeft wat er veranderd is in de inteface of dat de module zelf uitvind welke delen in de boom aangepast zijn. Beide mogelijkheden voegen veel extra complexiteit voor respectievelijk de programmeur en voor het systeem. De bandbreedte van lokale websockets is groot en heeft geen last van latency waardoor de performance van de connectie hierdoor niet beperkt wordt.
 
 \subsubsection{Module}
-De module is de Haskell bibliotheek die de programmeur gebruikt om de grafische interface in de client te bedienen. Naar de programmeur is de gebruiksvriendelijkheid van de biblotheek een van de belangrijkste overwegingen voor het ontwerp. De module bestaat uit een aantal onderdelen: de server die de statische bestanden serveert, de websocket server die de verbinding met de client onderhoud, en de laag die de input en output verwerkt.
+De module is de Haskell bibliotheek die de programmeur gebruikt om de grafische interface in de client te bedienen. Naar de programmeur is de gebruiksvriendelijkheid van de biblotheek een van de belangrijkste overwegingen voor het ontwerp. De module bestaat uit een aantal onderdelen: de server die de statische bestanden serveert, de websocket server die de verbinding met de client onderhoud, en de laag die de input en output verwerkt. \autoref{fig:architecture_module} geeft de architectuur weer van de module.
 
--TODO: Basic architectuur tekening van de module
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/module_architecture.pdf}
+\caption{Architectuur van de module}
+\label{fig:architecture_module}
+\end{center}
+\end{figure}
+
 
 \paragraph{Gebruik} Wanneer de programmeur gebruik wil maken van de Canvas.hs moet hij gebruik maken van de installEventHandler functie. Bij het aanroepen van deze functie moet de programmeur een event handler meegeven die alle events vanuit de interface afhandeld. Om het gebruik van Canvas.hs zo makkelijk mogelijk te houden zal bij het aanroepen van installEventHandler automatisch de statische server en de websocket server gestart worden, en daarna automatisch de browserpagina geopend worden. \autoref{fig:startup_procedure} geeft de opstartprocedure weer.
 
