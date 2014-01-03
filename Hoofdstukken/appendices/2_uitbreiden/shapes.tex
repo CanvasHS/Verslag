@@ -46,7 +46,113 @@ function shapeFromData(message) {
 }
 \end{lstlisting}
 
+Een derde geval is dat er geen shape bestaat binnen Kinetic, zo heeft Kinetic wel een \inlinecode{Kinetic.Wedge} (nederlands ``taartpuntje''), maar geen arc (een stuk van een cirkel). Daartoe zal Kinetic uitgebreid moeten worden met ons primitieve. Omdat Javascript een prototypegebaseerde taal is kunnen we \inlinecode{Kinetic.Shape} uitbreiden tot onze eigen \inlinecode{CanvasHs.Arc}, daartoe bied Kinetic ons de \inlinecode{Kinetic.Util.extend} functie aan. Verder dienen we een constructor te maken voor ons object, onze superklasse aanroepen, en de tekenfunctie naar onszelf laten verwijzen.
+
+\begin{lstlisting}[style=densecode, language=JavaScript]
+// As this is a custom shape, we will define our own namespace
+var CanvasHs = {};
+
+// Make new scope
+(function() {
+    CanvasHs.Arc  = function(config) {
+        this.___init(config);
+    }
+
+    CanvasHs.Arc.prototype = {
+        ___init: function(config) {
+            Kinetic.Shape.call(this, config);
+            this.className = 'Arc';
+            this.setDrawFunc(this.draw);
+        },
+        // The draw function gets a context, this is the "normal" way to draw
+        // on a canvas, there are lots of tutorials on that subject.
+        draw: function(context) {
+            context.beginPath();
+            context.arc(0,0, this.getRadius(), 0, -1 *this.getAngle(), true);
+            context.lineTo(0,0);
+            context.fillShape(this);
+
+            context.beginPath();
+            context.arc(0,0, this.getRadius(), 0, -1 *this.getAngle(), true);
+            context.strokeShape(this);
+        }
+
+    }
+
+    Kinetic.Util.extend(CanvasHs.Arc, Kinetic.Shape);
+
+    Kinetic.Factory.addGetterSetter(CanvasHs.Arc, 'radius', 0);
+
+    Kinetic.Factory.addRotationGetterSetter(CanvasHs.Arc, 'angle', 0);
+
+})();
+\end{lstlisting}
+
+Een paar dingen om hier op te merken, ten eerste wordt er een nieuwe namespace gemaakt, \inlinecode{CanvasHs}, dit is om shapes van Kinetic te scheiden van onze eigen shapes. Daarnaast roepen we in de \inlinecode{___init} functie de constructor van \inlinecode{Kinetic.Shape} aan en voegt de \inlinecode{Kinetic.Util.extend} methode de attributen van het prototype van \inlinecode{Kinetic.Shape} in \inlinecode{CanvasHs.Arc} toe. De laatste twee functieaanroepen zijn om gemakkelijk getters en setters toe te voegen voor attributen.
+
 Voor het toevoegen van Shapes aan de JavaScript-zijde van Canvas.hs is het toevoegen van een case voor de nieuwe Shape aan het \inlinecode{switch}-statement in de \inlinecode{shapeFromData} functie in \emph{main.js} dus genoeg.
 
 \subsection{Haskell}
 
+Binnen de haskell kan uitbreiden op twee manieren, de eerste manier is om door de beschikbare shapes een nieuwe shape te maken, zo hoeft het protocol niet aangepast te worden. Als voorbeeld nemen we een rechthoek met afgeronde hoekjes, we definieren een functie \inlinecode{roundedRect} die een shape teruggeeft.
+
+\lstinputlisting[style=densecode, language=Haskell]{Examples/RoundedRect.hs}
+
+Hoewel dit veel code lijkt is de meeste code het juist tekenen van een rechthoek met afgeronde hoeken, het belangrijkste om hier te zien is dat de \inlinecode{roundedRect} voor de gebruiker een functie is in plaats van een Data constructor zoals \inlinecode{Rect}, verder is er voor de gebruiker geen verschil. Voor de programmeur is er het overduidelijke voordeel dat de code van CanvasHs niet aangepast wordt, dit kan zelfs los van onze code in een module gestopt worden.
+
+Mocht het toch noodzakelijk zijn de CanvasHs code uit te breiden met een shape, bijvoorbeeld omdat de Javascript kant de nieuwe vorm beter kan tekenen, dan dient dit op drie plaatsen te gebeuren. Zoals hierboven uitgelegd in de Javascript code, maar ook op twee plekken in de Haskell code. Ten eerste in de module \inlinecode{CanvasHs.Data}, hierin is een \inlinecode{data Shape} gedefinieerd en hier dient de vorm aan toegevoegd te worden, laten we hiervoor wederom de rechthoek met afgeronde hoeken nemen.
+
+\begin{lstlisting}[style=densecode, language=Haskell]
+data Shape =
+    (..)
+    -- | A rect with rounded corners, Starts at the specified point with a width (growing to the left), height (growing down), and a borderradius
+    | RoundedRect Point Int Int Int
+    (..)
+\end{lstlisting} 
+
+Daarnaast dient het protocol uitgebreid te worden met onze nieuwe \inlinecode{RoundedRect}. De module \inlinecode{CanvasHs.Protocol.ShapeOutput} vertaald shapes naar JSON, hiertoe maakt hij eerst van de shape een record die exact beschrijft hoe de JSON eruit hoort te zien, en Aeson (onze JSON library) maakt daarvan een JSON bericht.
+
+Omdat wij bij de roundedrect een nieuw attribuut in de JSON nodig hebben, borderRadius, dienen we ten eerste de \inlinecode{JSONShapeData} record uit te breiden. Let erop dat er ook op twee plekken records gemaakt worden waarin alle keys gevult worden (de functies \inlinecode{shapeEncodePoint} en \inlinecode{shapeEncodePoints}), pas deze ook aan.
+
+\begin{lstlisting}[style=densecode, language=Haskell]
+data JSONShapeData
+    = JSONShapeData { 
+        (..)
+        borderRadius :: Maybe Int,
+        (..)
+    } deriving (Show)
+
+shapeEncodePoint :: D.Point -> JSONShapeData
+shapeEncodePoint (x',y')    
+    = JSONShapeData { 
+        (..)
+        borderRadius = Nothing,
+        (..)
+    }
+
+shapeEncodePoints :: [D.Point] -> JSONShapeData
+shapeEncodePoints pts
+    = JSONShapeData { 
+        (..)
+        borderRadius = Nothing,
+        (..)
+    }
+\end{lstlisting}
+
+Nu kunnen we in de functie \inlinecode{shapeEncode} een geval voor de RoundedRect toevoegen waarin we de juiste recordwaarden vullen. Voor een uitgebreide uitleg van het protocol kan op canvashs.github.io naar de specificatie gekeken worden.
+
+\begin{lstlisting}[style=densecode, language=Haskell]
+shapeEncode :: D.Shape -> JSONShape
+(..)
+shapeEncode (D.RoundedRect point width height radius)  = 
+    JSONShape {shapetype = "roundedRect" 
+              ,shapedata = (shapeEncodePoint point) {
+                  width = Just width, 
+                  height = Just height, 
+                  borderRadius = Just radius
+              }
+              ,shapeeventData = Nothing
+              ,shapechildren = Nothing
+    }
+(..)
+\end{lstlisting}
