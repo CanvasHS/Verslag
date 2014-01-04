@@ -1,11 +1,8 @@
 
 \subsection{Client}
-Het voornaamste onderdeel van de client is het canvas-element waarin de output getekend wordt door Kinetic.js. Daarboven zit de Canvas.hs javascriptcode die de verbinding onderhoud met de module en dit doorspeeld naar Kinetic.js om te tekenen.
+Het voornaamste onderdeel van de client is het canvas-element waarin de output getekend wordt door Kinetic.js. Daarboven zit de Canvas.hs javascriptcode die de verbinding onderhoud met de module en dit doorspeeld naar Kinetic.js om te tekenen. In dit deel worden voornamelijk de ontwerpbeslissingen besproken die betrekking hebben op de werking met KineticJS en de webbrowser.
 
--TODO: Plaatje van de Client
-
-
--TODO: Ontwerpkeuze toelichten: Super key wordt niet als modifier gezien
+-TODO: Plaatje architectuur Client
 
 \subsubsection{Canvas/Events}
 Vanuit de module ontvangt de client via de WebSocket verbinding output. Ieder element wordt omgezet en aangemaakt in KineticJS. Voor elk element dat geinteresseerd is in een event wordt een eventlisteners toegevoegd. Wanneer de volledige structuur opgebouwd is wordt door oude structuur weggegooid en de nieuwe structuur op het canvas getekend.
@@ -18,7 +15,6 @@ Op deze manier kan de Haskell kant bepalen wat er moet gebeuren tijdens het drag
 De programmeur kan een aantal specifieke acties uitvoeren op de client. De state van deze acties wordt onderhouden door de client zelf.
 -TODO: Referentie naar de specifieke sectie in de grafische bibliotheek
 
--TODO: Acties verder uitwerken vanuit de client gezien
 \paragraph{Browserrestricties}
 Canvas.hs bied de optie om de canvas in volledigscherm te laten weergeven. Door veiligheidsfunctionaliteiten in de huidige webbrowsers is het niet mogelijk om direct naar volledigscherm te gaan met behulp van JavaScript. Dit is alleen mogelijk vanuit klik- en toetsenbordevents. Daarom krijgt de gebruiker eerst een menu te zien voordat de browser naar volledigscherm gaat. Dezelfde veiligheidsrestricties zijn er voor het bestandenselectiemenu hierdoor heeft Canvas.hs daar ook een menu voor.
 
