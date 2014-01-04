@@ -2,27 +2,20 @@
 
 Gedurende het project zijn we een aantal problemen tegengekomen. Deze hadden te maken met zaken en dingen en hier mag meer tekst. Hieronder een kort overzicht van de belangrijkste problemen die zich tijdens het ontwerp en implementatie van het project hebben voorgedaan.
 
-\subsubsection{Kennis haskell}
-
-\paragraph{Monads}
-Denk aan do-notatie, binds (>>= / >>) en eigen monad voor de Server (state)
-
-\paragraph{Threads}
-Denk aan geziek met netjes de websockets en http-threads afsluiten en Timer-threads die nu doorlopen
-
 \subsubsection{Haskell interface}
-De Output (en de splitsing in Out en Block) en verschillen tussen Upload/Download en andere Actions en Shapes
+Doordat zowel het tekenen van grafische elementen als het uitvoeren van IO acties normaal gesproken via (een monadlaag op) de IO-monad verlopen moet CanvasHs deze beide mogelijk maken. Hierdoor is de interface voor de user applicatie erg utigebreid. 
+Er moest een manier gevonden worden zodat de handler zowel acties als grafische elementen kon opleveren, en het ook mogelijk is om slechts één van beide door te geven. Dit is gedaan door dit te verpakken in een tuple van een te tekenen grafisch element en een lijst van uit te voeren acties. Helaas resulteert dit in de user application in code die niet altijd even goed leesbaar is, daarom zijn er een tweetal hulpfuncties in het leven geroepen, \inlinecode{shape} en \inlinecode{actions}, die de leesbaarheidin de user application verhogen.
 
-Nameclashes?
+\paragraph{Acties met resultaat}
+Naast het bovenstaande is er nog een probleem met deze acties. Sommige acties hebben geen resultaat, zoals bijvoorbeeld het aanzetten van de Debug-console, of ze hebben pas later resultaat, zoals bijvoorbeeld het starten van een Timer of het vragen om een bestand van de gebruiker. Echter zijn er ook acties, zoals het openen van een bestand, die onmiddelijk resultaat opleveren. 
+Dit laatste type acties kan niet met een grafisch element gecombineerd worden. Immers wordt de user applicatie onmiddelijk met de resultaten van deze actie aangeroepen, nog voor het grafische element naar de canvas is gestuurd, de user applicatie zou dan weer een grafisch element op kunnen leveren waardoor er nu twee grafische elementen te versturen zijn en er tussen die twee gekozen moet worden. De user applicatie zou zou zelfs weer zo'n actie op kunnen leveren, waardoor er drie te versturen elementen zouden kunnen liggen, etc. 
+Er is daarom voor gekozen om de acties in twee types op te delen, acties die geen direct resultaat (\inlinecode{Action}) op leveren en acties die direct resultaat op leveren (\inlinecode{BlockingAction}). Van dit eerste kunnen er zoveel worden opgegeven als gewenst en deze kunnen gecombineerd worden met een te tekenen grafisch element. Het tweede type kan niet met een grafisch element gecombineerd worden en het resultaat kan ook uit slechts één zo'n actie bestaan. 
 
 \subsubsection{Aannamen gebruik}
+
 denk aan String vs ByteString in Save/Load etc. Misschien ook dat de Events en Actions lijst heel groot wordt. Iets over Nums vs Int/Float?
 
 \subsubsection{Verschillen systemen}
+Doordat er bij het tekenen van de grafische elementen gebruik wordt gemaakt van javascript en canvas in de browser van de gebruiker ontstaan er door inconsequenties tussen en bugs in browsers en besturingssystemen een aantal problemen. Veel van deze problemen hebben we opgevangen door gebruik te maken van bibliotheken aan de javascript kant als jQuery en kinetic.js. 
 
-\paragraph{Toetsen}
-windows-toets vs. command-toets 
-
-\paragraph{Schermresoluties}
-
-\paragraph{Martijn/Thijs, andere dingen?}
+\paragraph{Systeemtoetsen}Echter zijn er een aantal zaken waar systemen zo in verschillen dat we deze niet voor alle mogelijke systemen hebben afgevangen in CanvasHs. Er zijn bijvoorbeeld grote verschillen in de toetsenborden tussen verschillende systemen. Zo heeft windows een windows-toets, OSX een command-toets en hebben de meeste linux distributies überhaupt geen toets met soortgelijke werking, we hebben er in CanvasHs voor gekozen al deze toetsen onder de naam 'superkey' te scharen.
