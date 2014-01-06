@@ -17,62 +17,52 @@ Denk aan do-notatie, binds (>>= / >>) en eigen monad voor de Server (state)
 \paragraph{Threads}
 Denk aan geziek met netjes de websockets en http-threads afsluiten en Timer-threads die nu doorlopen
 \section{Planning}
+- TODO Planning schrijven
 \section{Samenwerking}
-Voor dit project zullen we op een AGILE manier werken, daarnaast zullen we gebruik maken van tools om ons ontwikkelproces beter te integreren. Hiertoe zullen we eerst scrum bespreken, en vervolgens bekijken welke tooling gebruikt gaan worden voor dit project.
-
-Tijdens de ontwikkelen van Canvas.hs zal er gebruik worden gemaakt van verschillende zogenaamde agile development methoden—waaronder de scrum project management methode. Naast projectmanagement bestaan er methoden die de productiviteit en effectiviteit van ontwikkelwerk verhoogt. Er zal gebruikt gemaakt worden van: automatisch testen en continuous integration.
+Tijdens het ontwikkelen van de eerste versie van Canvas.HS is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmangement methode gebruikt alsmede andere Agile methoden. Het toepassen van deze methoden is niet altijd even conconsequent gebeurt.
 
 \subsection{Algemeen}
 \subsection{Project organisatie}
-\paragraph{Toepassing Scrum (Trello)}
-Scrum is een softwareontwikkelmethode die helpt bij het organiseren, plannen en bijhouden van alle taken omtrent softwareontwikkeling. Scrum kent veel aspecten en kan op zeer verschillende wijze worden toegepast. In de paragrafen hieronder wordt kort toegelicht hoe scrum toegepast zal worden binnen het project.
+\paragraph{Toepassing Scrum}
+Er is gewerkt middels de scrum projectmangement methoden. Er zou gewerkt worden met verschillende rollen en er zouden zogenaamde scrum en sprint besprekingen worden gehouden. Daarbij zou onder andere het project- en sprintbacklog samengesteld en bijgewerkt worden.
+
+Elke samenkomst is er een kortdurende scrumbespreking gehouden. Na aanvang van het project zijn er ook een aantal sprint besprekingen gehouden. Deze sprint besprekingen kwamen altijd na het gesprek met de opdrachtgever. Er bleek al snel dat onze afgesproken sprint van twee werken wel erg kort was om elke twee weken dat er samengekomen werd een nieuwe lange sprintbespreking te houden. Dus er werd uiteindelijk voor gekozen om de besprekingen met de projectgroep te beperkingen tot de dagelijkse korte besprekingen.
+
 \paragraph{Taken}
-Binnen scrum kan je afzonderlijke taken op verschillende manieren definiëren. Er zal geprobeerd worden zo veel mogelijk te werken met user stories. In een user story wordt een bepaalde actie van een gebruiker beschreven. De software die er voor moet zorgen dat deze actie mogelijk wordt dient dan nog geschreven te worden. Zodra deze software geschreven is, getest is en eventueel gepubliceerd is kan de user story als voltooid worden beschouwd.
+Regelmatig werdt de lijst met taken bijgewerkt. Taken bestonden uit: projecttaken, als het bijhouden van de planning; ontwikkeltaken, als het oplossen van bugs en het schrijven van nieuwe features; schrijftaken en overige taken.
 
-Niet alle taken kunnen middels een user story beschreven worden, in dat geval zullen wij hiervan afwijken.
-\paragraph{Project Backlog}
-Het project backlog is de ongesorteerde verzameling uit te voeren taken. Zodra het duidelijk wordt dat er een nieuwe taak te vervullen is, zal deze in eerste instantie in de project backlog geplaatst worden. Later zullen deze taken ingepland worden in sprints.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/trello.png}
+\caption{Trello board}
+\label{fig:trello}
+\end{center}
+\end{figure}
 
-\paragraph{Sprints}
-Een sprint is een periode waarbinnen een subset van taken uit de project backlog wordt uitgevoerd. Deze subset van taken heet het sprint backlog.
-
-Voordat een sprint van start gaat zal er een sprint bespreking gehouden worden. Hierin wordt het sprint backlog van de komende sprint gevuld. Voor elke taak zal worden gekeken hoeveel tijd deze in beslag neemt. Vervolgens is het eenvoudig geworden om met goede zekerheid een sprint in te vullen met taken die haalbaar zijn. Daarnaast worden de resultaten van de vorige sprint geevalueerd. Deze bespreking zal veel uitgebreider zijn dan de scrum bespreking.
-
-Nadat er met een sprint is begonnen mogen er geen taken meer toegevoegd worden aan de sprint backlog. Een sprint duurt twee weken, hierdoor voeren we het project uit in negen sprints.
-
-\paragraph{Scrum master} 
-Er is een persoon die goed in de gaten zal houden of alles binnen een sprint en over sprints heen volgens de planning verloopt. En zonodig de planning aanpast. Deze persoon wordt binnen de scrum project management methode de scrum master genoemd. Binnen het Canvas.hs team zal Joost van Doorn deze taak vervullen.
-
-Een belangrijk instrument van de scrum master is de zogenaamde burndown chart dit is een grafiek die op elk moment de voortgang van de huidige sprint toont. Idealiter is deze grafiek bij elke scrum bespreking up to date, en wordt deze dan ook getoond aan de team leden.
-
-\paragraph{Product owner} 
-Naast de rol van scrum master is de rol van product owner ook een belangrijke. We nemen aan dat Robert de Groote deze rol zal invullen. De product owner is vaak de klant en de persoon die beslist over het uiteindelijke product. De inspraak van de product owner zal er voor moeten zorgen dat het doel van het product wordt nagestreefd. Hierbee is het handig dat de product owner aanwezig is bij elke sprint bespreking, zodat de taken in het sprint backlog in lijn liggen met de prioriteiten van de product owner.
-
-\paragraph{Scrum besprekingen} 
-De scrum bespreking vindt plaats elke dag voordat er begonnen wordt met werken. Deze kan gedaan worden via een chat client. Tijdens de scrum bespreking vertelt iedereen, wat hij de vorige werkdag zou doen, of dit allemaal gelukt is en wat hij deze werkdag gaat doen.
-
-Vervolgens vertelt de scrum master of dit in lijn is met de verwachting van de sprint. Het is de bedoeling dat een scrum bespreking niet meer dan 10 minuten in beslag neemt zodat iedereen snel aan het werk kan.
-Verantwoordelijkhedenverdeling
-De verantwoordelijkheden zijn binnen het project als volgt verdeeld:
-Scrum master: Joost
-Eindverantwoordelijk Javascript: Martijn
-Eindverantwoordelijk Haskell: Pim en Lennart
-Eindverantwoordelijk usability: Thijs
-Notulist: Pim
-De eindverantwoordelijkheid voor usability betekent dat Thijs ervoor verantwoordelijk is dat het uiteindelijke systeem eenvoudig te gebruiken is voor de student. Joost zal als scrum master taken uit de verschillende hoeken van het project oppakken. 
-
-\paragraph{Trello}
-Een scrum board is een belangrijk onderdeel van scrum. Op dit bord staat namelijk het project backlog, sprint backlog en de voortgang van de huidige sprint. Hiervoor gaan we gebruik maken van een eenvoudige online tool genaamd Trello.
-
-GitHub issues kunnen eenvoudig gekoppeld worden aan Trello. Hiermee kunnen bijvoorbeeld nieuw aangemaakte Issues automatisch in het project backlog verschijnen.
+De lijst van ontwikkeltaken werd bijgehouden op het \emph{GitHub} platform. Deze taken werden daar ook wel Issues genoemd. Andere taken werden vervolgens bijgehouden op \emph{Trello}. Met deze applicatie kan een online takenbord gemaakt worden, zie \autoref{fig:trello}. De ontwikkeltaken werden middels synchronisatie ook op dit takenbord gezet. Door \emph{Trello} had elk lid van het project een goed inzicht in de taken die nog openstonden en reeds waren uitgevoerd.
 
 \paragraph{Terugkoppeling naar de opdrachtgever}
+De opdrachtgever—binnen scrum ook product owner genoemd—is twee werkelijks geinformeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
 
 \subsection{Versiebeheer}
-Er is al een keuze gemaakt in de tooling die we willen gebruiken voor zowel project management als software ontwikkeling. Er zijn verschillende aspecten van het project die baat hebben bij tooling.
+Bij het bouwen van software met een groep is het belangrijk dat een ontwikkelaar zich kan concentreren op de fearure die hij aan het ontwikkelen is. Idealiter er geen rekening gehouden te worden met andere features die door anderen ontwikkeld worden. Er is dan ook gekozen om gebruik te maken van het gedistribueerde versiebeheer systeem \emph{Git} met een centraal repository op \emph{GitHub}.
 
-Versie beheer is belangrijk zodat iedereen altijd kan werken met de laatste versie, er geen code verloren gaat en we altijd terug kunnen vallen op een eerdere versie van de software die werkt. GitHub en Git zijn is versiebeheer software die gedistribueerd werkt, we zijn dus niet afhankelijk van een centrale server waar de repository op staat maar iedereen heeft zijn eigen repository en deze worden met elkaar in sync gehouden. GitHub heeft verder ondersteuning voor het bijhouden van issues, die vervolgens gekoppeld kunnen worden aan commits.
-\paragraph{GitHub en Pull Requests}
-\paragraph{CI en Travis}
-Dit continuous integration platform zorgt er voor dat bij elke commit naar de repository er een build gedaan wordt. Daarna kunnen tests worden gerunt. Hiermee kunnen wij er voor zorgen dat een commit naar de dev of master branch altijd werkt en alle tests slagen. Dit heeft als voordeel dat als iemand aan de slag gaat met een nieuwe feature of code van andere toevoegt aan zijn codebase dit altijd werkt. Natuurlijk is het dan ook belangrijk dat er voor alle code tests zijn geschreven.
+Over het gebruik van deze software zijn afspraken gemaakt. Zo is er gebruik gemaakt van verschillende \emph{branches}. Als een bepaalde versie van de software op een bepaalde branch staat zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. En is een versie op de \inlinecode{master} branch klaar voor gebruik.
+
+\paragraph{Feature branches en pull Requests}
+Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch gemaakt vanaf de \inlinecode{dev} branch. Een voorbeeld hiervan is de \inlinecode{arcs} branch. In Appendix B. staat beschreven hoe \inlinecode{Arc} shapes toegevoegd kunnen worden. Dit is dus gebeurd op een aparte branch die begonnen is vanaf de \inlinecode{dev} branch. 
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/pullrequest.png}
+\caption{Pull Request \#75 Arcs geimplementeerd. – \url{https://github.com/CanvasHS/Canvas.hs/pull/75}}
+\label{fig:pullrequest}
+\end{center}
+\end{figure}
+
+Als een feature af is moet deze beoordeeld voordat deze gemergd kan worden naar de \inlinecode{dev} branch. Daarvoor wordt een \emph{pull request} aangemaakt. Deze \emph{pull request} bevat dan informatie over de wijzigingen tenopzichte van de versie die op de \inlinecode{dev} branch staat. Een beoordelaar kan de code lezen en deze goedkeuren. Op het moment dat de code goed wordt gekeurt komt een nieuwe versie met de nieuwe feature op de \inlinecode{dev} branch te staan.
+
+\paragraph{CI en Travis} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van \emph{continuous integration} software. 
+
 
