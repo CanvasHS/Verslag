@@ -19,14 +19,25 @@ Denk aan geziek met netjes de websockets en http-threads afsluiten en Timer-thre
 \section{Planning}
 - TODO Planning schrijven
 \section{Samenwerking}
-Tijdens het ontwikkelen van de eerste versie van Canvas.HS is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmangement methode gebruikt alsmede andere Agile methoden. Het toepassen van deze methoden is niet altijd even conconsequent gebeurt.
+Tijdens het ontwikkelen van de eerste versie van Canvas.HS is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmangement methode gebruikt alsmede andere Agile methoden.
 
-\subsection{Algemeen}
+De samenwerking is goed verlopen. Daarbij was de duidelijke structuur van zowel het project– als de technische organisatie een belangrijk onderdeel. Er kon met deze structuur, naar gevoel van de projecgroep, efficient gewerkt worden. Er werd wekelijks twee of meer keer samengekomen om te werken aan het project.
+
 \subsection{Project organisatie}
-\paragraph{Toepassing Scrum}
-Er is gewerkt middels de scrum projectmangement methoden. Er zou gewerkt worden met verschillende rollen en er zouden zogenaamde scrum en sprint besprekingen worden gehouden. Daarbij zou onder andere het project- en sprintbacklog samengesteld en bijgewerkt worden.
+Er is gewerkt middels de scrum projectmangement methoden. Er zou gewerkt worden met verschillende rollen en er zouden zogenaamde scrum en sprint besprekingen worden gehouden. Daarbij zou onder andere het project– en sprintbacklog samengesteld en bijgewerkt worden.
 
-Elke samenkomst is er een kortdurende scrumbespreking gehouden. Na aanvang van het project zijn er ook een aantal sprint besprekingen gehouden. Deze sprint besprekingen kwamen altijd na het gesprek met de opdrachtgever. Er bleek al snel dat onze afgesproken sprint van twee werken wel erg kort was om elke twee weken dat er samengekomen werd een nieuwe lange sprintbespreking te houden. Dus er werd uiteindelijk voor gekozen om de besprekingen met de projectgroep te beperkingen tot de dagelijkse korte besprekingen.
+\paragraph{Rollen} Er is een verdeling van verantwoordelijkheden gemaakt. Naast de teamleden nam de opdrachgever de rol van \emph{product owner} aan.
+\begin{enumerate}
+    \item \emph{Joost van Doorn} had de taak van \emph{scrum master} en was verantwoordelijk voor het testen van de software.
+    \item \emph{Pim Jager} was notulist voor alle besprekingen en samen met Lennart verantwoordelijk voor de Haskell code.
+    \item \emph{Lennart Buit} was verantwoordelijk voor het protocol en samen met Pim verantwoordelijk voor de Haskell code.
+    \item \emph{Martijn Roo} was samen met Thijs verantwoordelijk voor de JavaScript code.
+    \item \emph{Thijs Scheepers} was verantwoordelijk voor de gebruiksvriendelijkheid uiteindelijke API en samen met Martijn verantwoordelijk voor de JavaScript code.
+\end{enumerate}
+
+\paragraph{Besprekingen} Elke samenkomst is er een kortdurende scrumbespreking gehouden. Na aanvang van het project zijn er ook een aantal sprint besprekingen gehouden. Deze sprint besprekingen kwamen altijd na het gesprek met de opdrachtgever. Er bleek al snel dat onze afgesproken sprint van twee werken wel erg kort was om elke twee weken dat er samengekomen werd een nieuwe lange sprintbespreking te houden. Dus er werd uiteindelijk voor gekozen om de besprekingen met de projectgroep te beperkingen tot de dagelijkse korte besprekingen.
+
+Bij de dagelijkse besprekingen werd vaak op details in gegaan, hierbij werden ontwerp beslissingen vaak genomen tijdens deze besprekingen. De besprekingen duurde hierdoor soms wat lang en werden zittend gehouden.
 
 \paragraph{Taken}
 Regelmatig werdt de lijst met taken bijgewerkt. Taken bestonden uit: projecttaken, als het bijhouden van de planning; ontwikkeltaken, als het oplossen van bugs en het schrijven van nieuwe features; schrijftaken en overige taken.
@@ -41,10 +52,9 @@ Regelmatig werdt de lijst met taken bijgewerkt. Taken bestonden uit: projecttake
 
 De lijst van ontwikkeltaken werd bijgehouden op het \emph{GitHub} platform. Deze taken werden daar ook wel Issues genoemd. Andere taken werden vervolgens bijgehouden op \emph{Trello}. Met deze applicatie kan een online takenbord gemaakt worden, zie \autoref{fig:trello}. De ontwikkeltaken werden middels synchronisatie ook op dit takenbord gezet. Door \emph{Trello} had elk lid van het project een goed inzicht in de taken die nog openstonden en reeds waren uitgevoerd.
 
-\paragraph{Terugkoppeling naar de opdrachtgever}
-De opdrachtgever—binnen scrum ook product owner genoemd—is twee werkelijks geinformeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
+\paragraph{Terugkoppeling naar de opdrachtgever} De opdrachtgever—binnen scrum ook \emph{product owner} genoemd—is twee werkelijks geinformeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
 
-\paragraph{Verbeteringen}
+\paragraph{Verbeteringen} Er is nu gewerkt in een projectgroep zonder direct uren budget, mocht dit het geval zijn zouden de inschattingsmethoden en burndown chart uit de scrum methode kunnen worden gebruikt. Verder zouden de besprekingen zogenaamde \emph{stand-up meetings} kunnen worden waarbij iedereen staat en niet voor de computer zit. Hierdoor konden de dagelijkse besprekingen wellicht wat vlotter verlopen.
 
 \subsection{Versiebeheer}
 Bij het bouwen van software met een groep is het belangrijk dat een ontwikkelaar zich kan concentreren op de fearure die hij aan het ontwikkelen is. Idealiter er geen rekening gehouden te worden met andere features die door anderen ontwikkeld worden. Er is dan ook gekozen om gebruik te maken van het gedistribueerde versiebeheer systeem \emph{Git} met een centraal repository op \emph{GitHub}.
@@ -64,7 +74,7 @@ Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch
 
 Als een feature af is moet deze beoordeeld voordat deze gemergd kan worden naar de \inlinecode{dev} branch. Daarvoor wordt een \emph{pull request} aangemaakt. Deze \emph{pull request} bevat dan informatie over de wijzigingen tenopzichte van de versie die op de \inlinecode{dev} branch staat. Een beoordelaar kan de code lezen en deze goedkeuren. Op het moment dat de code goed wordt gekeurt komt een nieuwe versie met de nieuwe feature op de \inlinecode{dev} branch te staan.
 
-Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met success gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaarscode controlleerde en zorgde er voor dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
+Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met success gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaars code controlleerde en dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
 
 \paragraph{Continuous integration} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van de \emph{continuous integration} software \emph{Travis}. Deze software luistert naar nieuwe commits naar het centrale repository, als er een nieuwe commit gedaan is wordt er een virtuele machine opgestart die vervolgens middels een buildscript de versie van de software probeert te bouwen. Dit buildscript staat in de root directory van het repository. 
 
