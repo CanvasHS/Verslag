@@ -44,14 +44,15 @@ De lijst van ontwikkeltaken werd bijgehouden op het \emph{GitHub} platform. Deze
 \paragraph{Terugkoppeling naar de opdrachtgever}
 De opdrachtgever—binnen scrum ook product owner genoemd—is twee werkelijks geinformeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
 
+\paragraph{Verbeteringen}
+
 \subsection{Versiebeheer}
 Bij het bouwen van software met een groep is het belangrijk dat een ontwikkelaar zich kan concentreren op de fearure die hij aan het ontwikkelen is. Idealiter er geen rekening gehouden te worden met andere features die door anderen ontwikkeld worden. Er is dan ook gekozen om gebruik te maken van het gedistribueerde versiebeheer systeem \emph{Git} met een centraal repository op \emph{GitHub}.
 
 Over het gebruik van deze software zijn afspraken gemaakt. Zo is er gebruik gemaakt van verschillende \emph{branches}. Als een bepaalde versie van de software op een bepaalde branch staat zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. En is een versie op de \inlinecode{master} branch klaar voor gebruik.
 
-\paragraph{Feature branches en pull Requests}
-Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch gemaakt vanaf de \inlinecode{dev} branch. Een voorbeeld hiervan is de \inlinecode{arcs} branch. In Appendix B. staat beschreven hoe \inlinecode{Arc} shapes toegevoegd kunnen worden. Dit is dus gebeurd op een aparte branch die begonnen is vanaf de \inlinecode{dev} branch. 
-
+\paragraph{Feature branches en pull requests}
+Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch gemaakt vanaf de \inlinecode{dev} branch. Een voorbeeld hiervan is de \inlinecode{arcs} branch. In \autoref{sec:shapesext} staat beschreven hoe \inlinecode{Arc} shapes toegevoegd kunnen worden. Dit is dus gebeurd op een aparte branch die begonnen is vanaf de \inlinecode{dev} branch, zie \autoref{fig:pullrequest}. 
 
 \begin{figure}
 \begin{center}
@@ -63,6 +64,13 @@ Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch
 
 Als een feature af is moet deze beoordeeld voordat deze gemergd kan worden naar de \inlinecode{dev} branch. Daarvoor wordt een \emph{pull request} aangemaakt. Deze \emph{pull request} bevat dan informatie over de wijzigingen tenopzichte van de versie die op de \inlinecode{dev} branch staat. Een beoordelaar kan de code lezen en deze goedkeuren. Op het moment dat de code goed wordt gekeurt komt een nieuwe versie met de nieuwe feature op de \inlinecode{dev} branch te staan.
 
-\paragraph{CI en Travis} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van \emph{continuous integration} software. 
+Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met success gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaarscode controlleerde en zorgde er voor dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
 
+\paragraph{Continuous integration} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van de \emph{continuous integration} software \emph{Travis}. Deze software luistert naar nieuwe commits naar het centrale repository, als er een nieuwe commit gedaan is wordt er een virtuele machine opgestart die vervolgens middels een buildscript de versie van de software probeert te bouwen. Dit buildscript staat in de root directory van het repository. 
+
+Dit buildscript specificeerd onder andere dat de software gebouwd moet worden met de Haskell compiler, maar ook dat alle geschreven tests uitgevoerd moeten worden. Mocht de compilatie of het uitvoeren van een van de tests niet geslaagd zijn is de build gefaalt. Dit wordt dan vervolgens ook weergeven in het venster van de pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, zoals bijvoorbeeld te zien bij \autoref{fig:pullrequest}, kan weet hij zeker dat de versie veilig is om te mergen.
+
+Het buildscript voert naast de compilatie en de testen nog een paar andere commando's uit. Zo genereerd het buildscript ook de documentatie en upload deze naar de Canvas.HS website—\url{http://canvashs.github.io}. Op de website kan de documentatie bekeken worden per build. Hierdoor hoeven ontwikkelaars zelf geen documentatie meer te genereren en hebben zij altijd, up to date, doozoekbare documentatie.
+
+\paragraph{Verbeteringen} Naast het integreren van documentatie zou het buildscript ook automatisch per versie de test covarage uit kunnen rekenen. Dit zou ontwikkelaars nog meer inzicht kunnen geven in de kwaliteit van de software en hoe deze voor– of achteruit gaat per versie.
 
