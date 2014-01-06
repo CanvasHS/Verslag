@@ -1,5 +1,53 @@
 \subsection{Grafische bibliotheek} \label{subsec:grafische_bibliotheek}
 
+Binnen onze library hebben we een aantal ontwerpkeuzes moeten maken, we hebben ten eerste moeten kiezen hoe de gebruiker tekent, maar ook hoe we events op elementen plaatsen en hoe we de gebruiker laten omgaan met IO.
+
+\subsubsection{Grafisch}
+De meest belangrijke keuze die we gemaakt hebben is hoe er getekend wordt, voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGl. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
+
+De tegenhanger van deze methode is het absoluut tekenen van alle elementen. Voor het tekenen van kleine grafische interfaces is dit erg eenvoudig, teken gewoon een paar vierkantjes op arbitraire locaties op het canvas. Het nadeel van deze methode is dat als er meerdere vormen verplaatst moeten worden, dit stuk voor stuk moet gebeuren. Daarnaast is het invullen van een vorm een attribuut van de vorm, en daartoe is het niet mogelijk om meerdere elementen tegelijk van kleur te voorzien. Dat probleem zou opgelost kunnen worden door functies binnen de haskell te definieren die batchoperaties op een lijst van shapes toepast.
+
+Ook hebben we nog het tekenmodel van onze Javascript bibliotheen, Kinetic tekent alles absoluut, maar ondersteund lagen die afzonderlijk geschaalt kunnen worden. Onze insteek was om zo min mogelijk datamodellen te hebben, in eerste instantie werd er nagedacht over het doortrekken van het Kinetic model naar Haskell om zo maar een enkel datamodel te hebben.
+
+We hebben uiteindelijk gekozen voor een hybride tussen Gloss en Kinetic, we hebben een absoluut coordinatensysteem voor het overgrote deel van de elementen, maar we kunnen meerdere vormen groeperen in een container die weer relatief verplaatst kan worden. Wil de gebruiker een complexe vorm bestaande uit meerdere subvormen draaien, dan kan deze in een container gestopt worden en dan gedraaid.
+
+Bewerkingen op shapes zijn nodes in onze scene, als het ware maakt de gebruiker een boom met daarin nodes (attributen en containers) en leafs (shapes), zo hebben we de flexibiliteit van het Gloss model en de eenvoud van het Kinetic model gevat in een enkel datamodel.
+
+Om onze keuze te illustreren volgt een ``Mickey Mouse'' vorm die gedraaid en gekleurd is. Hier is goed te zien hoe binnen de Container een absoluut coordinatenstelsel heerst, terwijl erbuiten relatieve bewerkingen uitgevoerd worden.
+
+\begin{lstlisting}[style=densecode, language=Haskell]
+Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
+            Circle (70, 130) 20,
+            Circle (100, 100) 50,
+            Circle (130, 130) 20
+        ]
+\end{lstlisting}
+
+\subsubsection{ID's}
+
+We wilden events ondersteunen in onze communicatie, de bestaande Functioneel Programmeren module geeft de gebruiker een (x,y) co"ordinaat maar geen direct event. Onze library zoekt zelf uit op welk element er geklikt is en vuurt bijvoorbeeld een MouseClick met een identifier. Hiertoe moesten we beslissen hoe identifiers uitgegeven worden, we hebben gekozen om de gebruiker hier verantwoordelijk voor te maken, de gebruiker besluit of een shape ge"interesseert moet zijn in events en voegt hier een (unieke) naam aan toe, als het event dan gevuurd wordt, kan de gebruiker patternmatchen op zijn eigen uniek gekozen naam, en er worden nooit meer events over de lijn verstuurd dan de gebruiker om gevraagd heeft.
+
+Wederom een kleine illustratie, hier voegen we een event toe aan onze ``Mickey Mouse''
+\begin{lstlisting}[style=densecode, language=Haskell]
+Event defaults{eventId="mickey", mouseClick = True} $ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
+            Circle (70, 130) 20,
+            Circle (100, 100) 50,
+            Circle (130, 130) 20
+        ]
+\end{lstlisting}
+
+En later in de handler kunnen we dan een specifieke patternmatch toevoegen voor mouseclicks op ons ``Mickey Mouse'' element.
+\begin{lstlisting}[style=densecode, language=Haskell]
+handler :: State -> Event -> Output
+(..)
+handler state (MouseClick (x,y) "mickey") = -- Do something useful
+\end{lstlisting}
+
+\subsubsection{Defaults}
+We wilden voorkomen dat gebruikers bij bijvoorbeeld events steeds moeten aangeven dat ze niet ge"interesseerd zijn in muissleep events. Daartoe moesten we op zoek naar een manier om defaults toe te voegen aan Haskell. In eerste instantie wilden we alle elementen standaard van een \inlinecode{Maybe Event} voorzien, en dat de gebruiker dan \inlinecode{Nothing} toevoegde als er geen event nodig was. Naast dat we gekozen hebben om attributen als nodes in de graaf te modeleren, wilden we ook voorkomen dat de gebruiker onnodige \inlinecode{Nothing}s moet toevoegen.
+
+Onze oplossing is een \inlinecode{Default} typeklasse, een Event heeft een record met velden voor het ID en een aantal booleans voor of hij geinteresseerd is in Events, dit record derived \inlinecode{Defaults} en die typeklasse heeft een functie \inlinecode{defaults}. Deze functie geeft een standaard record terug die leeg is, het ID is leeg en de shape is (met dat record) niet geinteresseerd in events, de gebruiker kan dan die defaults bewerken om de shape een ID te geven en geinteresseerd te laten zijn in events. Een voorbeeld hiervan is hierboven al gegeven, het record gegeven door de \inlinecode{defaults} record is bewerkt en het eventId is "mickey" geworden, verder is de vorm nu geinteresseerd in muiskliks.
+
 -TODO: Ontwerpkeuze: Boomstructuur en modifiers vs attributen op een element
 -TODO: Ontwerpkeuze: Referentie van specifieke elementen met behulp van ID toelichten
 -TODO: Ontwerpkeuze: Default values
