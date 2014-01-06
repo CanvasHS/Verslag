@@ -104,10 +104,10 @@ Mocht het toch noodzakelijk zijn de CanvasHs code uit te breiden met een shape, 
 
 \begin{lstlisting}[style=densecode, language=Haskell]
 data Shape =
-    (..)
+    ...
     -- | A rect with rounded corners, Starts at the specified point with a width (growing to the left), height (growing down), and a borderradius
     | RoundedRect Point Int Int Int
-    (..)
+    ...
 \end{lstlisting} 
 
 Daarnaast dient het protocol uitgebreid te worden met onze nieuwe \inlinecode{RoundedRect}. De module \inlinecode{CanvasHs.Protocol.ShapeOutput} vertaald shapes naar JSON, hiertoe maakt hij eerst van de shape een record die exact beschrijft hoe de JSON eruit hoort te zien, en Aeson (onze JSON library) maakt daarvan een JSON bericht.
@@ -117,25 +117,25 @@ Omdat wij bij de roundedrect een nieuw attribuut in de JSON nodig hebben, border
 \begin{lstlisting}[style=densecode, language=Haskell]
 data JSONShapeData
     = JSONShapeData { 
-        (..)
+        ...
         borderRadius :: Maybe Int,
-        (..)
+        ...
     } deriving (Show)
 
 shapeEncodePoint :: D.Point -> JSONShapeData
 shapeEncodePoint (x',y')    
     = JSONShapeData { 
-        (..)
+        ...
         borderRadius = Nothing,
-        (..)
+        ...
     }
 
 shapeEncodePoints :: [D.Point] -> JSONShapeData
 shapeEncodePoints pts
     = JSONShapeData { 
-        (..)
+        ...
         borderRadius = Nothing,
-        (..)
+        ...
     }
 \end{lstlisting}
 
@@ -143,7 +143,7 @@ Nu kunnen we in de functie \inlinecode{shapeEncode} een geval voor de RoundedRec
 
 \begin{lstlisting}[style=densecode, language=Haskell]
 shapeEncode :: D.Shape -> JSONShape
-(..)
+...
 shapeEncode (D.RoundedRect point width height radius)  = 
     JSONShape {shapetype = "roundedRect" 
               ,shapedata = (shapeEncodePoint point) {
@@ -154,5 +154,5 @@ shapeEncode (D.RoundedRect point width height radius)  =
               ,shapeeventData = Nothing
               ,shapechildren = Nothing
     }
-(..)
+...
 \end{lstlisting}
