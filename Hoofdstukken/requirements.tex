@@ -1,0 +1,85 @@
+\chapter{Requirements} \label{hoofdstuk:requirements}
+
+
+Het systeem bestaat uit een browseromgeving dat doormiddel van html en JavaScript een gebruikersinterface toont. Doormiddel van een verbinding tussen de browseromgeving en het Haskell-programma kan er vanuit het Haskell-programma output gegenereerd worden in de browser en kunnen er events verstuurd worden vanuit de browseromgeving naar het Haskell-programma.
+
+Initieel is een lijst met requirements opgesteld. Gedurende het ontwikkelproces zijn bij de meetings met de begeleider nieuwe requirements aan de orde gekomen deze requirements zijn in deze lijst opgenomen.
+
+\subsubsection{Functionele requirements}
+\begin{enumerate}[{R}1]
+	\item Het systeem dient grafische primitieven zoals cirkels, vierkanten, lijnen, Bézier curves, n-hoeken en tekst moeten op een simpele manier getekend kunnen worden vanuit het Haskell-programma van de student.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem dient cirkels te kunnen tekenen.
+		\item Het systeem dient vierkanten te kunnen tekenen.
+		\item Het systeem dient lijnen te kunnen tekenen.
+		\item Het systeem dient Bézier curves te kunnen tekenen.
+		\item Het systeem dient tekst te kunnen tekenen.
+		\begin{enumerate}[{R\arabic{enumi}.\arabic{enumii}.}1]
+			\item Het systeem dient verschillende fonts te ondersteunen.
+			\item Het systeem dient bold en italic tekst te ondersteunen.
+			\item Het systeem dient verschillende font sizes te ondersteunen.
+		\end{enumerate}
+		\item Het systeem kan eventueel plaatjes inladen op het canvas.
+	\end{enumerate}
+	\item Het systeem dient vul- en lijnkleuren van grafische componenten instelbaar te maken.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem dient lijnkleuren instelbaar te maken.
+		\item Het systeem dient vulkleuren instelbaar te maken.
+		\item Het systeem kan eventueel gradients als vulkleur gebruiken.
+	\end{enumerate}
+	\item Het systeem dient events vanuit JavaScript door te geven aan het Haskell-programma van de student.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem dient toetsaanslagen vanuit de browser door te geven.
+		\item Het systeem dient muisklikken vanuit de browser door te geven.
+		\item Het systeem dient scroll-events vanuit de browser door te geven.
+	\end{enumerate}
+	\item Een programmeur moet grafische componenten aan kunnen passen zonder zijn programma te hoeven hercompileren.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem kan eventueel stapsgewijze aanpassingen geanimeerd weergeven.
+		\item Het systeem kan eventueel zoomen en geschoven worden op de canvas.
+	\end{enumerate}
+	\item Het systeem kan acties ondersteunen die in de client of door de module worden uitgevoerd.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem kan eventueel tekstinvoer vragen met een pop-up.
+		\item Het systeem kan eventueel fullscreen getoond worden.
+		\item Het systeem dient lokale bestanden te kunnen verwerken.
+		\begin{enumerate}[{R\arabic{enumi}.\arabic{enumii}.}1]
+			\item Het systeem dient lokale bestanden te kunnen openen via een functie die aangeboden wordt in de Haskell-module.
+			\item Het systeem dient lokale bestanden te kunnen wijzigen via een functie die aangeboden wordt in de Haskell-module.
+		\end{enumerate}
+		
+		\item Het systeem kan eventueel bestanden die de gebruiker aanbied te kunnen verwerken.
+	\end{enumerate}
+	\item Het systeem dient duidelijke errors te genereren.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Als de verbinding tussen JavaScript en Haskell verbroken wordt dient het systeem een error te tonene aan de gebruiker. 
+		\item Het systeem dient een error te tonen wanneer een functionaliteit in een onverwachte staat komt.
+	\end{enumerate}
+	\item Het systeem dient automatisch een browser te starten bij het draaien van het programma.
+	\item Het systeem dient de browseromgeving opnieuw te laden als het Haskell-programma opnieuw gecompileerd wordt.
+	\item De JavaScript-omgeving dient een simpele debug-console te bevatten.
+	\newcounter{startvalue}
+	\setcounter{startvalue}{\value{enumi}}
+\end{enumerate}
+
+\subsubsection{Niet functionele requirements}
+\begin{enumerate}[{R}1]
+\setcounter{enumi}{\value{startvalue}}
+	\item Het systeem dient multiplatform te werken.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem dient te werken in de laatste versie van Internet Explorer, Firefox, Chrome en Safari.
+		\item Het systeem dient te werken op een Linux, OS X en Windows.
+		\item Het systeem dient te werken op een computer met een hoge pixeldichtheid.
+	\end{enumerate}
+	\item Het systeem dient gemakkelijk en snel te gebruiken te zijn.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem dient eenvoudig te installeren zijn.
+		\item Het systeem dient makkelijk af te sluiten te zijn.
+	\end{enumerate}
+	\item Het systeem dient makkelijk te onderhouden zijn.
+	\begin{enumerate}[{R\arabic{enumi}.}1]
+		\item Het systeem dient gedocumenteert te zijn.
+		\item Het systeem dient modulair opgebouwd te zijn.
+	\end{enumerate}
+	\item Het systeem dient getest te zijn met 70\% code coverage (exclusief frameworks).
+\end{enumerate}
