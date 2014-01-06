@@ -2,7 +2,13 @@
 \subsection{Client}
 Het voornaamste onderdeel van de client is het canvas-element waarin de output getekend wordt door Kinetic.js. Daarboven zit de Canvas.hs javascriptcode die de verbinding onderhoud met de module en dit doorspeeld naar Kinetic.js om te tekenen. In dit deel worden voornamelijk de ontwerpbeslissingen besproken die betrekking hebben op de werking met KineticJS en de webbrowser.
 
--TODO: Plaatje architectuur Client
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/client_architecture.pdf}
+\caption{Architectuur van de JavaScript client}
+\label{fig:architecture_client}
+\end{center}
+\end{figure}
 
 \subsubsection{Canvas/Events}
 Vanuit de module ontvangt de client via de WebSocket verbinding output. Ieder element wordt omgezet en aangemaakt in KineticJS. Voor elk element dat geinteresseerd is in een event wordt een eventlisteners toegevoegd. Wanneer de volledige structuur opgebouwd is wordt door oude structuur weggegooid en de nieuwe structuur op het canvas getekend.
