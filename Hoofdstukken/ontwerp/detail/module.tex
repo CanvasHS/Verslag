@@ -31,7 +31,6 @@ De module handeld input en output af door events naar de eventhandler van de pro
 
 De programmeur zal in zijn eventhandler bij ieder event de huidige state en de huidige event meekrijgen. Het type van de eventhandler is \inlinecode{userState -> Event -> (userState, Output)}, waarin de programmeur elk type aan userState kan geven. Door middel van pattern matching kan de programmeur makkelijk een bepaald event opvangen. Bijvoorbeeld: een muisklikevent wordt opgevangen door: \inlinecode{handler state (MouseClick (x,y) "id")}. De returnwaarde vand de eventhandler is een tuple van de nieuwe state en de output. Output is een tuple van \inlinecode{(Maybe Shape, [Action])}. De eventhandler kan meerdere acties tegelijk uitvoeren en/of een grafische output leveren. De ondersteunde events en outputtypes worden verder toegelicht in \autoref{subsec:grafische_bibliotheek}.
 
--TODO: Acties   
 \paragraph{Timers}
 Canvas.Hs ondersteund timers die ervoor zorgen dat met een bepaald interval een event naar de eventhandler wordt verstuurd. Hiermee kunnen bijvoorbeeld animaties worden toegevoegd aan de interface. Deze timers worden bijgehouden in de module. Een alternatief is om de timers aan de client over te laten. Dit heeft als voordeel dat het makkelijker is om timers bij de houden in JavaScript dan in Haskell. In Haskell ontstaan er dan verschillende threads die je moet bijhouden. Groot voordeel is dat er geen extra acties over de WebSocketconnectie verzonden hoeven worden en dat een implementatie direct in Haskell meer precisie geeft voor de timer.
 
