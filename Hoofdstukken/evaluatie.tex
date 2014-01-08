@@ -14,13 +14,14 @@ Bij het begin van het Canvas.Hs-project was de kennis over Haskell en functionee
 Naarmate het project vorderde vorderde ook onze kennis van Haskell, hierdoor maakt de uiteindelijke versie van Canvas.Hs goed gebruik van de mogelijkheden van o.a. monadisch programmeren en Haskells threadysteem. 
 \paragraph{Monads}
 Zoals gezegd kent Haskell het concept van monads. Één van de doelen van CanvasHs is om dit concept niet te hoeven gebruiken voor grafische weergave bij het vak functioneel programmeren. Dit betekent dat ook wij, de ontwikkelaars, weinig kennis over dit concept hadden voor aan het project begonnen werd. Doordat we 
-Denk aan do-notatie, binds (>>= / >>) en eigen monad voor de Server (state)
+Denk aan do-notatie, binds (>>=
+>>) en eigen monad voor de Server (state)
 
 \paragraph{Threads}
 Denk aan geziek met netjes de websockets en http-threads afsluiten en Timer-threads die nu doorlopen
 
 \section{Planning}
-- TODO Planning schrijven
+\todo{Planning schrijven}
 \section{Samenwerking}
 Tijdens het ontwikkelen van de eerste versie van Canvas.HS is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmangement methode gebruikt alsmede andere Agile methoden.
 
@@ -79,7 +80,7 @@ Als een feature af is moet deze beoordeeld voordat deze gemergd kan worden naar 
 
 Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met success gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaars code controlleerde en dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
 
-\paragraph{Continuous integration} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van de \emph{continuous integration} software \emph{Travis}. Deze software luistert naar nieuwe commits naar het centrale repository, als er een nieuwe commit gedaan is wordt er een virtuele machine opgestart die vervolgens middels een buildscript de versie van de software probeert te bouwen. Dit buildscript staat in de root directory van het repository. 
+\paragraph{Continuous integration} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van de \emph{continuous integration} software \emph{Travis}. Deze software luistert naar nieuwe commits naar het centrale repository, als er een nieuwe commit gedaan is wordt er een virtuele machine opgestart die vervolgens middels een buildscript de versie van de software probeert te bouwen. Dit buildscript staat in de root directory van het repository.
 
 Dit buildscript specificeerd onder andere dat de software gebouwd moet worden met de Haskell compiler, maar ook dat alle geschreven tests uitgevoerd moeten worden. Mocht de compilatie of het uitvoeren van een van de tests niet geslaagd zijn is de build gefaalt. Dit wordt dan vervolgens ook weergeven in het venster van de pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, zoals bijvoorbeeld te zien bij \autoref{fig:pullrequest}, kan weet hij zeker dat de versie veilig is om te mergen.
 
