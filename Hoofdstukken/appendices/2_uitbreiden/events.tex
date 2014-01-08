@@ -6,7 +6,7 @@ Met een event kan input van de client-side worden afgevangen, vervolgens zou er 
 
 Canvas.hs kan uitgebreid worden zodat specifieke invoer aan de JavaScript kant kan worden doorgegeven middels een Event naar Haskell. Hieronder wordt beschreven hoe het \inlinecode{WindowResize} event is toegevoegd aan de Canvas.HS library.
 \subsection{JavaScript}
-Als er een even toegevoegd moet worden zal eerst het protocol uitgebreid moeten worden. Het protocol beschrijft hoeft Haskell met de JavaScript moet communiceren en vise versa. Op de pagina \url{http://canvashs.github.io/protocol.html} kan gezien worden hoe het protocol van de huidige versie gedefineerd is. In het geval van \inlinecode{WindowResize} is een gelijknamig event toegevoegd. De \emph{JSON} representatie ziet er dan uit zoals hieronder weergegeven.
+Als er een event toegevoegd moet worden zal eerst het protocol uitgebreid moeten worden. Het protocol beschrijft hoeft Haskell met de JavaScript moet communiceren en vise versa. Op de pagina \url{http://canvashs.github.io/protocol.html} kan gezien worden hoe het protocol van de huidige versie gedefineerd is. In het geval van \inlinecode{WindowResize} is een gelijknamig event toegevoegd. De \emph{JSON} representatie ziet er dan uit zoals hieronder weergegeven.
 \begin{lstlisting}[language=JavaScript]
 {
     "event":"windowresize",
@@ -45,7 +45,7 @@ Vervolgens zal de functie \inlinecode{sendWindowResizeEvent(width,height)} aange
 \end{lstlisting}
 Na het toevoegen van deze stukken code is het \inlinecode{WindowResize} toegevoegd aan het protocol volgens het vooraf gedefineerde protocol.
 \subsection{Haskell}
-Vervolgens zal aan de Haskell kant de uitbreiding aan het protocol correct moeten intrepeteren en afhandelen. Eerst dient de API uitgebreid te worden met een nieuw data typen. Dit zal gedaan moeten worden in de file \emph{Data.hs}.
+Vervolgens zal aan \todo{De haskell ook anders beschrijven}de Haskell kant de uitbreiding aan het protocol correct moeten intrepeteren en afhandelen. Eerst dient de API uitgebreid te worden met een nieuw data type. Dit zal gedaan moeten worden in de file \emph{Data.hs}.
 \begin{lstlisting}[language=Haskell]
 -- | The events the user can expect to get as input
 data Event
@@ -55,13 +55,13 @@ data Event
     ...
     deriving(Eq, Show)
 \end{lstlisting}
-Vervolgens zal het \emph{JSON} protocol bericht correct gemapt moeten worden naar ons nieuwe data typen. Dit gebeurt in de file \emph{Input.hs}. Hier wordt alleen alleen de \inlinecode{Just} constructor gematched van het teruggegeven \inlinecode{Maybe} typen. Dit maakt width een verplicht veld. Als het wenselijk is dat een veld in het protocol optioneel is dan kan dit worden opgevangen door te matchen op \inlinecode{Nothing} en op \inlinecode{Just}.
+Vervolgens zal het \emph{JSON} protocol bericht correct gemapt moeten worden naar ons nieuwe data type. Dit gebeurt in de file \emph{Input.hs}. Hier wordt alleen alleen de \inlinecode{Just} constructor gematched van het teruggegeven \inlinecode{Maybe} type. Dit maakt width een verplicht veld. Als het wenselijk is dat een veld in het protocol optioneel is dan kan dit worden opgevangen door te matchen op \inlinecode{Nothing} en op \inlinecode{Just}.
 \begin{lstlisting}[language=Haskell]
 makeEvent "windowresize"
     (JSONEventData{width = Just w, height = Just h})
         = WindowResize w h
 \end{lstlisting}
-Nu is de implementatie van \inlinecode{WindowResize} helemaal afgerond, kan het event gebruikt worden in een programma dat de Canvas.HS library incorporeert. Dit kan bijvoorbeeld op de hieronder uitgewerkte methode.
+Nu is de implementatie van \inlinecode{WindowResize} helemaal afgerond, kan het event gebruikt worden in een programma dat de Canvas.HS library importeert. Dit kan bijvoorbeeld op de hieronder uitgewerkte methode.
 \begin{lstlisting}[language=Haskell]
 main = installEventHandler h (St{windowWidth=900, windowHeight=600})
  

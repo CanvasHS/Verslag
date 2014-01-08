@@ -31,10 +31,10 @@ data Action = ...
 \end{lstlisting}
 
 \subsection{Shapes}
-Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luisterd naar \events.
+Zoals in het vorige hoofdstuk aangegeven worden shapes opgebouwd door te beginnen met een basis-shape en hier dan translaties, rotaties, randen en andere translaties op toe te passen, daarnaast kan ook nog worden aangegeven dat een shape luistert naar \events.
 
 \subsubsection{Primitieven}
-Voor de primitieve shapes worden een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
+Voor de primitieve shapes wordt een tweetal types veel gebruikt. Dit zijn \type{Point} en \type{Path}. 
 
 \subparagraph{Point}
 Een \type{Point} definieert een punt op het canvas als een tuple van een x en een y coördinaat. \inlinecode{type Point = (Int, Int)}
@@ -92,7 +92,7 @@ data Shape = ...
 			| Text Point String TextData
 \end{lstlisting} 
 \begin{itemize}
-	\item \type{Point}, het punt waar rond de text getekend zal worden, m.b.v. \type{TextData}, kan dit verandert worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
+	\item \type{Point}, het punt \todo{waar rond de? beetje onduidelijk}waar rond de text getekend zal worden, m.b.v. \type{TextData}~, kan dit veranderd worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
 	\item \type{String}, de te tekenen tekst
 	\item \type{TextData}, een aantal opties om tekst anders weer te geven, zoals lettertype en lettergrootte, zie hieronder.
 \end{itemize}
@@ -117,16 +117,16 @@ instance Defaults TextData where
     defaults = TextData "Arial" 12 False False False Center
 \end{lstlisting}
 \begin{itemize}
-	\item font, het font van de te tekenen tekst. Dit font moet door de browser ondersteunt worden, als dit niet zo is zal de browser terugvallen op het standaard font
+	\item font, het font van de te tekenen tekst. Dit font moet door de browser ondersteund worden, als dit niet zo is zal de browser terugvallen op het standaard font
 	\item size, de grootte van de te tekenen tekst
 	\item bold, of de tekst dikgedrukt getekend moet worden
 	\item italic, of de tekst schuingedrukt getekend moet worden
-	\item underline, of de tekst onderstreept getekent moet worden
+	\item underline, of de tekst onderstreept getekend moet worden
 	\item alignment, de uitlijning van de te tekenen tekst. 
 		\begin{itemize}
 			\item \type{Left}, de linkerbovenhoek van de tekst wordt op het punt uitgelijnd.
-			\item \type{Center}, het middenpunt van de tekst wordt op het punt uigelijnd.
-			\item \type{Right}, de rechterbovenhoek van de tekst wordt op het punt uitegelijnd.
+			\item \type{Center}, het middenpunt van de tekst wordt op het punt uitgelijnd.
+			\item \type{Right}, de rechterbovenhoek van de tekst wordt op het punt uitgelijnd.
 		\end{itemize}
 \end{itemize}
 
@@ -134,7 +134,7 @@ instance Defaults TextData where
 De getekende primitieven (waaronder \type{Text}) kunnen d.m.v. translaties aangepast worden. Zo kunnen ze bijvoorbeeld gekleurd, van een rand voorzien, of geroteerd worden. Deze translaties zijn zelf ook \shapes, hierdoor is het mogelijk om meerdere translaties op elkaar uit te voeren. 
 
 \subparagraph{Color}
-Color definieert een kleur. De kleur wordt gedefinieert door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \inlinecode{type Color = (Int, Int, Int, Float)}
+Color definieert een kleur. De kleur wordt gedefinieerd door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \inlinecode{type Color = (Int, Int, Int, Float)}
 
 \myparagraph{Fill}
 \type{Fill} definieert dat een \shape een fill van een bepaalde kleur moet krijgen. 
@@ -160,7 +160,7 @@ data Shape = ...
 \end{itemize}
 
 \myparagraph{Rotate}
-\type{Rotate} definieert dat een \shape een aantal graden tegen de klok in geroteerd moet worden rond zijn linkerbovenhoek. Van niet rechthoekige \shapes wordt de rechterbovenhoek van de rechthoek die de \shape insluit gekozen. M.b.v. \type{Offset} kan dit rotatiepunt verandert worden, zie hieronder.
+\type{Rotate} definieert dat een \shape een aantal graden tegen de klok in geroteerd moet worden rond zijn linkerbovenhoek. Van niet rechthoekige \shapes wordt de rechterbovenhoek van de rechthoek die de \shape insluit gekozen. M.b.v. \type{Offset} kan dit rotatiepunt veranderd worden, zie hieronder.
 \begin{lstlisting}
 data Shape = ...
 			| Rotate Int Shape
@@ -171,7 +171,7 @@ data Shape = ...
 \end{itemize}
 
 \myparagraph{Scale}
-\type{Scale} definieert dat een \shape in de x en y richting geschaald moet worden. M.b.v. \type{Offset} kan het referentiepunt voor dit schalen verandert worden (zie hieronder).
+\type{Scale} definieert dat een \shape in de x en y richting geschaald moet worden. M.b.v. \type{Offset} kan het referentiepunt voor dit schalen veranderd worden (zie hieronder).
 \begin{lstlisting}
 data Shape = ...
 			| Scale Float Float Shape
@@ -189,7 +189,7 @@ data Shape = ...
 			| Offset Point Shape
 \end{lstlisting}
 \begin{itemize}
-	\item \type{Point}, het punt wat als referentiepunt zal dienen
+	\item \type{Point}, het punt dat als referentiepunt zal dienen
 	\item \type{Shape}, de \shape om het referentiepunt van te veranderen
 \end{itemize}
 
@@ -206,7 +206,7 @@ data Shape = ...
 \end{itemize}
 
 \subsubsection{Luisteren naar Events}
-je kunt aangeven dat je geïnteresseerd bent in de acties van de gebruiker op een \shape d.m.v. de \type{Event}-shape. Hierbij geef je een data record op met daarin het type events waarin je geïnteresserd bent.
+De programmeur kan aangeven dat hij geïnteresseerd is in acties van de gebruiker op een \shape d.m.v. de \type{Event}-shape. Hierbij geef je een data record op met daarin het type events waarin je geïnteresserd bent.
 
 \begin{lstlisting}
 data Shape = ...
@@ -219,7 +219,7 @@ data Shape = ...
 
 \myparagraph{EventData}
 \type{EventData} is het record waarin de event opties voor deze \shape worden bijgehouden. Dit zijn een aantal \type{Bool}'s voor de verschillende typen \events om naar te luisteren en een id wat aan elk binnenkomend \type{Event} wat van deze \shape komt wordt gekoppeld om te kunnen identificeren.
-Zie voor meer details over de \events die hierdoor kunnen ontstaa hieronder onder 'Events'.
+Zie voor meer details over de \events die hierdoor kunnen ontstaan hieronder onder 'Events'.
 \type{EventData} is een instantie van \type{Defaults}
 
 \begin{lstlisting}
@@ -284,7 +284,7 @@ Met behulp van \actions is het mogelijk om uit te voeren acties te definieëren,
 Acties zijn op te delen in twee categorieën, acties die onmiddelijk tot een resultaat leiden (in de vorm van een \type{Event}), dit zijn de \type{BlockingAction}'s. Daarnaast zijn er de acties die niet, of eventueel ooit tot een \type{Event} kunnen leiden, zoals het opslaan van een bestand, of het aangeven dat bestanden van drag'n'drop kunnen worden aangeboden door de gebruiker. Dit zijn de gewone \actions.
 
 \subsubsection{BlockingAction}
-Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}, de eerste opent het bestand als \type{String}, dit nuttig voor textbestanden, de tweede opent het bestand als \type{ByteString}, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
+Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}~, de eerste opent het bestand als \type{String}, dit is nuttig voor textbestanden, de tweede opent het bestand als \type{ByteString}~, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
 \begin{lstlisting}
 data BlockingAction = 
 					  LoadFileString String
@@ -296,18 +296,18 @@ data BlockingAction =
 
 \subsubsection{Action}
 \myparagraph{SaveFileString}
-Slaat een \type{String} op in een bepaalt bestand.
+Slaat een \type{String} op in een bepaald bestand.
 \begin{lstlisting}
 data Action = ...
 			| SaveFileString String String
 \end{lstlisting}
 \begin{itemize}
 	\item \type{String}, het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
-	\item \type{String}, de inhoud van het op te slaan bestand
+	\item \type{String}, de inhoud van het op te slaan bestand.
 \end{itemize}
 
 \myparagraph{SaveFileBinary}
-Slaat een \type{ByteString} op in een bepaalt bestand.
+Slaat een \type{ByteString} op in een bepaald bestand.
 \begin{lstlisting}
 data Action = ...
 			| SaveFileByteString String ByteString
@@ -361,7 +361,7 @@ data Action = ...
 \end{itemize}
 
 \myparagraph{DisplayType}
-Het is mogelijk om het weergavetype van de canvas te veranderen. Standaard is deze op \type{FixedSize} met een breedte van 900 en een hoogte van 600, het is echter ook mogelijk om het canvas op volledig scherm (\type{FullScreen}) weer te geven en de canvas de volledige grootte van het browserscherm te laten innemen (\type{FullWindow}). Het veranderen van de grootte van het canvas zal resulteren in een {\color{red} \type{CanvasResizeEvent OID, UITZOEKEN!!!}}.
+Het is mogelijk om het weergavetype van de canvas te veranderen. Standaard is deze op \type{FixedSize} met een breedte van 900 en een hoogte van 600, het is echter ook mogelijk om het canvas op volledig scherm (\type{FullScreen}) weer te geven en de canvas de volledige grootte van het browserscherm te laten innemen (\type{FullWindow}). Het veranderen van de grootte van het canvas zal resulteren in een \todo{dit dus uitzoeken} {\color{red} \type{CanvasResizeEvent OID, UITZOEKEN!!!}}.
 \begin{lstlisting}
 data Action = ...
 			| DisplayType WindowDisplayType
@@ -454,7 +454,7 @@ data Event = ...
 	\item \type{Point}, de coördinaten waarop begonnen werd met slepen
 	\item \type{String}, het id van de \shape waarop begonnen werd met slepen
 	\item \type{Point}, de coördinaten waarop gestopt werd met slepen
-	\item \type{String}, het id van de \shape waarop gestopt werd met slepen {\color{red} WAT ALS GESTOPT WORD MET SLEPEN OP EEN SHAPE DIE DAAR NIET IN GEINTERESSERD IS, OF UBERHAUPT GEEN ID HEEFT?}
+	\item \type{String}, het id van de \shape waarop gestopt werd met slepen \todo{Dit kan in een todo} {\color{red} WAT ALS GESTOPT WORD MET SLEPEN OP EEN SHAPE DIE DAAR NIET IN GEINTERESSERD IS, OF UBERHAUPT GEEN ID HEEFT?}
 \end{itemize}
 
 \myparagraph{MouseOver}
@@ -489,11 +489,11 @@ data Event = ...
 \end{itemize}
 
 \subsubsection{Key Events}
-De volgende \events gaan af als de gebruiker op een toets op het toetsenbord drukt. Deze hangen logischerwijze niet aan een \shape. 
+De volgende \events \todo{gaan af? dit kan beter geformuleerd worden}gaan af als de gebruiker op een toets op het toetsenbord drukt. Deze hangen logischerwijze niet aan een \shape. 
 Bij deze \events wordt van een tweetal types gebruik gemaakt. 
 
 \paragraph{Ingedrukte Toets}
-Deingedrukte toets wordt weergegeven met een \type{String}. Deze bevat een omschrijving van de ingedrukte toets, bijvoorbeeld \inlinecodequotes{"a"}, \inlinecodequotes{"E"} of \inlinecodequotes{"1"} maar ook \inlinecodequotes{"backspace"}, \inlinecodequotes{"shift"} of \inlinecodequotes{"F12"}.
+De ingedrukte toets wordt weergegeven met een \type{String}. Deze bevat een omschrijving van de ingedrukte toets, bijvoorbeeld \inlinecodequotes{"a"}, \inlinecodequotes{"E"} of \inlinecodequotes{"1"} maar ook \inlinecodequotes{"backspace"}, \inlinecodequotes{"shift"} of \inlinecodequotes{"F12"}.
 
 \paragraph{Modifier}
 Bij een Key Event wordt altijd een lijst van \type{Modifier}'s meegegeven. Deze geeft aan of de toetsen Ctrl, Alt of Shift waren ingedrukt tijdens het indrukken van de toets. Let op dat deze toetsen daarnaast ook in hun eigen Key Event zullen resulteren.
