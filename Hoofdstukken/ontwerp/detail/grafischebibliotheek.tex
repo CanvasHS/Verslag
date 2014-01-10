@@ -1,9 +1,9 @@
 \subsection{Grafische bibliotheek} \label{subsec:grafische_bibliotheek}
 
-Binnen onze library hebben we een aantal ontwerpkeuzes moeten maken, we hebben ten eerste moeten kiezen hoe de gebruiker tekent, maar ook hoe we events op elementen plaatsen en hoe we de gebruiker laten omgaan met IO.
+Binnen onze library zijn een aantal ontwerpkeuzes moeten maken. Ten eerste moeten kiezen hoe de gebruiker tekent, maar ook hoe events op elementen geplaatst worden en hoe de gebruiker laten omgaan met IO.
 
 \subsubsection{Grafisch}
-De meest belangrijke keuze die we gemaakt hebben is hoe er getekend wordt, voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGl. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
+De meest belangrijke keuze die gemaakt is, is hoe er getekend wordt. Voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGl. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
 
 De tegenhanger van deze methode is het absoluut tekenen van alle elementen. Voor het tekenen van kleine grafische interfaces is dit erg eenvoudig, teken gewoon een paar vierkantjes op arbitraire locaties op het canvas. Het nadeel van deze methode is dat als er meerdere vormen verplaatst moeten worden, dit stuk voor stuk moet gebeuren. Daarnaast is het invullen van een vorm een attribuut van de vorm, en daartoe is het niet mogelijk om meerdere elementen tegelijk van kleur te voorzien. Dat probleem zou opgelost kunnen worden door functies binnen de haskell te definieren die batchoperaties op een lijst van shapes toepast.
 
@@ -48,11 +48,10 @@ We wilden voorkomen dat gebruikers bij bijvoorbeeld events steeds moeten aangeve
 
 Onze oplossing is een \inlinecode{Default} typeklasse, een Event heeft een record met velden voor het ID en een aantal booleans voor of hij geinteresseerd is in Events, dit record derived \inlinecode{Defaults} en die typeklasse heeft een functie \inlinecode{defaults}. Deze functie geeft een standaard record terug die leeg is, het ID is leeg en de shape is (met dat record) niet geinteresseerd in events, de gebruiker kan dan die defaults bewerken om de shape een ID te geven en geinteresseerd te laten zijn in events. Een voorbeeld hiervan is hierboven al gegeven, het record gegeven door de \inlinecode{defaults} record is bewerkt en het eventId is "mickey" geworden, verder is de vorm nu geinteresseerd in muiskliks.
 
--TODO: Ontwerpkeuze: Boomstructuur en modifiers vs attributen op een element
--TODO: Ontwerpkeuze: Referentie van specifieke elementen met behulp van ID toelichten
--TODO: Ontwerpkeuze: Default values
 -TODO: Ontwerpkeuze: Hulpfuncties zoals shape
 -TODO: Ontwerpkeuze: Toelichten acties
 -TODO: Ontwerpkeuze: Toelichten van de keuze voor Fullwindow (Ik weet niet precies waarvoor dit is? Staat bij Robert zijn document) \url{https://drive.google.com/#folders/0B97Qa5VgdaDNWjBiOGFEa3JMZHc}
 -TODO: Toelichten waarom we blocking actions hebben
--TODO: Ontwerpkeuze toelichten: Super key wordt niet als modifier gezien
+
+\subsubsection{Super Key}
+
