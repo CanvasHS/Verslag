@@ -1,6 +1,7 @@
 % !TEX spellcheck = nl_NL
 \documentclass[a4paper]{report}
 \usepackage{graphicx}
+\usepackage{todonotes}
 \usepackage[dutch]{babel} 
 \usepackage{enumerate}
 \usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
@@ -13,6 +14,7 @@
 \usepackage[T1]{fontenc}  
 \usepackage{textcomp}  
 \usepackage{lmodern}  
+\usepackage{float}
 
 \DeclareCaptionFont{white}{ \color{white} }
 \DeclareCaptionFormat{listing}{
@@ -146,6 +148,7 @@
 \tableofcontents
 
 \input{./Hoofdstukken/inleiding.tex}
+\input{./Hoofdstukken/requirements.tex} 
 \input{./Hoofdstukken/ontwerp.tex} 
 \input{./Hoofdstukken/conclusie.tex}
 \input{./Hoofdstukken/evaluatie.tex}

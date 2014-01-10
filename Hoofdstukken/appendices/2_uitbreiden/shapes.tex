@@ -1,11 +1,11 @@
 % !TEX spellcheck = nl_NL
-\section{Shapes}
-Deze sectie zal beschrijven hoe nieuwe Shapes toegevoegd kunnen worden aan de Canvas.hs-omgeving. Eerst wordt beschreven welke aanpassingen aan de JavaScript-zijde moeten plaatsvinden en vervolgens zullen de benodigde aanpassingen aan de Haskell-zijde besproken worden.
+\section{Shapes} \label{sec:shapesext}
+Deze sectie beschrijft hoe nieuwe Shapes toegevoegd kunnen worden aan de Canvas.hs-omgeving. Eerst wordt beschreven welke aanpassingen aan de JavaScript-zijde moeten plaatsvinden en vervolgens zullen de benodigde aanpassingen aan de Haskell-zijde besproken worden.
 
 \subsection{JavaScript}
 Om ondersteuning voor een Shape toe te voegen in de JavaScript-code, moeten aanpassingen gemaakt worden in het bestand \emph{main.js} dat in de map `\textbackslash canvashs-client\textbackslash js' te vinden is.
 
-\emph{main.js} bevat de functie \inlinecode{shapeFromData} dat delen van berichten die van de server komen vertaald naar Shapes. In de \inlinecode{shapeFromData} functie bevindt zich een \inlinecode{switch}-statement dat op de string \inlinecode{message.type} switcht.
+\emph{main.js} bevat de functie \inlinecode{shapeFromData} dat delen van berichten die van de server komen vertaalt naar Shapes. In de \inlinecode{shapeFromData} functie bevindt zich een \inlinecode{switch}-statement dat op de string \inlinecode{message.type} switcht.
 
 Stel nu dat het figuur cirkel nog niet ondersteund wordt en dat we deze toe willen voegen. We zouden dan aan het \inlinecode{switch}-statement in \inlinecode{shapeFromData} een \inlinecode{case} toevoegen voor ``circle''. In dit \inlinecode{case} statement zou dan een \inlinecode{Kinetic.Circle} gemaakt worden. Als het JSON-object \inlinecode{data} dat vanaf de Haskell-zijde ontvangen is, compatibel is met \inlinecode{Kinetic.Circle} dan kan dit rechtstreeks meegegeven worden aan diens constructor, anders moet dit bericht eerst aangepast worden. Vervolgens is het mogelijk een debug bericht te plaatsen als dit wenselijk is. Dit voorbeeld staat hieronder uitgewerkt.
 
@@ -94,13 +94,13 @@ Voor het toevoegen van Shapes aan de JavaScript-zijde van Canvas.hs is het toevo
 
 \subsection{Haskell}
 
-Binnen de haskell kan uitbreiden op twee manieren, de eerste manier is om door de beschikbare shapes een nieuwe shape te maken, zo hoeft het protocol niet aangepast te worden. Als voorbeeld nemen we een rechthoek met afgeronde hoekjes, we definieren een functie \inlinecode{roundedRect} die een shape teruggeeft.
+Binnen \todo{de haskell, zo noemen we dat niet de module}de haskell kan uitbreiden op twee manieren, de eerste manier is om door de beschikbare shapes een nieuwe shape te maken, zo hoeft het protocol niet aangepast te worden. Als voorbeeld nemen we een rechthoek met afgeronde hoekjes, we definieren een functie \inlinecode{roundedRect} die een shape teruggeeft.
 
 \lstinputlisting[style=densecode, language=Haskell]{Examples/RoundedRect.hs}
 
-Hoewel dit veel code lijkt is de meeste code het juist tekenen van een rechthoek met afgeronde hoeken, het belangrijkste om hier te zien is dat de \inlinecode{roundedRect} voor de gebruiker een functie is in plaats van een Data constructor zoals \inlinecode{Rect}, verder is er voor de gebruiker geen verschil. Voor de programmeur is er het overduidelijke voordeel dat de code van CanvasHs niet aangepast wordt, dit kan zelfs los van onze code in een module gestopt worden.
+Hoewel dit veel code lijkt is de meeste code het juist tekenen van een rechthoek met afgeronde hoeken. Het belangrijkste om hier te zien is dat de \inlinecode{roundedRect} voor de gebruiker een functie is in plaats van een Data constructor zoals \inlinecode{Rect}~, verder is er voor de gebruiker geen verschil. Voor de programmeur is er het overduidelijke voordeel dat de code van CanvasHs niet aangepast wordt, dit kan zelfs los van onze code in een module gestopt worden.
 
-Mocht het toch noodzakelijk zijn de CanvasHs code uit te breiden met een shape, bijvoorbeeld omdat de Javascript kant de nieuwe vorm beter kan tekenen, dan dient dit op drie plaatsen te gebeuren. Zoals hierboven uitgelegd in de Javascript code, maar ook op twee plekken in de Haskell code. Ten eerste in de module \inlinecode{CanvasHs.Data}, hierin is een \inlinecode{data Shape} gedefinieerd en hier dient de vorm aan toegevoegd te worden, laten we hiervoor wederom de rechthoek met afgeronde hoeken nemen.
+Mocht het toch noodzakelijk zijn de CanvasHs code uit te breiden met een shape, bijvoorbeeld omdat de Javascript kant de nieuwe vorm beter kan tekenen, dan dient dit op drie plaatsen te gebeuren. Zoals hierboven uitgelegd in de Javascript code, maar ook op twee plekken in de Haskell code. Ten eerste in de module \inlinecode{CanvasHs.Data}~, hierin is een \inlinecode{data Shape} gedefinieerd en hier dient de vorm aan toegevoegd te worden, laten we hiervoor wederom de rechthoek met afgeronde hoeken nemen.
 
 \begin{lstlisting}[style=densecode, language=Haskell]
 data Shape =
@@ -110,9 +110,9 @@ data Shape =
     ...
 \end{lstlisting} 
 
-Daarnaast dient het protocol uitgebreid te worden met onze nieuwe \inlinecode{RoundedRect}. De module \inlinecode{CanvasHs.Protocol.ShapeOutput} vertaald shapes naar JSON, hiertoe maakt hij eerst van de shape een record die exact beschrijft hoe de JSON eruit hoort te zien, en Aeson (onze JSON library) maakt daarvan een JSON bericht.
+Daarnaast dient het protocol uitgebreid te worden met onze nieuwe \inlinecode{RoundedRect}~. De module \inlinecode{CanvasHs.Protocol.ShapeOutput} vertaald shapes naar JSON, hiertoe maakt hij eerst van de shape een record die exact beschrijft hoe de JSON eruit hoort te zien, en Aeson (onze JSON library) maakt daarvan een JSON bericht.
 
-Omdat wij bij de roundedrect een nieuw attribuut in de JSON nodig hebben, borderRadius, dienen we ten eerste de \inlinecode{JSONShapeData} record uit te breiden. Let erop dat er ook op twee plekken records gemaakt worden waarin alle keys gevult worden (de functies \inlinecode{shapeEncodePoint} en \inlinecode{shapeEncodePoints}), pas deze ook aan.
+Omdat wij bij de roundedrect een nieuw attribuut in de JSON nodig hebben, borderRadius, dienen we ten eerste de \inlinecode{JSONShapeData} record uit te breiden. Let erop dat er ook op twee plekken records gemaakt worden waarin alle keys gevuld worden (de functies \inlinecode{shapeEncodePoint} en \inlinecode{shapeEncodePoints})~, pas deze ook aan.
 
 \begin{lstlisting}[style=densecode, language=Haskell]
 data JSONShapeData

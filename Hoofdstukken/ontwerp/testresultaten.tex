@@ -1,10 +1,22 @@
 \section{Testresultaten} \label{sec:testresultaten}
 
-Door de gebruik van voornamelijk twee verschillende programmeertalen zijn de tests voor deze toepassingen ook apart geschreven. Alle tests kunnen gezamelijk via cabal test aangeroepen worden. Dit vereist wel enige configuratie. Uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: http://canvashs.github.io/test.html
+\todo{Onderdeel over analyse van geheugengebruik schrijven}
+\todo{Performance analyse van JavaScript onderdeel schrijven}
+
+Door het gebruik van voornamelijk twee verschillende programmeertalen zijn de tests voor deze toepassingen ook apart geschreven. Alle tests kunnen gezamelijk via cabal test aangeroepen worden. Dit vereist wel enige configuratie. Uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: \url{http://canvashs.github.io/test.html}.
 
 \subsection{JavaScript}
-Voor de JavaScript code zijn unit test ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten.
+Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten.
 
 \subsection{Haskell}
-Voor de Haskell code zijn unit test ontwikkeld. De code coverage van de tests is gemeten met hpc waarvoor standaard een commando is meegeleverd in Cabal.
+Voor de Haskell code zijn unit tests ontwikkeld. De code coverage van de tests is gemeten met hpc waarvoor standaard een commando is meegeleverd in Cabal.
+
+\subsection{Performance analyse}
+Tijdens de ontwikkeling van de library is duidelijk geworden dat de performance van de geschreven programma's niet altijd optimaal is. Met name bij programma's die gebruik maken van \emph{timers} en bij programma's met grote \emph{shape grafen}.\todo{shape graph eerder introduceren}
+
+\todo{uitleggen}
+
+Er waren vermoedens dat de oorzaak gevonden kon worden in het omzetten van \inlinecode{Strings} naar \inlinecode{ByteSrings} en vice versa.
+
+Na het analyseren van de JavaScript performance bleek dat het opnieuw bouwen van de stage vanuit de \emph{shape graph} een grote deuk in de performance oplevert. Het vervolgens tekenen van de nieuwe inhoud van het Canvas duurde relatief minder lang. Bijvoorbeeld in ons tesprogramma duurde het opnieuw bouwen van de stage ±6 ms waar het opnieuw teken ±0.5 ms duurde.
 
