@@ -2,11 +2,11 @@
 \section{Events}
 In deze sectie zal beschreven worden hoe Events kunnen worden toegevoegd aan de Canvas.HS-library.
 
-Met een event kan input van de client-side worden afgevangen, vervolgens zou er vanuit Haskell-code een nieuwe staat kunnen worden gepresenteerd. Events zorgen dus eigenlijk voor het afhandelen van gebruikersinput. Standaard zijn events voor muis, keyboad en window invoer.
+Met een event kan input van de client-side worden afgevangen, vervolgens zou er vanuit Haskell-code een nieuwe staat kunnen worden gepresenteerd. Events zorgen dus eigenlijk voor het afhandelen van gebruikersinput. Standaard zijn events voor muis, keyboard en window invoer.
 
 Canvas.hs kan uitgebreid worden zodat specifieke invoer aan de JavaScript kant kan worden doorgegeven middels een Event naar Haskell. Hieronder wordt beschreven hoe het \inlinecode{WindowResize} event is toegevoegd aan de Canvas.HS library.
 \subsection{JavaScript}
-Als er een event toegevoegd moet worden zal eerst het protocol uitgebreid moeten worden. Het protocol beschrijft hoeft Haskell met de JavaScript moet communiceren en vise versa. Op de pagina \url{http://canvashs.github.io/protocol.html} kan gezien worden hoe het protocol van de huidige versie gedefineerd is. In het geval van \inlinecode{WindowResize} is een gelijknamig event toegevoegd. De \emph{JSON} representatie ziet er dan uit zoals hieronder weergegeven.
+Als er een event toegevoegd moet worden zal eerst het protocol uitgebreid moeten worden. Het protocol beschrijft hoeft Haskell met de JavaScript moet communiceren en vise versa. Op de pagina \url{http://canvashs.github.io/protocol.html} kan gezien worden hoe het protocol van de huidige versie gedefinieerd is. In het geval van \inlinecode{WindowResize} is een gelijknamig event toegevoegd. De \emph{JSON} representatie ziet er dan uit zoals hieronder weergegeven.
 \begin{lstlisting}[language=JavaScript]
 {
     "event":"windowresize",
@@ -16,7 +16,7 @@ Als er een event toegevoegd moet worden zal eerst het protocol uitgebreid moeten
     }
 }
 \end{lstlisting}
-Het protocol is een afspraak en er is dus eigenlijk nog geen code geschreven om het event te implementeren. Nadat er bedacht is welk bericht er aan het protocol toegevoegd wordt zal het versturen van dit bericht geimplementeerd moeten worden in \emph{main.js}. Om alles overzichtelijk te houden wordt aangeraden dit in een aparte functie te doen.
+Het protocol is een afspraak en er is dus eigenlijk nog geen code geschreven om het event te implementeren. Nadat er bedacht is welk bericht er aan het protocol toegevoegd wordt zal het versturen van dit bericht ge\"implementeerd moeten worden in \emph{main.js}. Om alles overzichtelijk te houden wordt aangeraden dit in een aparte functie te doen.
 \begin{lstlisting}[language=JavaScript]
 /**
  * Sends a window resize event to the server.

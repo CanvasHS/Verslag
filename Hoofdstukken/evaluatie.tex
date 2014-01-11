@@ -6,12 +6,12 @@
 \section{Problemen}
 \subsection{IO Monad afsplitsen}
 
-{\color{red} Onderstaande had ik (Pim) orgineel geschreven voor het problemenstuk (in ontwerp), he tmoet nog aangevuld/afgemaakt worden e.d., maar dat is iets wat bij evaluatie kan. Het is over de problemen die we hadden omdat we relatief weinig haskell-kennis hadden}
+{\color{red} Onderstaande had ik (Pim) origineel geschreven voor het problemenstuk (in ontwerp), he tmoet nog aangevuld/afgemaakt worden e.d., maar dat is iets wat bij evaluatie kan. Het is over de problemen die we hadden omdat we relatief weinig haskell-kennis hadden}
 
 \subsubsection{Kennis Haskell}
 Bij het begin van het Canvas.Hs-project was de kennis over Haskell en functioneel programmeren in het algemeen beperkt tot de kennis opgedaan met het vak Functioneel programmeren. Hoewel dit een solide basis vormt is het doel van Canvas.Hs juist om een aantal concepten die niet binnen dit vak passen af te schermen van de studenten. Dit betekende dat er bij het project van deze concepten gebruik moest worden gemaakt en wij ons deze ook eigen hebben moeten maken. Zoals altijd bij het leren van nieuwe concepten leverde dit af en toe code die niet optimaal gebruik maakte van de mogelijkheden van deze concepten en kinderziektes op. 
 
-Naarmate het project vorderde vorderde ook onze kennis van Haskell, hierdoor maakt de uiteindelijke versie van Canvas.Hs goed gebruik van de mogelijkheden van o.a. monadisch programmeren en Haskells threadysteem. 
+Naarmate het project vorderde vorderde ook onze kennis van Haskell, hierdoor maakt de uiteindelijke versie van Canvas.Hs goed gebruik van de mogelijkheden van o.a. monadisch programmeren en Haskells threadsysteem. 
 \paragraph{Monads}
 Zoals gezegd kent Haskell het concept van monads. Één van de doelen van CanvasHs is om dit concept niet te hoeven gebruiken voor grafische weergave bij het vak functioneel programmeren. Dit betekent dat ook wij, de ontwikkelaars, weinig kennis over dit concept hadden voor aan het project begonnen werd. Doordat we 
 Denk aan do-notatie, binds (>>=
@@ -19,15 +19,15 @@ Denk aan do-notatie, binds (>>=
 \todo{onvoldoende toegelicht}
 
 \paragraph{Threads}
-Denk aan geziek met netjes de websockets en http-threads afsluiten en Timer-threads die nu doorlopen
+Denk aan geziek met netjes de WebSockets en http-threads afsluiten en Timer-threads die nu doorlopen
 
 \section{Planning}
 \todo{Planning schrijven}
 \section{Samenwerking}
 \todo{Dit moet naar het begin van het verslag}
-Tijdens het ontwikkelen van de eerste versie van Canvas.HS is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmangement methode gebruikt alsmede andere Agile methoden.
+Tijdens het ontwikkelen van de eerste versie van Canvas.HS is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmanagement methode gebruikt alsmede andere Agile methoden.
 
-De samenwerking is goed verlopen. Daarbij was de duidelijke structuur van zowel het project– als de technische organisatie een belangrijk onderdeel. Er kon met deze structuur, naar gevoel van de projecgroep, efficient gewerkt worden. Er werd wekelijks twee of meer keer samengekomen om te werken aan het project.
+De samenwerking is goed verlopen. Daarbij was de duidelijke structuur van zowel het project– als de technische organisatie een belangrijk onderdeel. Er kon met deze structuur, naar gevoel van de projectgroep, efficiënt gewerkt worden. Er werd wekelijks twee of meer keer samengekomen om te werken aan het project.
 
 \subsection{Project organisatie}
 Er is gewerkt middels de scrum projectmangement methoden. Er is gewerkt met verschillende rollen en er zijn zogenaamde scrum en sprint besprekingen gehouden. Daarbij zijn elke keer opnieuw onder andere het project– en sprintbacklog samengesteld en bijgewerkt.
@@ -58,7 +58,7 @@ Regelmatig werd de lijst met taken bijgewerkt. Taken bestonden uit: projecttaken
 
 De lijst van ontwikkeltaken werd bijgehouden op het \emph{GitHub} platform. Deze taken werden daar ook wel Issues genoemd. Andere taken werden vervolgens bijgehouden op \emph{Trello}. Met deze applicatie kan een online takenbord gemaakt worden, zie \autoref{fig:trello}. De ontwikkeltaken werden middels synchronisatie ook op dit takenbord gezet. Door \emph{Trello} had elk lid van het project een goed inzicht in de taken die nog openstonden en reeds waren uitgevoerd.
 
-\paragraph{Terugkoppeling naar de opdrachtgever} De opdrachtgever—binnen scrum ook \emph{product owner} genoemd—is twee wekelijks geinformeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
+\paragraph{Terugkoppeling naar de opdrachtgever} De opdrachtgever—binnen scrum ook \emph{product owner} genoemd—is twee wekelijks ge\"informeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
 
 \paragraph{Verbeteringen} Er is nu gewerkt in een projectgroep zonder direct uren budget, mocht dit het geval zijn zouden de inschattingsmethoden en burndown chart uit de scrum methode kunnen worden gebruikt. Verder zouden de besprekingen zogenaamde \emph{stand-up meetings} kunnen worden waarbij iedereen staat en niet voor de computer zit. Hierdoor konden de dagelijkse besprekingen wellicht wat vlotter verlopen.
 
@@ -80,13 +80,13 @@ Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch
 
 Als een feature af is moet deze beoordeeld voordat deze gemergd kan worden naar de \inlinecode{dev} branch. Daarvoor wordt een \emph{pull request} aangemaakt. Deze \emph{pull request} bevat dan informatie over de wijzigingen tenopzichte van de versie die op de \inlinecode{dev} branch staat. Een beoordelaar kan de code lezen en deze goedkeuren. Op het moment dat de code goed wordt gekeurt komt een nieuwe versie met de nieuwe feature op de \inlinecode{dev} branch te staan.
 
-Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met success gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaars code controlleerde en dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
+Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met succes gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaars code controleerde en dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
 
 \paragraph{Continuous integration} Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van de \emph{continuous integration} software \emph{Travis}. Deze software luistert naar nieuwe commits naar het centrale repository, als er een nieuwe commit gedaan is wordt er een virtuele machine opgestart die vervolgens middels een buildscript de versie van de software probeert te bouwen. Dit buildscript staat in de root directory van het repository.
 
-Dit buildscript specificeert onder andere dat de software gebouwd moet worden met de Haskell compiler, maar ook dat alle geschreven tests uitgevoerd moeten worden. Mocht de compilatie of het uitvoeren van een van de tests niet geslaagd zijn is de build gefaalt. Dit wordt dan vervolgens ook weergeven in het venster van de pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, zoals bijvoorbeeld te zien bij \autoref{fig:pullrequest}, weet hij zeker dat de versie veilig is om te mergen.
+Dit buildscript specificeert onder andere dat de software gebouwd moet worden met de Haskell compiler, maar ook dat alle geschreven tests uitgevoerd moeten worden. Mocht de compilatie of het uitvoeren van een van de tests niet geslaagd zijn is de build gefaald. Dit wordt dan vervolgens ook weergeven in het venster van de pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, zoals bijvoorbeeld te zien bij \autoref{fig:pullrequest}, weet hij zeker dat de versie veilig is om te mergen.
 
 Het buildscript voert naast de compilatie en de testen nog een paar andere commando's uit. Zo genereert het buildscript ook de documentatie en uploadet deze naar de Canvas.HS website—\url{http://canvashs.github.io}. Op de website kan de documentatie bekeken worden per build. Hierdoor hoeven ontwikkelaars zelf geen documentatie meer te genereren en hebben zij altijd, up to date, doorzoekbare documentatie.
 
-\paragraph{Verbeteringen} Naast het integreren van documentatie zou het buildscript ook automatisch per versie de test covarage uit kunnen rekenen. Dit zou ontwikkelaars nog meer inzicht kunnen geven in de kwaliteit van de software en hoe deze voor– of achteruit gaat per versie.
+\paragraph{Verbeteringen} Naast het integreren van documentatie zou het buildscript ook automatisch per versie de test coverage uit kunnen rekenen. Dit zou ontwikkelaars nog meer inzicht kunnen geven in de kwaliteit van de software en hoe deze voor– of achteruit gaat per versie.
 

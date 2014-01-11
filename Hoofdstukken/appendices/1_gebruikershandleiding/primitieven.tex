@@ -2,7 +2,7 @@
 \section{Primitieven}
 Nu we hebben gezien hoe we op verschillende \events kunnen reageren, en hoe we op basis daarvan \type{Output} kunnen genereren in de vorm van \shapes en \actions is het tijd om een volledig overzicht te geven van alle mogelijke \events , \shapes , en \actions.
 
-Vergeet hierbij niet, zoals in het vorige hoofdstuk besproken, de types die belangrijk zijn voor canvas.hs:
+Vergeet hierbij niet, zoals in het vorige hoofdstuk besproken, de types die belangrijk zijn voor Canvas.hs:
 
 \begin{lstlisting}
 -- Je functie die inkomende events afhandelt, State is hierbij een zelf te definiëren (data)type.
@@ -61,7 +61,7 @@ data Shape = ...
 			| Circle Point Int
 \end{lstlisting}
 \begin{itemize}
-	\item \type{Point},het middenpunt van de cirkel
+	\item \type{Point},het middelpunt van de cirkel
 	\item \type{Int}, de straal van de cirkel
 \end{itemize}
 
@@ -125,7 +125,7 @@ instance Defaults TextData where
 	\item alignment, de uitlijning van de te tekenen tekst. 
 		\begin{itemize}
 			\item \type{Left}, de linkerbovenhoek van de tekst wordt op het punt uitgelijnd.
-			\item \type{Center}, het middenpunt van de tekst wordt op het punt uitgelijnd.
+			\item \type{Center}, het middelpunt van de tekst wordt op het punt uitgelijnd.
 			\item \type{Right}, de rechterbovenhoek van de tekst wordt op het punt uitgelijnd.
 		\end{itemize}
 \end{itemize}
@@ -134,7 +134,7 @@ instance Defaults TextData where
 De getekende primitieven (waaronder \type{Text}) kunnen d.m.v. translaties aangepast worden. Zo kunnen ze bijvoorbeeld gekleurd, van een rand voorzien, of geroteerd worden. Deze translaties zijn zelf ook \shapes, hierdoor is het mogelijk om meerdere translaties op elkaar uit te voeren. 
 
 \subparagraph{Color}
-Color definieert een kleur. De kleur wordt gedefinieerd door een rood-, groen- en blauwwaarde varrieërend van 0 tot 255, daarnaast is er een alphawaarde varieërend van 0 tot 1.0.  \inlinecode{type Color = (Int, Int, Int, Float)}
+Color definieert een kleur. De kleur wordt gedefinieerd door een rood-, groen- en blauwwaarde varri\"erend van 0 tot 255, daarnaast is er een alphawaarde vari\"erend van 0 tot 1.0.  \inlinecode{type Color = (Int, Int, Int, Float)}
 
 \myparagraph{Fill}
 \type{Fill} definieert dat een \shape een fill van een bepaalde kleur moet krijgen. 
@@ -206,7 +206,7 @@ data Shape = ...
 \end{itemize}
 
 \subsubsection{Luisteren naar Events}
-De programmeur kan aangeven dat hij geïnteresseerd is in acties van de gebruiker op een \shape d.m.v. de \type{Event}-shape. Hierbij geef je een data record op met daarin het type events waarin je geïnteresserd bent.
+De programmeur kan aangeven dat hij geïnteresseerd is in acties van de gebruiker op een \shape d.m.v. de \type{Event}-shape. Hierbij geef je een data record op met daarin het type events waarin je ge\"interesseerd bent.
 
 \begin{lstlisting}
 data Shape = ...
@@ -251,7 +251,7 @@ instance Defaults EventData where
 \end{itemize}
 
 \subsubsection{Containers}
-\shapes kunnen worden samengebracht in \type{Container}'s. Deze zijn zelf ook weer een \shape zodat ze op hun beurt weer kunnen worden samengebracht, er translaties op kunnen worden uitgevoerd en kan worden aangegeven dat ze geïnteresserd zijn in \events. 
+\shapes kunnen worden samengebracht in \type{Container}'s. Deze zijn zelf ook weer een \shape zodat ze op hun beurt weer kunnen worden samengebracht, er translaties op kunnen worden uitgevoerd en kan worden aangegeven dat ze ge\"interesseerd zijn in \events. 
 \begin{lstlisting}
 data Shape = ...
 			| Container Int Int [Shape]
@@ -280,11 +280,11 @@ data BlockingAction = ...
 data RegularOutput = (Maybe Shape, [Action])
 \end{lstlisting}
 
-Met behulp van \actions is het mogelijk om uit te voeren acties te definieëren, hierbij kan gedacht worden aan het veranderen van de weergavestijl van het canvas, het opslaan of laden van bestanden, etc.
-Acties zijn op te delen in twee categorieën, acties die onmiddelijk tot een resultaat leiden (in de vorm van een \type{Event}), dit zijn de \type{BlockingAction}'s. Daarnaast zijn er de acties die niet, of eventueel ooit tot een \type{Event} kunnen leiden, zoals het opslaan van een bestand, of het aangeven dat bestanden van drag'n'drop kunnen worden aangeboden door de gebruiker. Dit zijn de gewone \actions.
+Met behulp van \actions is het mogelijk om uit te voeren acties te defini\"eren, hierbij kan gedacht worden aan het veranderen van de weergavestijl van het canvas, het opslaan of laden van bestanden, etc.
+Acties zijn op te delen in twee categorieën, acties die onmiddellijk tot een resultaat leiden (in de vorm van een \type{Event}), dit zijn de \type{BlockingAction}'s. Daarnaast zijn er de acties die niet, of eventueel ooit tot een \type{Event} kunnen leiden, zoals het opslaan van een bestand, of het aangeven dat bestanden van drag'n'drop kunnen worden aangeboden door de gebruiker. Dit zijn de gewone \actions.
 
 \subsubsection{BlockingAction}
-Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}~, de eerste opent het bestand als \type{String}, dit is nuttig voor textbestanden, de tweede opent het bestand als \type{ByteString}~, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
+Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}~, de eerste opent het bestand als \type{String}, dit is nuttig voor tekstbestanden, de tweede opent het bestand als \type{ByteString}~, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
 \begin{lstlisting}
 data BlockingAction = 
 					  LoadFileString String
@@ -345,7 +345,7 @@ data Action =
 			| DragNDrop Bool Bool
 \end{lstlisting}
 \begin{itemize}
-	\item \type{Bool}, of drag'n'drop is geactiveerd, \type{True} voor geactiveerd, \type{False} voor gedeäctiveerd
+	\item \type{Bool}, of drag'n'drop is geactiveerd, \type{True} voor geactiveerd, \type{False} voor gedeactiveerd
 	\item \type{Bool}, of het mogelijk is om meerdere bestanden tegelijk te drag'n'droppen (\type{True}) of niet (\type{False})
 \end{itemize}
 
@@ -371,7 +371,7 @@ data WindowDisplayType = FullWindow | FullScreen | FixedSize Int Int
 \begin{itemize}
 	\item \type{WindowDisplayType}, het nieuwe weergavetype. Is één van de volgende drie opties:
 		\begin{itemize}
-			\item \type{FullWindow}, het canvas zal de grootte van het volledige brwoserscherm innemen.
+			\item \type{FullWindow}, het canvas zal de grootte van het volledige browserscherm innemen.
 			\item \type{FullScreen}, het canvas zal op volledig scherm worden weergeven.
 			\item \type{FixedSize}, het canvas zal een bepaalde grootte innemen. 
 				\begin{itemize}
@@ -454,7 +454,7 @@ data Event = ...
 	\item \type{Point}, de coördinaten waarop begonnen werd met slepen
 	\item \type{String}, het id van de \shape waarop begonnen werd met slepen
 	\item \type{Point}, de coördinaten waarop gestopt werd met slepen
-	\item \type{String}, het id van de \shape waarop gestopt werd met slepen \todo{Dit kan in een todo} {\color{red} WAT ALS GESTOPT WORD MET SLEPEN OP EEN SHAPE DIE DAAR NIET IN GEINTERESSERD IS, OF UBERHAUPT GEEN ID HEEFT?}
+	\item \type{String}, het id van de \shape waarop gestopt werd met slepen \todo{Dit kan in een todo} \todo{Dit is al lang uit het protocol gesloopt geloof ik} {\color{red} WAT ALS GESTOPT WORD MET SLEPEN OP EEN SHAPE DIE DAAR NIET IN GEINTERESSERD IS, OF UBERHAUPT GEEN ID HEEFT?}
 \end{itemize}
 
 \myparagraph{MouseOver}
@@ -567,7 +567,7 @@ data Event = ...
 			| UploadComplete String (String, ByteString)
 \end{lstlisting}
 \begin{itemize}
-	\item \type{String}, de naam van het geuploade bestand
+	\item \type{String}, de naam van het ge\"uploade bestand
 	\item \type{(String, ByteString)}, de inhoud van het bestand. Deze tuple bevat zowel de inhoud van het bestand als String als als ByteString.
 \end{itemize}
 
