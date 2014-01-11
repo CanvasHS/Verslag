@@ -3,13 +3,13 @@
 
 Het systeem bestaat uit een browseromgeving dat door middel van HTML en JavaScript een gebruikersinterface toont. Door middel van een verbinding tussen de browseromgeving en het Haskell-programma kan er vanuit het Haskell-programma output gegenereerd worden in de browser en kunnen er events verstuurd worden vanuit de browseromgeving naar het Haskell-programma.
 
-Initieel is een lijst met requirements opgesteld. Gedurende het ontwikkelproces zijn bij de meetings met de begeleider nieuwe requirements aan de orde gekomen; deze requirements zijn in deze lijst opgenomen.
+Initieel is een lijst met requirements opgesteld. Gedurende het ontwikkelproces zijn onder andere op basis van feedback van de opdrachtgever nieuwe requirements aan de orde gekomen; deze requirements zijn in deze lijst opgenomen.
 
-De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen essenti\"ele, niet-essenti\"ele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essenti\"ele functionaliteit geimplementeerd is. \todo{vooruit verwijzen naar checken requirements} Er wordt gebruik gemaakt van ``dient'' voor essenti\"ele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements.
+De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen essenti\"ele, niet-essenti\"ele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essenti\"ele functionaliteit ge\"implementeerd is. Er wordt gebruik gemaakt van ``dient'' voor essenti\"ele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements. In \todo{vooruit verwijzen naar checken requirements} wordt het eindproduct beoordeeld op basis van de requirements.
 
 \todo{Iets meer uitleggen over waarom requirements nodig zijn (bijv. t.b.v. gebruikerservaring of zat ook in Gloss-oplossing)}
 \subsubsection{Functionele requirements}
-In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de oude practicumomgeving die gebruik maakt van de Gloss library.
+\paragraph{Basisfunctionaliteit} In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de oude practicumomgeving die gebruik maakt van de Gloss library, zodat de programmeur met de library minstens even veel kan weergeven in zijn interface. Om extra mogelijkheden te bieden dient het systeem ook animaties mogelijk te maken.
 
 \newcounter{startvalue}
 \begin{enumerate}[{R}1]
@@ -47,7 +47,7 @@ In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de ou
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
-
+\paragraph{Acties} In de oude practicumomgeving worden een aantal acties ondersteund die buiten de grafische output om werken. Deze acties bieden complexe functionaliteit versimpeld aan de gebruiker aan, waaronder een tekstinvoerpop-up, en de mogelijkheid om bestanden te verwerken. Hierdoor hoeft de gebruiker zelf geen I/O te gebruiken in Haskell wat het instapniveau van de gebruiker vergemakkelijkt. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
 
 \begin{enumerate}[{R}1]
 \setcounter{enumi}{\value{startvalue}}
@@ -63,6 +63,13 @@ In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de ou
 		
 		\item Het systeem kan eventueel bestanden die de gebruiker aanbied verwerken.
 	\end{enumerate}
+	\setcounter{startvalue}{\value{enumi}}
+\end{enumerate}
+
+\paragraph{Gebruiksvriendelijkheid} Een van de voornaamste problemen met de oude practicumomgeving is de gebruiksvriendelijkheid van het systeem. Wanneer er een fout in het programma zat werd het direct afgesloten zonder daarbij een foutmelding te geven. Dit maakt het lastig om fouten in de programmatuur te vinden. Canvas.hs heeft daarom als doelstelling om een gebruiksvriendelijke omgeving aan te bieden die de programmeur duidelijke foutmeldingen geeft.
+
+\begin{enumerate}[{R}1]
+\setcounter{enumi}{\value{startvalue}}
 	\item Het systeem dient duidelijke errors te genereren.
 	\begin{enumerate}[{R\arabic{enumi}.}1]
 		\item Als de verbinding tussen JavaScript en Haskell verbroken wordt dient het systeem een error te tonen aan de gebruiker. 
@@ -75,6 +82,8 @@ In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de ou
 \end{enumerate}
 
 \subsubsection{Niet functionele requirements}
+Een van de problemen met de oude practicumomgeving is dat het niet goed werkt op alle systemen. Hier moet Canvas.hs verandering in brengen. Door gebruik te maken van HTML standaarden zal het systeem een goede basis hebben om platform onafhankelijk te werken. Om er voor te zorgen dat het systeem goed werkt en te onderhouden blijft dient het te voldoen aan een aantal kwaliteitseisen.
+
 \begin{enumerate}[{R}1]
 \setcounter{enumi}{\value{startvalue}}
 	\item Het systeem dient multiplatform te werken.
