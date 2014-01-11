@@ -8,6 +8,9 @@ Initieel is een lijst met requirements opgesteld. Gedurende het ontwikkelproces 
 De requirements zijn opgesteldt met de MoSCoW-methode. Bij deze methode kunnen essentiele, niet-essentiele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essentieele functionaliteit geimplementeerd is. Er wordt gebruik gemaakt van ``dient'' voor essentiele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements.
 
 \subsubsection{Functionele requirements}
+In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de oude prakticumomgeving die gebruik maakt van de Gloss library.
+
+\newcounter{startvalue}
 \begin{enumerate}[{R}1]
 	\item Het systeem dient grafische primitieven zoals cirkels, vierkanten, lijnen, Bézier curves, n-hoeken en tekst moeten op een simpele manier getekend kunnen worden vanuit het Haskell-programma van de student.
 	\begin{enumerate}[{R\arabic{enumi}.}1]
@@ -40,6 +43,13 @@ De requirements zijn opgesteldt met de MoSCoW-methode. Bij deze methode kunnen e
 		\item Het systeem kan eventueel stapsgewijze aanpassingen geanimeerd weergeven.
 		\item Het systeem kan eventueel zoomen en geschoven worden op de canvas.
 	\end{enumerate}
+	\setcounter{startvalue}{\value{enumi}}
+\end{enumerate}
+
+
+
+\begin{enumerate}[{R}1]
+\setcounter{enumi}{\value{startvalue}}
 	\item Het systeem kan acties ondersteunen die in de client of door de module worden uitgevoerd.
 	\begin{enumerate}[{R\arabic{enumi}.}1]
 		\item Het systeem kan eventueel tekstinvoer vragen met een pop-up.
@@ -60,7 +70,6 @@ De requirements zijn opgesteldt met de MoSCoW-methode. Bij deze methode kunnen e
 	\item Het systeem dient automatisch een browser te starten bij het draaien van het programma.
 	\item Het systeem dient de browseromgeving opnieuw te laden als het Haskell-programma opnieuw gecompileerd wordt.
 	\item De JavaScript-omgeving dient een simpele debug-console te bevatten.
-	\newcounter{startvalue}
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
