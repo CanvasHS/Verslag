@@ -5,8 +5,9 @@ Het systeem bestaat uit een browseromgeving dat door middel van HTML en JavaScri
 
 Initieel is een lijst met requirements opgesteld. Gedurende het ontwikkelproces zijn bij de meetings met de begeleider nieuwe requirements aan de orde gekomen; deze requirements zijn in deze lijst opgenomen.
 
-De requirements zijn opgesteldt met de MoSCoW-methode. Bij deze methode kunnen essentiele, niet-essentiele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essentieele functionaliteit geimplementeerd is. Er wordt gebruik gemaakt van ``dient'' voor essentiele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements.
+De requirements zijn opgesteldt met de MoSCoW-methode. Bij deze methode kunnen essentiele, niet-essentiele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essentieele functionaliteit geimplementeerd is. \todo{vooruit verwijzen naar checken requirements} Er wordt gebruik gemaakt van ``dient'' voor essentiele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements.
 
+\todo{Iets meer uitleggen over waarom requirements nodig zijn (bijv tbv gebruikerservaring of zat ook in Gloss-oplossing}
 \subsubsection{Functionele requirements}
 In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de oude prakticumomgeving die gebruik maakt van de Gloss library.
 
@@ -60,11 +61,11 @@ In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de ou
 			\item Het systeem dient lokale bestanden te kunnen wijzigen via een functie die aangeboden wordt in de Haskell-module.
 		\end{enumerate}
 		
-		\item Het systeem kan eventueel bestanden die de gebruiker aanbied te kunnen verwerken.
+		\item Het systeem kan eventueel bestanden die de gebruiker aanbied verwerken.
 	\end{enumerate}
 	\item Het systeem dient duidelijke errors te genereren.
 	\begin{enumerate}[{R\arabic{enumi}.}1]
-		\item Als de verbinding tussen JavaScript en Haskell verbroken wordt dient het systeem een error te tonene aan de gebruiker. 
+		\item Als de verbinding tussen JavaScript en Haskell verbroken wordt dient het systeem een error te tonen aan de gebruiker. 
 		\item Het systeem dient een error te tonen wanneer een functionaliteit in een onverwachte staat komt.
 	\end{enumerate}
 	\item Het systeem dient automatisch een browser te starten bij het draaien van het programma.
