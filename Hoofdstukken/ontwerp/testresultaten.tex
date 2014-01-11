@@ -6,10 +6,218 @@
 Door het gebruik van voornamelijk twee verschillende programmeertalen zijn de tests voor deze toepassingen ook apart geschreven. Alle tests kunnen gezamenlijk via cabal test aangeroepen worden. Dit vereist wel enige configuratie. Uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: \url{http://canvashs.github.io/test.html}.
 
 \subsection{JavaScript}
-Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten.
+Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten. Hieronder wordt de lijst met testcases weergegeven van de JavaScript code. Alle test cases worden correct uitgevoerd.
+
+\subsubsection{Testcases}
+\newcounter{startvaluetest}
+\begin{enumerate}[{T}1]
+	\item Convert colors
+	\begin{enumerate}[{T\arabic{enumi}.}1]
+		\item converts rgba json to rgba
+		\item converts rgba json to rgba with zero alpha
+		\item converts rgb json to rgba
+	\end{enumerate}
+	\item Parse elements
+	\begin{enumerate}[{T\arabic{enumi}.}1]
+		\item parses a rectangle
+		\item parses a circle
+		\item parses a container
+	\end{enumerate}
+	\item Draw elements
+	\begin{enumerate}[{T\arabic{enumi}.}1]
+		\item draws a rectangle
+		\item draws a polygon
+		\item draws a circle (using rgb)
+		\item draws a circle with stroke alpha zero
+		\item draws text
+		\item draws container
+		\item draws container with clipping
+	\end{enumerate}
+	\setcounter{startvaluetest}{\value{enumi}}
+\end{enumerate}
 
 \subsection{Haskell}
-Voor de Haskell code zijn unit tests ontwikkeld. De code coverage van de tests is gemeten met hpc waarvoor standaard een commando is meegeleverd in Cabal.
+Voor de Haskell code zijn unit tests ontwikkeld. De code coverage van de tests is gemeten met hpc waarvoor standaard een commando is meegeleverd in Cabal. Hieronder wordt de lijst met testcases weergegeven van de Haskell code. Alle test cases worden correct uitgevoerd.
+
+
+\subsubsection{Testcases}
+\begin{enumerate}[{T}1]
+	\setcounter{enumi}{\value{startvaluetest}}
+	\item InputSpec
+	\begin{enumerate}[{T\arabic{enumi}.}1]
+		\item mousedown event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item converts rgba json to rgba with zero alpha
+			\item converts rgb json to rgba
+		\end{enumerate}
+		\item mouseclick event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a mouseclick event
+			\item can decode *arbitrary* mouseclick event
+		\end{enumerate}
+		\item mouseup event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a mouseup event
+			\item can decode *arbitrary* mouseup event
+		\end{enumerate}
+		\item mouseover event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a mouseover event
+			\item can decode *arbitrary* mouseover event
+		\end{enumerate}
+		\item mouseout event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a mouseout event
+			\item can decode *arbitrary* mouseout event
+		\end{enumerate}
+		\item keydown event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a keydown event
+			\item can decode *arbitrary* keydown event
+		\end{enumerate}
+		\item keyclick event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a keyclick event
+			\item can decode *arbitrary* keyclick event
+			\end{enumerate}
+		\item keyup event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a keyup event
+			\item can decode *arbitrary* keyup event
+		\end{enumerate}
+		\item scroll event
+		\begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+			\item can decode a scroll event
+			\item can decond an *arbitrary* scroll event
+		\end{enumerate}
+	\end{enumerate}
+	\item OutputSpec
+	\begin{enumerate}[{T\arabic{enumi}.}1]
+	    \item Aeson Value
+	    \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+	        \item is equal on equal JSON
+	        \item is equal on JSON with different ordering
+	        \item is not equal on different fields
+	        \item is not equal on different field contents
+	    \end{enumerate}
+	    \item Protocol.encode
+	    \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+	        \item encodes both shapes and actions
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item omits Nothing shapes
+            	\item can encode Actions without Shape
+            	\item can encode Shape without Actions
+            \end{enumerate}
+        \end{enumerate}
+	    \item Protocol.encode for shapes
+	    \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+	        \item encode basic shapes
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can encode proper Rectangles
+            	\item can encode proper Circles
+            	\item can encode proper Arcs
+            	\item can encode proper Lines
+            	\item can encode proper Polygons
+            \end{enumerate}
+	        \item Containers
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can be an empty container
+            	\item can place a basic shape in a container
+            	\item can place basic shapes in a container
+            	\item can place containers in containers
+            \end{enumerate}
+	        \item Fill
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can change the fill on a basic shape
+            	\item can recursively change the fill on a containter and contents
+            \end{enumerate}
+	        \item Stroke
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can add stroke to a basic shape
+            	\item can recursively add stroke on a container and contents
+            \end{enumerate}
+	        \item Rotate
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can rotate a basic shape
+            	\item can rotate a container
+            	\item can rotate a negative angle
+            \end{enumerate}
+	        \item Translate
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can translate a basic shape
+            	\item can translate a container
+            	\item can translate a neagtive amount
+            \end{enumerate}
+	        \item Scale
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can scale basic shapes
+            	\item can scale containers
+            \end{enumerate}
+	        \item Offset
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can set offset on a basic shape
+            	\item can set offset on a container
+            \end{enumerate}
+	        \item Text
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can encode simple text
+            	\item can encode with different font family
+            	\item can encode with different font size
+            	\item can encode with start alignment
+            	\item can encode with center alignment
+            	\item can encode with end alignment
+            	\item can encode underline True
+            	\item can encode underline False
+            	\item can encode italics True
+            	\item can encode italics False
+            	\item can encode bold True
+            	\item can encode bold False
+            	\item can encode bold, underline and italic combined
+            	\item can encode combine all properties
+            \end{enumerate}
+	        \item Events
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can add an event to a shape
+            	\item can add multiple events to a shape
+            	\item can add events to a container
+            \end{enumerate}
+        \end{enumerate}
+	    \item Protocol.encode for Actions
+	    \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.}1]
+	        \item Debugger
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can enable debugger
+            	\item can disable debugger
+            \end{enumerate}
+            \item Drag\'n\'drop
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can enable dag'n'drop without multiple files
+            	\item can enable dag'n'drop with multiple files
+            	\item can disable drag'n'drop
+            \end{enumerate}
+            \item DisplayType
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can set the DisplayType to FixedSize
+            	\item can set the DisplayType to FulWindow
+            	\item can set the DisplayType to FullScreen
+            \end{enumerate}
+            \item Download
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can offer a file for download
+	            \item RequestUpload
+            \end{enumerate}
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+            	\item can request uploading a single file
+            	\item can request uploading multiple files
+            \end{enumerate}
+            \item Multiple actions
+	        \begin{enumerate}[{T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}1]
+        		\item can encode multiple actions
+	        \end{enumerate}
+        \end{enumerate}
+	\end{enumerate}
+	\setcounter{startvaluetest}{\value{enumi}}
+\end{enumerate}
 
 \subsection{Performance analyse}
 Tijdens de ontwikkeling van de library is duidelijk geworden dat de performance van de geschreven programma's niet altijd optimaal is. Met name bij programma's die gebruik maken van \emph{timers} en bij programma's met grote \emph{shape grafen}.\todo{shape graph eerder introduceren}
