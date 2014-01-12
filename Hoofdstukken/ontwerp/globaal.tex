@@ -38,23 +38,32 @@ type State = Int
 main = installEventHandler handle 0
 
 handle :: State -> Event -> (State, Output)
-handle StartEvent st 	= (st+1, output)
+handle st StartEvent    = (st+1, output)
 	where 
-		output = Out (shape, actions)
+		output = Out (Just shape, actions)
 		shape = rectangle st
 		actions = [Timer 1000 "move"]
 		
-handle (Tick "move") st	= (st+1, shape $ rectangle st)
+handle st (Tick "move") = (st+1, shape $ rectangle st)
 		
-rectangle :: Int -> Shape
+rectangle :: State -> Shape
 rectangle i = Rect (10*i, 10*i) 10 10
 \end{lstlisting}
 
 Een gedetailleerde handleiding over Events, Shapes, Actions in het algemeen het gebruik van Canvas.hs kan gevonden worden in appendix A: gebruikerhandleiding. \todo{Invoegen referentie}
 
 \paragraph{Shapes}
-Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en translaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muiklikken, die plaatsheben op de Shape. In fig is een grafische boom van Shapes weergegeven. 
+Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en translaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muiklikken, die plaatsheben op de Shape. In \autoref{dia:grafische_boom} \todo{fix ref} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de translaties altijd één subboom van een Shape.
 
-\todo{blablabla bilbiotheken gebriken om makkelijker te maken enzo}
+\begin{diagram}
+\Tree [.Container [.Fill [.Rotate [.{Event mouseClick=True} Rect ] ] ] [.Translate Text ] [.Stroke Line ] ]
+\caption{Grafische boom}
+\label{dia:grafische_boom}
+\end{diagram}
 
-\todo{detailontwerp doorlezen om te checken of nog andere dingen gemist zijn bij globaal ontwerp}
+\paragraph{Communicatie}
+In Canvas.hs wordt de grafische weergave gedaan door het canvaselement in een webbrowser. Voor de communicatie tussen het haskellprocess en de webbrowser zijn een aantal mogelijkheden. In canvas.hs hebben we ervoor gekozen in het haskellprocess een server te starten die vervolgens door de webbrowser wordt aangesproken. Hier wordt over uitgeweid onder \autoref{subsec:architectuur}.
+
+\paragraph{Externe bibliotheken}
+Voor het opzetten van deze server zijn vele oplossingen bedacht in de vorm van modules voor Haskell. Ook voor de interactie met het canvaselement bestaan een aantal javascriptbibliotheken.
+In Canvas.hs hebben wij het wiel niet opnieuw uitgevonden, maar de beste van deze oplossingen geselecteerd. De gekozen bibliotheken worden verder toegelicht onder \autoref{subsec:externe_libraries}.
