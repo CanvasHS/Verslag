@@ -18,6 +18,10 @@
 \usepackage{multirow}
 \usepackage{enumitem}
 \usepackage{tabularx}
+\usepackage{qtree}
+\usepackage{newfloat} %used to draw trees (qtree) in a floating enviroment for captions
+
+\DeclareFloatingEnvironment[fileext=lod]{diagram} %create a floating enviroment for qtree
 
 
 \DeclareCaptionFont{white}{ \color{white} }
@@ -105,6 +109,7 @@
   morestring=[b]',
   morestring=[b]"
 }
+\renewcommand{\lstlistingname}{Code}
 
 \makeatletter
 \newcommand*\idstyle{%
@@ -152,6 +157,7 @@
 \tableofcontents
 
 \input{./Hoofdstukken/inleiding.tex}
+\input{./Hoofdstukken/organisatie.tex} 
 \input{./Hoofdstukken/requirements.tex} 
 \input{./Hoofdstukken/ontwerp.tex} 
 \input{./Hoofdstukken/conclusie.tex}

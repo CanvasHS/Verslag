@@ -1,4 +1,5 @@
 \subsection{Externe libraries}
+\label{subsec:externe_libraries}
 
 \subsubsection{Webserver}
 Om de statische files van onze library te serveren hebben we een HTTP-server nodig, we hebben hier gekozen voor ``warp''. Warp biedt een lichtgewicht webserver die goed gedocumenteerd en ondersteund is. Andere opties waren ``happstack'', ``hyena'' en ``snap server"". Dit zijn eigenlijk volledige webframeworks, wij hoefden slechts statische files te serveren. Voor de eenvoud en onderhoudbaarheid was ``warp'' de beste keuze.
@@ -15,6 +16,6 @@ Er zijn voor haskell twee bekende JSON libraries, Text.JSON en Aeson. In eerste 
 Binnen Aeson is er gekozen om Template Haskell functies te gebruiken, dit is een GHC extensie die een soort van metaprogramming toevoegd aan Haskell. Template Haskell is gebruikt om lege keys uit de \todo{robert: gaan jullie hier nog meer over vertellen?}JSON te verwijderen en een record probleem van Haskell te omzeilen.
 
 \subsubsection{Tests}
-Als testingframework hebben we voor Hspec gekozen. Hspec integreert goed met andere testframeworks zoals QuickCheck en HUnit maar daarbovenop voegt het verhalende syntax toe aan de testcases. Ook zoekt Hspec automatisch naar testcases, en paralleliseerd het testcode.
+Als testingframework hebben we voor Hspec gekozen. Hspec integreert goed met andere testframeworks zoals QuickCheck en HUnit maar daarbovenop voegt het verhalende syntax toe aan de testcases. Ook zoekt Hspec automatisch naar testcases, en paralleliseert het testcode.
 
 Binnen Hspec maken we ook gebruik van QuickCheck, deze library kan arbitraire testcases testen. Hiervoor dient de input gedefineerd te worden en dan zal QuickCheck een groot aantal testcases loslaten op de code. Vaak gebruiken we eerst een voorgedefineerde testcase (van HSpec zelf, wat weer een wrapper om HUnit is), en daarnaast een arbitrair aantal extra testcases gegenereerd door QuickCheck. Zo weten we dat het geen toeval was dat onze tests checkte en kunnen we zonder al te veel moeite veel gevallen proberen.
