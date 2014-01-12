@@ -53,10 +53,10 @@ rectangle i = Rect (10*i, 10*i) 10 10
 Een gedetailleerde handleiding over Events, Shapes, Actions in het algemeen het gebruik van Canvas.hs kan gevonden worden in appendix A: gebruikerhandleiding. \todo{Invoegen referentie}
 
 \paragraph{Shapes}
-Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en translaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muiklikken, die plaatsheben op de Shape. In \autoref{dia:grafische_boom} \todo{fix ref} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de translaties altijd één subboom van een Shape.
+Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en translaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muiklikken, die plaatsheben op de Shape. In \autoref{dia:grafische_boom} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de translaties altijd één subboom van een Shape.
 
 \begin{diagram}
-\Tree [.Container [.Fill [.Rotate [.{Event mouseClick=True} Rect ] ] ] [.Translate Text ] [.Stroke Line ] ]
+\Tree [.Container [.Fill [.Rotate [.{Event mouseClick=True} Rect ] ] ] [.Translate Text ] [.Stroke [.Container [.Circle ] [.Line ] [.Circle ] ] ] ]
 \caption{Grafische boom}
 \label{dia:grafische_boom}
 \end{diagram}
