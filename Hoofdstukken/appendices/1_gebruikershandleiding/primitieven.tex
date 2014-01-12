@@ -92,7 +92,7 @@ data Shape = ...
 			| Text Point String TextData
 \end{lstlisting} 
 \begin{itemize}
-	\item \type{Point}, het punt \todo{waar rond de? beetje onduidelijk}waar rond de text getekend zal worden, m.b.v. \type{TextData}~, kan dit veranderd worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
+	\item \type{Point}, het punt waarop de text getekend zal worden, m.b.v. \type{TextData}~, kan dit veranderd worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
 	\item \type{String}, de te tekenen tekst
 	\item \type{TextData}, een aantal opties om tekst anders weer te geven, zoals lettertype en lettergrootte, zie hieronder.
 \end{itemize}
@@ -102,31 +102,29 @@ data Shape = ...
 \begin{lstlisting}
 type FontSize = Int
 
-data Alignment = Start | End | Center
+data Alignment = AlignLeft | AlignRight | AlignCenter
 
 data TextData = TextData {
     font :: String,
     size :: FontSize,
     bold :: Bool,
     italic :: Bool,
-    underline :: Bool,
     alignment :: Alignment
 } deriving (Eq, Show)
 
 instance Defaults TextData where
-    defaults = TextData "Arial" 12 False False False Center
+    defaults = TextData "Arial" 12 False False AlignLeft
 \end{lstlisting}
 \begin{itemize}
 	\item font, het font van de te tekenen tekst. Dit font moet door de browser ondersteund worden, als dit niet zo is zal de browser terugvallen op het standaard font
 	\item size, de grootte van de te tekenen tekst
 	\item bold, of de tekst dikgedrukt getekend moet worden
 	\item italic, of de tekst schuingedrukt getekend moet worden
-	\item underline, of de tekst onderstreept getekend moet worden
 	\item alignment, de uitlijning van de te tekenen tekst. 
 		\begin{itemize}
-			\item \type{Left}, de linkerbovenhoek van de tekst wordt op het punt uitgelijnd.
-			\item \type{Center}, het middelpunt van de tekst wordt op het punt uitgelijnd.
-			\item \type{Right}, de rechterbovenhoek van de tekst wordt op het punt uitgelijnd.
+			\item \type{AlignLeft}, de linkerbovenhoek van de tekst wordt op het punt uitgelijnd.
+			\item \type{AlignCenter}, het middelpunt van de tekst wordt op het punt uitgelijnd.
+			\item \type{AlignRight}, de rechterbovenhoek van de tekst wordt op het punt uitgelijnd.
 		\end{itemize}
 \end{itemize}
 
@@ -286,8 +284,7 @@ Acties zijn op te delen in twee categorieën, acties die onmiddellijk tot een re
 \subsubsection{BlockingAction}
 Er zijn op dit moment twee \type{BlockingAction}'s, beide worden gebruikt om bestanden te laden uit het lokale bestandssysteem: \type{LoadFileString} en \type{LoadFileBinary}~, de eerste opent het bestand als \type{String}, dit is nuttig voor tekstbestanden, de tweede opent het bestand als \type{ByteString}~, dit is nuttig voor andere typen bestanden, zoals afbeeldingen. \type{LoadFileString} zal resulteren in een \type{FileLoadedString-Event} en \type{LoadFileBinary} zal resulteren in een \type{FileLoadedBinary-Event}.
 \begin{lstlisting}
-data BlockingAction = 
-					  LoadFileString String
+data BlockingAction = LoadFileString String
 					| LoadFileBinary String
 \end{lstlisting}
 \begin{itemize}
@@ -314,7 +311,7 @@ data Action = ...
 \end{lstlisting}
 \begin{itemize}
 	\item \type{String}, het pad naar het te laden bestand. Kan absoluut zijn of relatief aan de locatie van het haskell-bestand dat de main definieert.
-	\item \type{ByteString}, de inhoud van het op te slaan bestand
+	\item \type{ByteString}, de inhoud van het op te slaan bestand als Lazy ByteString
 \end{itemize}
 
 \myparagraph{Download}
@@ -338,7 +335,7 @@ data Action = ...
 	\item \type{Bool}, of de gebruiker meerdere bestanden mag selecteren (\type{True}) of niet (\type{False})
 \end{itemize}
 
-\myparagraph{drag'n'drop}
+\myparagraph{Drag'n'drop}
 Het is mogelijk om het uploaden van bestanden te accepteren via drag'n'drop op het canvas. D.m.v. deze \type{Action} is het mogelijk om het accepteren hiervan aan en uit te schakelen, daarnaast is het mogelijk om aan te geven of de gebruiker meerdere bestanden in één keer kan uploaden of niet. Het succesvol uploaden van een bestand resulteert in een \type{UploadComplete-Event}.
 \begin{lstlisting}
 data Action = 
@@ -360,8 +357,18 @@ data Action = ...
 	\item \type{String}, de naam van deze timer.
 \end{itemize}
 
+\myparagraph{StopTimer}
+Met de \type{StopTimer-Action} is het mogelijk om \type{Timer}s te stoppen. De timers worden hierbij geïndentificeerd aan hun naam, zoals opgegeven bij het starten van de \type{Timer}. Als een al gestopte, of niet bestaande \type{Timer} wordt gestopt heeft dit geen resultaat.
+\begin{lstlisting}
+data Action = ...
+			| StopTimer String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de naam van de te stoppen \type{Timer}
+\end{itemize} 
+
 \myparagraph{DisplayType}
-Het is mogelijk om het weergavetype van de canvas te veranderen. Standaard is deze op \type{FixedSize} met een breedte van 900 en een hoogte van 600, het is echter ook mogelijk om het canvas op volledig scherm (\type{FullScreen}) weer te geven en de canvas de volledige grootte van het browserscherm te laten innemen (\type{FullWindow}). Het veranderen van de grootte van het canvas zal resulteren in een \todo{dit dus uitzoeken} {\color{red} \type{CanvasResizeEvent OID, UITZOEKEN!!!}}.
+Het is mogelijk om het weergavetype van de canvas te veranderen. Standaard is deze op \type{FixedSize} met een breedte van 900 en een hoogte van 600, het is echter ook mogelijk om het canvas op volledig scherm (\type{FullScreen}) weer te geven en de canvas de volledige grootte van het browserscherm te laten innemen (\type{FullWindow}). Het veranderen van de grootte van het canvas zal resulteren in een \type{WindowResize-Event}
 \begin{lstlisting}
 data Action = ...
 			| DisplayType WindowDisplayType
@@ -391,6 +398,17 @@ data Action = ...
 	\item \type{Bool}, of het debugscherm moet worden weergegeven (\type{True}) of niet (\type{False}).
 \end{itemize}
 
+\myparagraph{Prompt}
+Met de \type{Prompt-Action} is het mogelijk om de gebruiker te vragen een antwoord te geven op een vraag. Het antwoord op de vraag zal in de vorm van een \type{PromptResponse-Event} gepresenteerd worden. Bij het openen van een prompt dient een standaardwaarde voor het antwoord gegeven te worden. Als de prompt door de gebruiker geannuleerd wordt levert dit geen \type{Event} op.
+\begin{lstlisting}
+data Action = ...
+			| Prompt String String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, het bericht om de gebruiker bij de prompt te tonen. 
+	\item \type{String}, de standaardwaarde voor het antwoord
+\end{itemize}
+
 \subsection{Events}
 \events zijn samen met de huidige \type{State} de invoer voor de handler functie. De handler reageert op deze \events met een \type{Output}. \events ontstaan door acties van de gebruiker, zoals toetsaanslagen, muisklikken e.d. op geïnteresseerde \shapes, of resulteren uit een \type{Action}, zoals bijvoorbeeld de \type{Tick} van een \type{Timer}.
 Onderstaand wordt van elk \type{Event} een korte omschrijving gegeven.
@@ -401,6 +419,17 @@ Dit is het allereerste \type{Event} wat ontstaat. Dit \type{Event} betekent het 
 data Event = 
 			| StartEvent
 \end{lstlisting}
+
+\myparagraph{WindowResize}
+Dit \type{Event} onstaat als het canvas van afmeting verandert. Bij dit \type{Event} wordt de nieuwe afmeting van het canvas in pixels meegegeven.
+\begin{lstlisting}
+data Event = ...
+			| WindowResize Int Int
+\end{lstlisting}
+\begin{itemize}
+	\item \type{Int}, de nieuwe breedte van het canvas
+	\item \type{Int}, de nieuwe hoogte van het canvas
+\end{itemize}
 
 \subsubsection{Mouse Events}
 Voor deze \events: \type{MouseDown, MouseClick, MouseUp, MouseDoubleClick, MouseDrag, MouseOver, MouseOut} en \type{Scroll} is onder het kopje EventData onder Shapes al een omschrijving gegeven wanneer deze precies afgaan. Deze omschrijving is hieronder dan ook niet weer gegeven.
@@ -454,7 +483,7 @@ data Event = ...
 	\item \type{Point}, de coördinaten waarop begonnen werd met slepen
 	\item \type{String}, het id van de \shape waarop begonnen werd met slepen
 	\item \type{Point}, de coördinaten waarop gestopt werd met slepen
-	\item \type{String}, het id van de \shape waarop gestopt werd met slepen \todo{Dit kan in een todo} \todo{Dit is al lang uit het protocol gesloopt geloof ik} {\color{red} WAT ALS GESTOPT WORD MET SLEPEN OP EEN SHAPE DIE DAAR NIET IN GEINTERESSERD IS, OF UBERHAUPT GEEN ID HEEFT?}
+	\item \type{String}, het id van de \shape waarop gestopt werd met slepen 
 \end{itemize}
 
 \myparagraph{MouseOver}
@@ -489,7 +518,7 @@ data Event = ...
 \end{itemize}
 
 \subsubsection{Key Events}
-De volgende \events \todo{gaan af? dit kan beter geformuleerd worden}gaan af als de gebruiker op een toets op het toetsenbord drukt. Deze hangen logischerwijze niet aan een \shape. 
+De volgende \events ontstaan als een gebruiker op een toets op het toetsenbord drukt. Deze hangen logischerwijze niet aan een \shape. 
 Bij deze \events wordt van een tweetal types gebruik gemaakt. 
 
 \paragraph{Ingedrukte Toets}
@@ -557,7 +586,7 @@ data Event = ...
 \end{lstlisting}
 \begin{itemize}
 	\item \type{String}, het pad naar het geladen bestand
-	\item \type{ByteString}, de inhoud van het geladen bestand
+	\item \type{ByteString}, de inhoud van het geladen bestand als Lazy ByteString
 \end{itemize}
 
 \myparagraph{UploadComplete}
@@ -568,7 +597,7 @@ data Event = ...
 \end{lstlisting}
 \begin{itemize}
 	\item \type{String}, de naam van het ge\"uploade bestand
-	\item \type{(String, ByteString)}, de inhoud van het bestand. Deze tuple bevat zowel de inhoud van het bestand als String als als ByteString.
+	\item \type{(String, ByteString)}, de inhoud van het bestand. Deze tuple bevat zowel de inhoud van het bestand als String als als Lazy ByteString.
 \end{itemize}
 
 \myparagraph{Tick}
@@ -579,6 +608,16 @@ data Event = ...
 \end{lstlisting}
 \begin{itemize}
 	\item \type{String}, de naam van de timer die afgaat.
+\end{itemize}
+
+\myparagraph{PromptRespone}
+Dit \type{Event} onstaat als de gebruiker een respons geeft op een \type{Prompt}. 
+\begin{lstlisting}
+data Event = ...
+			| PromptResponse String
+\end{lstlisting}
+\begin{itemize}
+	\item \type{String}, de response van de gebruiker op de prompt.
 \end{itemize}
 
 
