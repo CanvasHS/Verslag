@@ -39,11 +39,11 @@ Ten tweede wordt er bij aanvang van een nieuwe fase een planning gemaakt op basi
 \section{Technische organisatie} \label{sec:technische_organisatie}
 Bij het bouwen van software met een groep is het belangrijk dat elke ontwikkelaar zich kan concentreren op de feature die hij/zij aan het ontwikkelen is. Idealiter hoeft er geen rekening gehouden te worden met andere features die door anderen ontwikkeld worden. Er is dan ook gekozen om gebruik te maken van het gedistribueerde versiebeheer systeem \emph{Git} met een centraal repository op \emph{GitHub}.
 
-Er zijn afspraken gemaakt hoe deze versiebeheer software gebuikt moet worden. Zo is er gebruik gemaakt van een zogenaamd \emph{branching model}\cite{Gitflow2010}. verschillende \emph{branches}. Als een bepaalde versie van de software op een bepaalde branch staat zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. En is een versie op de \inlinecode{master} branch klaar voor gebruik.
+Er zijn afspraken gemaakt hoe deze versiebeheer software gebuikt moet worden. Zo is er gebruik gemaakt van het \emph{branching model} Gitflow\cite{Gitflow2010}. Als een bepaalde versie van de software op een bepaalde branch staat zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. En is een versie op de \inlinecode{master} branch klaar voor gebruik.
 
-\subsection{Gitflow en pull requests}
+\subsection{Pull requests}
 
-Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch gemaakt vanaf de \inlinecode{dev} branch. Een voorbeeld hiervan is de \inlinecode{arcs} branch. In \autoref{sec:shapesext} staat beschreven hoe \inlinecode{Arc} shapes toegevoegd kunnen worden. Dit is dus gebeurd op een aparte branch die begonnen is vanaf de \inlinecode{dev} branch, zie \autoref{fig:pullrequest}. 
+Bij aanvang van de ontwikkeling van een nieuwe feature wordt er een nieuwe branch gemaakt vanaf de \inlinecode{dev} branch. Een voorbeeld hiervan is de \inlinecode{arcs} branch. In \fullref{sec:shapesext} staat beschreven hoe \inlinecode{Arc} shapes toegevoegd kunnen worden. Dit is dus gebeurd op een aparte branch die begonnen is vanaf de \inlinecode{dev} branch, zie \autoref{fig:pullrequest}. 
 
 \begin{figure}
 \begin{center}
@@ -53,13 +53,19 @@ Bij aanvang van de ontwikkeling van een nieuwe feature werd er een nieuwe branch
 \end{center}
 \end{figure}
 
-Als een feature af is moet deze beoordeeld voordat deze gemergd kan worden naar de \inlinecode{dev} branch. Daarvoor wordt een \emph{pull request} aangemaakt. Deze \emph{pull request} bevat dan informatie over de wijzigingen tenopzichte van de versie die op de \inlinecode{dev} branch staat. Een beoordelaar kan de code lezen en deze goedkeuren. Op het moment dat de code goed wordt gekeurt komt een nieuwe versie met de nieuwe feature op de \inlinecode{dev} branch te staan.
-
-Bij aanvang van het project was deze werkwijze voor veel teamleden nieuw. En daarom is het in het begin niet altijd juist toegepast. Maar naarmate het project vorderde is steeds vaker met succes gebruik gemaakt van het pull request principe. Dit zorgde er voor dat teamleden elkaars code controleerde en dat er minder bugs zaten in de versies op de \inlinecode{dev} branch.
+Als een feature af is moet deze beoordeeld door een ander teamlid voordat deze samengevoegd kan worden met de \inlinecode{dev} branch. Om dit te bewerkstelligen wordt gebruik gemaakt van een \emph{pull request}. Deze \emph{pull request} bevat informatie over de wijzigingen tenopzichte van de versie die op de \inlinecode{dev} branch staat. Een beoordelaar kan de code lezen en deze goedkeuren. Op het moment dat de code goed wordt gekeurd komt een nieuwe versie met de nieuwe feature op de \inlinecode{dev} branch te staan.
 
 \subsection{Continuous integration met Travis CI}
 
 Om het beoordelen van code gemakkelijk te maken voor de ontwikkelaar en de beoordelaar is er gebruik gemaakt van de \emph{continuous integration} software \emph{Travis}. Deze software luistert naar nieuwe commits naar het centrale repository, als er een nieuwe commit gedaan is wordt er een virtuele machine opgestart die vervolgens middels een buildscript de versie van de software probeert te bouwen. Dit buildscript staat in de root directory van het repository.
+
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/travis.png}
+\caption{Build van Pull Request \#75. – \url{https://travis-ci.org/CanvasHS/Canvas.hs/builds/16168834}}
+\label{fig:travis}
+\end{center}
+\end{figure}
 
 Dit buildscript specificeert onder andere dat de software gebouwd moet worden met de Haskell compiler, maar ook dat alle geschreven tests uitgevoerd moeten worden. Mocht de compilatie of het uitvoeren van een van de tests niet geslaagd zijn is de build gefaald. Dit wordt dan vervolgens ook weergeven in het venster van de pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, zoals bijvoorbeeld te zien bij \autoref{fig:pullrequest}, weet hij zeker dat de versie veilig is om te mergen.
 
