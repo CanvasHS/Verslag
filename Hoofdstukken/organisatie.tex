@@ -3,13 +3,14 @@
 
 Tijdens het ontwikkelen van de eerste versie van Canvas.hs is er samengewerkt volgens een paar vooraf geselecteerde methoden. Zo zijn er onderdelen van de Scrum projectmanagement methode toegepast voor een goede planning en duidelijke afspraken. Lees hier meer over in de volgende sectie—\halfref{sec:scrum}.
 
-Bij het ontwikkelen van software is het naast een goede project organisatie ook zaak dat er door ontwikkelaars goed samengewerkt kan worden op technisch vlak. Daarbij is het elkaar controlleren en elkaar niet in de weg zitten een belangrijk onderdeel. Hoe dit tijdens de ontwikkeling van Canvas.hs georganiseerd is kan gelezen worden in \fullref{sec:technische_organisatie}.
+Bij het ontwikkelen van software is het naast een goede projectorganisatie ook zaak dat er door ontwikkelaars goed samengewerkt kan worden op technisch vlak. Daarbij is het elkaar controlleren en elkaar niet in de weg zitten een belangrijk onderdeel. Hoe dit tijdens de ontwikkeling van Canvas.hs georganiseerd is kan gelezen worden in \fullref{sec:technische_organisatie}.
 
 \section{Scrum} \label{sec:scrum}
+Zaken als planning, verdeling van de verantwoordelijkheden en het beslissen over architecturele vraagstukken zijn belangrijk. Om er voor te zorgen dat alle betrokkenen hierover op een gelijke manier denken is er voor het toepassen van een projectorganisatie methode gekozen. Een populaire methode voor software projecten is Scrum. Er is dan ook gewerkt met een variant hiervan tijdens de ontwikkeling van Canvas.hs.
 
-Er is gewerkt middels de scrum projectmangement methoden. Er is gewerkt met verschillende rollen en er zijn zogenaamde scrum en sprint besprekingen gehouden. Daarbij zijn elke keer opnieuw onder andere het project– en sprintbacklog samengesteld en bijgewerkt.
+Verschillende rollen zijn toegewezen aan de betrokken personen. Elke samenkomst zijn er zogenaamde scrum besprekingen gehouden en bij aanvang van een nieuwe fase zijn er sprint besprekingen gehouden. Daarbij zijn elke keer opnieuw het project– en sprintbacklog samengesteld en bijgewerkt.
 
-\paragraph{Rollen} Er is een verdeling van verantwoordelijkheden gemaakt. Naast de teamleden nam de opdrachtgever de rol van \emph{product owner} aan.
+\paragraph{Rollen} Er is een verdeling van verantwoordelijkheden gemaakt. Hieronder een kort overzicht van de teamleden en verantwoordelijkheden.
 \begin{enumerate}
     \item \emph{J. van Doorn} had de taak van \emph{scrum master} en was verantwoordelijk voor het testen van de software.
     \item \emph{P.T. Jager} was notulist voor alle besprekingen en samen met Buit verantwoordelijk voor de Haskell code.
@@ -17,13 +18,10 @@ Er is gewerkt middels de scrum projectmangement methoden. Er is gewerkt met vers
     \item \emph{M.J. Roo} was samen met Scheepers verantwoordelijk voor de JavaScript code.
     \item \emph{M.J. Scheepers} was verantwoordelijk voor de gebruiksvriendelijkheid uiteindelijke API en samen met Roo verantwoordelijk voor de JavaScript code.
 \end{enumerate}
-
-\paragraph{Besprekingen} Elke samenkomst is er een kortdurende scrumbespreking gehouden. Na aanvang van het project zijn er ook een aantal sprint besprekingen gehouden. Deze sprint besprekingen kwamen altijd na het gesprek met de opdrachtgever. Er bleek al snel dat onze afgesproken sprint van twee werken wel erg kort was om elke twee weken dat er samengekomen werd een nieuwe lange sprintbespreking te houden. Dus er werd uiteindelijk voor gekozen om de besprekingen met de projectgroep te beperkingen tot de dagelijkse korte besprekingen.
-
-Bij de dagelijkse besprekingen werd vaak op details in gegaan, hierbij werden ontwerp beslissingen vaak genomen tijdens deze besprekingen. De besprekingen duurde hierdoor soms wat lang en werden zittend gehouden.
+Naast de teamleden nam de opdrachtgever de rol van \emph{product owner} aan. Hiermee is de opdrachtgever onder andere verantwoordelijk voor het aangeven van de volgorde waarin features ge\"implementeerd.
 
 \paragraph{Taken}
-Regelmatig werd de lijst met taken bijgewerkt. Taken bestonden uit: projecttaken, als het bijhouden van de planning; ontwikkeltaken, als het oplossen van bugs en het schrijven van nieuwe features; schrijftaken en overige taken.
+Taken worden bijgehouden in de zogenaamde \emph{backlogs}. Er is een \emph{backlog} voor alle taken die nog uitgevoegd moeten worden en er is een \emph{backlog} voor de taken die ingepland zijn voor de huidige fase. Taken bestaan uit: projecttaken, als het bijhouden van de planning; ontwikkeltaken, als het oplossen van bugs en het schrijven van nieuwe features; schrijftaken en overige taken.
 
 \begin{figure}[H]
 \begin{center}
@@ -33,16 +31,15 @@ Regelmatig werd de lijst met taken bijgewerkt. Taken bestonden uit: projecttaken
 \end{center}
 \end{figure}
 
-De lijst van ontwikkeltaken werd bijgehouden op het \emph{GitHub} platform. Deze taken werden daar ook wel Issues genoemd. Andere taken werden vervolgens bijgehouden op \emph{Trello}. Met deze applicatie kan een online takenbord gemaakt worden, zie \autoref{fig:trello}. De ontwikkeltaken werden middels synchronisatie ook op dit takenbord gezet. Door \emph{Trello} had elk lid van het project een goed inzicht in de taken die nog openstonden en reeds waren uitgevoerd.
+De lijst van ontwikkeltaken werd bijgehouden op het \emph{GitHub} platform—hierover meer in \fullref{sec:technische_organisatie}. Deze ontwikkeltaken werden daar ook wel \emph{issues} genoemd. Deze en andere taken werd gezamenlijk bijgehouden op \emph{Trello}. Met deze applicatie kan een online takenbord gemaakt worden, zie \autoref{fig:trello}. Met \emph{Trello} hebben alle betrokkenen een goed inzicht in de taken die nog openstaan en reeds zijn uitgevoerd.
 
-\paragraph{Terugkoppeling naar de opdrachtgever} De opdrachtgever—binnen scrum ook \emph{product owner} genoemd—is twee wekelijks ge\"informeerd over de voortgang. De terugkoppeling die de opdrachtgever gaf werd besproken en verwerkt in de volgende versie van de library.
+\paragraph{Besprekingen} Er zijn twee typen besprekingen die regelmatig gehouden worden. Ten eerste wordt elke samenkomst de \emph{Scrum bespreking} gehouden. Tijdens deze bespreking vertelt ieder teamlid kort wat hij/zij sinds de vorige bespreking gedaan heeft en of er problemen waren. Daarna verteldt het teamlid waar hij/zij na de bespreking mee bezig gaat. Het is hier de bedoeling dat ieder teamlid een concreet kortetermijn doel stelt.
+Ten tweede wordt er bij aanvang van een nieuwe fase een planning gemaakt op basis van de taken in het \emph{project backlog}. De prioriteit per taak wordt aangegeven door de \emph{product owner}, in ons geval de opdrachgever. De teamleden bepalen vervolgens tijdens de bespreking hoeveel van deze taken uitgevoerd kunnen worden en verplaatsen deze naar het \emph{spring backlog}. 
 
-\subsection{Terugkoppeling}
+\section{Technische organisatie} \label{sec:technische_organisatie}
+Bij het bouwen van software met een groep is het belangrijk dat elke ontwikkelaar zich kan concentreren op de feature die hij/zij aan het ontwikkelen is. Idealiter hoeft er geen rekening gehouden te worden met andere features die door anderen ontwikkeld worden. Er is dan ook gekozen om gebruik te maken van het gedistribueerde versiebeheer systeem \emph{Git} met een centraal repository op \emph{GitHub}.
 
-\section{Technische organisatie}  \label{sec:technische_organisatie}
-Bij het bouwen van software met een groep is het belangrijk dat een ontwikkelaar zich kan concentreren op de feature die hij aan het ontwikkelen is. Idealiter hoeft er geen rekening gehouden te worden met andere features die door anderen ontwikkeld worden. Er is dan ook gekozen om gebruik te maken van het gedistribueerde versiebeheer systeem \emph{Git} met een centraal repository op \emph{GitHub}.
-
-Over het gebruik van deze software zijn afspraken gemaakt. Zo is er gebruik gemaakt van verschillende \emph{branches}. Als een bepaalde versie van de software op een bepaalde branch staat zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. En is een versie op de \inlinecode{master} branch klaar voor gebruik.
+Er zijn afspraken gemaakt hoe deze versiebeheer software gebuikt moet worden. Zo is er gebruik gemaakt van een zogenaamd \emph{branching model}\cite{Gitflow2010}. verschillende \emph{branches}. Als een bepaalde versie van de software op een bepaalde branch staat zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. En is een versie op de \inlinecode{master} branch klaar voor gebruik.
 
 \subsection{Gitflow en pull requests}
 
