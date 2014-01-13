@@ -1,6 +1,7 @@
 \section{Globaal ontwerp}  \label{sec:globaal}
-Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de \emph{API} die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs focust zich op elementaire input en heeft geen ondersteuning heeft voor high level interface elementen zoals knoppen en textgebeiden. Deze elementen zijn met behulp van Canvas.hs gemakklijk te implementeren. \autoref{fig:demo_screenshot} geeft een demoapplicatie van Canvas.hs weer.
+Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de \emph{API} die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs focust zich op elementaire input en heeft geen ondersteuning heeft voor high level interface elementen zoals knoppen en textgebeiden. Deze elementen zijn met behulp van Canvas.hs gemakklijk te implementeren. \autoref{fig:demo_screenshot} geeft een demonstratie applicatie van Canvas.hs weer.
 
+\autoref{req:mondadisch}
 \todo{hier uitwijden over principe van Canvas.hs? Als het goed is al in inleiding gebeurd. Moet iig verteld zijn over hoe we een weegave hebben in een webbrowser met canvas, en een tussenliggende module die dat 'niet monadisch' mogelijk maakt}
 
 \autoref{fig:overzicht_architectuur} geeft een overzicht van de architectuur. Canvas.hs bestaat uit een module en een client. De module is een library die de programmeur in zijn programma importeert. Bij het starten van de module start een HttpServer, een WebSocket-server en wordt de webpagina van de client automatisch gestart. De client bestaat uit een browserpagina met onder andere een canvas element. De module communiceert met de client via een WebSocket verbinding om grafische elementen op de canvas in de client te tekenen.
@@ -12,7 +13,6 @@ Canvas.hs is een library die de programmeur kan importeren in zijn programma om 
 \label{fig:overzicht_architectuur}
 \end{center}
 \end{figure}
-
 
 Voor elke gebeurtenis (event, zoals bijvoorbeeld een muisklik) die binnen het systeem plaatsvindt wordt de code van de user applicatie aangeroepen. Deze eventHandler kan op basis van deze gebeurtenis een nieuwe grafische boom opleveren, hierbij kan gedacht worden aan een boom met daarin o.a. text en simpele vormen die samen een groter geheel vormen. Dit wordt hieronder toegelicht in \autoref{par:globaal_shapes}. Deze boom zal vervolgens op het canvas getekend worden. 
 
