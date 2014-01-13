@@ -2,16 +2,40 @@
 \section{Voorbeelden}
 Om het gebruik van Canvas.Hs te illustreren zal hieronder een aantal voorbeelden uitgewerkt worden. De eerste voorbeelden zullen in uitgebreid detail besproken worden, waarna een aantal geavanceerde voorbeelden kort besproken worden.
 
-\myparagraph{Canvas.Hs 101}
+\subsubsection{Canvas.Hs 101}
 Elke taal begint met een Hello World, voor Canvas.Hs is dat het tekenen van een rondje. In Canvas.Hs moet daarvoor een eventhandler toegevoegd worden. Eventhandlers zijn eigenlijk functies die vanuit Canvas.HS uitgevoerd worden, als er events gebeuren op het canvas zal de eventhandler aangeroepen worden. De eventhandler moet van het type \inlinecode{handler :: State -> Event -> (State, Output)} zijn, hierin is State een type dat zelf bepaald mag worden, de state zal elke keer dat er een event gebeurt automatisch aan de handler functie gegeven worden.
 
 \lstinputlisting[style=densecode]{Examples/CanvasHs101.hs}
 
 Zoals je hier kan zien wordt er een \inlinecode{handler} aangemaakt, die via de \inlinecode{installEventHandler} aan Canvas.Hs gegeven wordt, vervolgens wordt deze functie aangeroepen als het StartEvent plaatsvindt. De output die de handler geeft is weer zijn state (die mogelijk aangepast wordt), en een output. De output hier bestaat uit een container met daarin een (zwarte) cirkel.
 
-\myparagraph{Events}
-Stel dat we het rondje van kleur willen laten veranderen als er op geklikt wordt, dan moet het rondje zich interesseren voor klikevents, verder moeten we een case toevoegen aan onze handler om te specificeren wat er moet gebeuren als er op het rondje geklikt wordt.
+\subsubsection{Events}
+\todo{Defaults}
+Stel dat we het rondje van kleur willen laten veranderen als er op geklikt wordt, dan moet het rondje zich interesseren voor klikevents, verder moeten we een case toevoegen aan onze handler om te specificeren wat er moet gebeuren als er op het rondje geklikt wordt. Belangrijk om te zien hier is dat er een default gebruikt wordt. Er is een functie die een standaard waarde geeft voor bepaalde records. Voor events is dat een record met geen ID, en alle interesses op False, als de standaardrecord dus op een element toegepast wordt gebeurd er niets. Daartoe moeten we dit standaardrecord vullen, er moet een eventId bedacht worden en er moet aangegeven worden waar deze shape naar wil luisteren.
+
+Later kan er dan op het eventId gematched worden, in dit voorbeeld zal het rondje rood worden als er op geklikt wordt.
 
 \lstinputlisting[style=densecode]{Examples/Events.hs}
 
-Hierin is dus een \type{Event} shape toegevoegd voor onze cirkel, hierin wordt een eventId toegevoegd waar later naar gerefereerd kan worden. Daarnaast wordt vermeld dat deze shape ge\"interesseerd is in muisklikken. Als de muisklikken dan daadwerkelijk gebeurd wordt de tweede pattern van \inlinecode{handler} uitgevoerd, waar naast de \type{Event} ook nog een \type{Fill} over de cirkel toegepast wordt.
+\subsubsection{Containers}
+Hierboven is al laten zien hoe een container node eruit ziet. Containers worden gebruikt om elementen te groeperen, maar nog belangrijker, binnen een container heerst een absoluut coordinatenstelsel. Er kan dus absoluut getekend worden binnen een container, en daarna kan deze container relatief verplaatst worden. Het is gebruikelijk om een container met de grootte van het canvas als root te hebben, al wordt dit niet geforceerd. Het volgende voorbeeld laat zien hoe een mickey mouse figuur getekend kan worden.
+
+\lstinputlisting[style=densecode]{Examples/Containers.hs}
+
+Wat het meest interessante van dit voorbeeld is, is hoe de mickey mouse shapes over het canvas verplaatst worden door een \inlinecode{Translate}. Daarnaast wordt ook getoont dat bijvoorbeeld \inlinecode{Rotate}, \inlinecode{Fill} en \inlinecode{Offset} ook werken op containers. Voor de exacte functie van deze translaties kan in de documentatie gekeken worden. 
+
+\subsubsection{Tekst}
+
+Canvas.hs ondersteunt ook tekst, het tekenen van tekst is speciaal omdat er veel parameters meegegeven kunnen worden. Net als bij de events kan een default waarde aangepast worden. Standaard is tekst in Canvas.hs niet onderstreept, dikgedrukt of schuin, links uitgelijnt en wordt Arial 12 als lettertype gebruikt. Belangrijk om te weten is dat als een lettertype niet aanwezig is, dat de client dan een eigen lettertype kiest (zoals elke browser dat doet).
+
+Hieronder worden alle mogelijkheden met tekst in een woordweb getoond, let vooral op hoe in de defaults steeds een bepaalde sleutel aangepast wordt.
+\lstinputlisting[style=densecode]{Examples/Text.hs}
+
+\subsubsection{Blocking Actions}
+\todo{doe hier iets neerzetten}
+
+\subsubsection{Actions}
+\todo{doe hier iets neerzetten}
+
+\subsubsection{Timers}
+\todo{doe hier iets neerzetten}
