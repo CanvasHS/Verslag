@@ -21,7 +21,7 @@
 \usepackage{qtree}
 \usepackage{etoolbox}
 \usepackage{newfloat} %used to draw trees (qtree) in a floating enviroment for captions
-\usepackage{geometry}
+\usepackage[a4paper]{geometry}
 \providetoggle{longTests}
 \DeclareFloatingEnvironment[fileext=lod]{diagram} %create a floating enviroment for qtree
 
@@ -154,6 +154,7 @@
 \newcommand*{\halfref}[1]{\hyperref[{#1}]{\ref*{#1}} \nameref*{#1}}
 
 \makeindex
+\geometry{a4paper,textwidth=345pt,textheight=598pt}
 \begin{document}
 \input{./titlepage.tex}
 \tableofcontents
