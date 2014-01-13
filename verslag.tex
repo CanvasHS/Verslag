@@ -19,11 +19,13 @@
 \usepackage{enumitem}
 \usepackage{tabularx}
 \usepackage{qtree}
+\usepackage{etoolbox}
 \usepackage{newfloat} %used to draw trees (qtree) in a floating enviroment for captions
-
+\usepackage{geometry}
+\providetoggle{longTests}
 \DeclareFloatingEnvironment[fileext=lod]{diagram} %create a floating enviroment for qtree
 
-
+\usepackage{pdflscape}
 \DeclareCaptionFont{white}{ \color{white} }
 \DeclareCaptionFormat{listing}{
   \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{

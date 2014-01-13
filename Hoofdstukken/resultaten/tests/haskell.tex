@@ -1,0 +1,177 @@
+\begin{enumerate}[label={T\arabic*}]
+	\setcounter{enumi}{\value{startvaluetest}}
+	\item InputSpec
+	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
+		\item mousedown event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item converts rgba json to rgba with zero alpha
+			\item converts rgb json to rgba
+		\end{enumerate}}{}
+		\item mouseclick event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a mouseclick event
+			\item can decode *arbitrary* mouseclick event
+		\end{enumerate}}{}
+		\item mouseup event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a mouseup event
+			\item can decode *arbitrary* mouseup event
+		\end{enumerate}}{}
+		\item mouseover event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a mouseover event
+			\item can decode *arbitrary* mouseover event
+		\end{enumerate}}{}
+		\item mouseout event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a mouseout event
+			\item can decode *arbitrary* mouseout event
+		\end{enumerate}}{}
+		\item keydown event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a keydown event
+			\item can decode *arbitrary* keydown event
+		\end{enumerate}}{}
+		\item keyclick event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a keyclick event
+			\item can decode *arbitrary* keyclick event
+		\end{enumerate}}{}
+		\item keyup event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a keyup event
+			\item can decode *arbitrary* keyup event
+		\end{enumerate}}{}
+		\item scroll event
+		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+			\item can decode a scroll event
+			\item can decond an *arbitrary* scroll event
+		\end{enumerate}}{}
+	\end{enumerate}
+	\item OutputSpec
+	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
+	    \iftoggle{longTests}{\item Aeson Value
+	    \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+	        \item is equal on equal JSON
+	        \item is equal on JSON with different ordering
+	        \item is not equal on different fields
+	        \item is not equal on different field contents
+	    \end{enumerate}}
+	    \item Protocol.encode
+	    \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+	        \item encodes both shapes and actions
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item omits Nothing shapes
+            	\item can encode Actions without Shape
+            	\item can encode Shape without Actions
+            \end{enumerate}}{}
+        \end{enumerate}
+	    \item Protocol.encode for shapes
+	    \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+	        \item encode basic shapes
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can encode proper Rectangles
+            	\item can encode proper Circles
+            	\item can encode proper Arcs
+            	\item can encode proper Lines
+            	\item can encode proper Polygons
+            \end{enumerate}}{}
+	        \item Containers
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can be an empty container
+            	\item can place a basic shape in a container
+            	\item can place basic shapes in a container
+            	\item can place containers in containers
+            \end{enumerate}}{}
+	        \item Fill
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can change the fill on a basic shape
+            	\item can recursively change the fill on a containter and contents
+            \end{enumerate}}{}
+	        \item Stroke
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can add stroke to a basic shape
+            	\item can recursively add stroke on a container and contents
+            \end{enumerate}}{}
+	        \item Rotate
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can rotate a basic shape
+            	\item can rotate a container
+            	\item can rotate a negative angle
+            \end{enumerate}}{}
+	        \item Translate
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can translate a basic shape
+            	\item can translate a container
+            	\item can translate a neagtive amount
+            \end{enumerate}}{}
+	        \item Scale
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can scale basic shapes
+            	\item can scale containers
+            \end{enumerate}}{}
+	        \item Offset
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can set offset on a basic shape
+            	\item can set offset on a container
+            \end{enumerate}}{}
+	        \item Text
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can encode simple text
+            	\item can encode with different font family
+            	\item can encode with different font size
+            	\item can encode with start alignment
+            	\item can encode with center alignment
+            	\item can encode with end alignment
+            	\item can encode underline True
+            	\item can encode underline False
+            	\item can encode italics True
+            	\item can encode italics False
+            	\item can encode bold True
+            	\item can encode bold False
+            	\item can encode bold, underline and italic combined
+            	\item can encode combine all properties
+            \end{enumerate}}{}
+	        \item Events
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can add an event to a shape
+            	\item can add multiple events to a shape
+            	\item can add events to a container
+            \end{enumerate}}{}
+        \end{enumerate}
+	    \item Protocol.encode for Actions
+	    \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
+	        \item Debugger
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can enable debugger
+            	\item can disable debugger
+            \end{enumerate}}{}
+            \item Drag\'n\'drop
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can enable dag'n'drop without multiple files
+            	\item can enable dag'n'drop with multiple files
+            	\item can disable drag'n'drop
+            \end{enumerate}}{}
+            \item DisplayType
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can set the DisplayType to FixedSize
+            	\item can set the DisplayType to FulWindow
+            	\item can set the DisplayType to FullScreen
+            \end{enumerate}}{}
+            \item Download
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can offer a file for download
+	            \item RequestUpload
+            \end{enumerate}}{}
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item can request uploading a single file
+            	\item can request uploading multiple files
+            \end{enumerate}}{}
+            \item Multiple actions
+	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+        		\item can encode multiple actions
+	        \end{enumerate}}{}
+        \end{enumerate}
+	\end{enumerate}
+	\setcounter{startvaluetest}{\value{enumi}}
+\end{enumerate}
