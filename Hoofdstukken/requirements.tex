@@ -94,10 +94,21 @@ Operating systemen incompatibility was een ander probleem met de oude grafische 
 		\item De library dient eenvoudig te installeren zijn.
 		\item De library dient makkelijk af te sluiten te zijn.
 	\end{enumerate}
-	\item \label{req:maintenance} De library dient makkelijk te onderhouden zijn.
-	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item De library dient gedocumenteert te zijn.
-		\item De library dient modulair opgebouwd te zijn.
-	\end{enumerate}
 	\item \label{req:coverage} De library dient getest te zijn met 70\% code coverage (exclusief frameworks).
+\end{enumerate}
+
+\todo{hier uitwijden over principe van Canvas.hs? Als het goed is al in inleiding gebeurd. Moet iig verteld zijn over hoe we een weegave hebben in een webbrowser met canvas, en een tussenliggende module die dat 'niet monadisch' mogelijk maakt}
+
+\paragraph{Gebruiksvriendelijke API}
+In eerste instantie zullen studenten van het vak Functioneel Programmeren gebruik maken van de library. Omdat studenten bij het vak voor het eerst in aanraking komen met een functionele taal is werken met Monads buiten de scope van het vak gehouden. Bij het programmeren van een Haskell programma dat om kan gaan met reguliere I/O zijn Mondas nodig. Daarom zal Canvas.hs moeten werken met I/O zonder monadische functies aan te bieden via zijn API.
+
+\begin{enumerate}[label={R\arabic*}]
+\setcounter{enumi}{\value{startvalue}}
+		\item \label{req:mondadisch} De library dient zonder monadische functies te gebruiken te zijn.
+		\item \label{req:maintenance} De library dient makkelijk te onderhouden zijn.
+		\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
+			\item De library dient gedocumenteert te zijn.
+			\item De library dient modulair opgebouwd te zijn.
+		\end{enumerate}
+	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
