@@ -6,7 +6,7 @@ In het kort dient de library te bestaan uit een browseromgeving die door middel 
 De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen essenti\"ele, niet-essenti\"ele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essenti\"ele functionaliteit ge\"implementeerd is. Er wordt gebruik gemaakt van ``dient'' voor essenti\"ele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements. In de traceability matrix in \autoref{sec:traceability} wordt het eindproduct beoordeeld op basis van de requirements.
 
 \subsubsection{Functionele requirements}
-\paragraph{Basisfunctionaliteit} In de basis zal Canvas.hs dezelfde functionaliteit ondersteunen als de oude practicumomgeving die gebruik maakt van de Gloss library. De programmeur zou met deze library minstens even veel moeten kunnen weergeven. Om extra mogelijkheden te bieden dient de library ook animaties mogelijk te maken.
+In de basis zal Canvas.hs dezelfde functionaliteit ondersteunen als de oude grafische omgeving die gebruik maakt van de Gloss library. De programmeur zou met deze library minstens even veel moeten kunnen weergeven. Om extra mogelijkheden te bieden dient de library ook animaties mogelijk te maken.
 
 \newcounter{startvalue}
 \begin{enumerate}[label={R\arabic*}]
@@ -44,7 +44,7 @@ De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen es
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
-\paragraph{Acties} In de oude practicumomgeving worden een aantal \emph{acties} ondersteund die buiten de grafische output om werken. Acties worden gedefineerd als: vanuit de module aangeroepen gebeurtenissen. Deze acties bieden complexe functionaliteit versimpeld aan de gebruiker aan. Hierbij kan gedacht worden aan: het openen van een tekstinvoerpop-up en de mogelijkheid om bestanden te verwerken. Door het gebruik van acties hoeft de gebruiker zelf geen I/O te gebruiken in zijn Haskell programma. Dit verlaagt het instapniveau om aan de gang te gaan met Haskell en een grafische omgeving. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
+\paragraph{Acties} In de oude grafische omgeving worden een aantal \emph{acties} ondersteund die buiten de grafische output om werken. Acties worden gedefineerd als: vanuit de \emph{module} aangeroepen gebeurtenissen. Deze acties bieden complexe functionaliteit versimpeld aan de gebruiker aan. Hierbij kan gedacht worden aan: het openen van een tekstinvoerpop-up en de mogelijkheid om bestanden te verwerken. Door het gebruik van acties hoeft de gebruiker zelf geen I/O te gebruiken in zijn Haskell programma. Dit verlaagt het instapniveau om aan de gang te gaan met Haskell en een grafische omgeving. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
@@ -63,7 +63,7 @@ De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen es
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
-\paragraph{Gebruiksvriendelijkheid} Een van de voornaamste problemen met de oude practicumomgeving is de gebruiksvriendelijkheid van de library. Wanneer er een fout in het programma zat werd het direct afgesloten zonder daarbij een foutmelding te geven. Dit maakt het lastig om fouten in de programmatuur te vinden. Canvas.hs heeft daarom als doelstelling om een gebruiksvriendelijke omgeving aan te bieden die de programmeur duidelijke foutmeldingen geeft.
+\paragraph{Gebruiksvriendelijkheid} Een van de voornaamste problemen met de oude grafische omgeving is de gebruiksvriendelijkheid van de library. Wanneer er een fout in het programma zat werd het direct afgesloten zonder daarbij een foutmelding te geven. Dit maakt het lastig om fouten in de programmatuur te vinden. Canvas.hs heeft daarom als doelstelling om een gebruiksvriendelijke omgeving aan te bieden die de programmeur duidelijke foutmeldingen geeft.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
@@ -79,14 +79,14 @@ De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen es
 \end{enumerate}
 
 \subsubsection{Niet functionele requirements}
-Operating systemen incompatibility was een ander probleem met de oude practicumomgeving. Hier moet Canvas.hs verandering in brengen. Door gebruik te maken van HTML standaarden zal de library een goede basis hebben om platform onafhankelijk te werken. Om er voor te zorgen dat de library goed werkt en te onderhouden blijft dient het te voldoen aan een aantal kwaliteitseisen.
+Operating systemen incompatibility was een ander probleem met de oude grafische omgeving. Hier moet Canvas.hs verandering in gaan brengen. Door gebruik te maken van HTML standaarden zal de library een goede basis hebben om platform onafhankelijk te werken. Om er voor te zorgen dat de library goed werkt en te onderhouden blijft dient het te voldoen aan een aantal kwaliteitseisen.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
 	\item \label{req:multiplatform} De library dient multiplatform te werken.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
 		\item De library dient te werken in de laatste versie van Internet Explorer, Firefox, Chrome en Safari.
-		\item De library dient te werken op een Linux, OS X en Windows.
+		\item De library dient te werken op Linux, OS X en Windows.
 		\item De library dient te werken op een computer met een hoge pixeldichtheid.
 	\end{enumerate}
 	\item \label{req:performance} De library dient gemakkelijk en snel te gebruiken te zijn.
