@@ -3,7 +3,7 @@
 Om het gebruik van Canvas.Hs te illustreren zal hieronder een aantal voorbeelden uitgewerkt worden. De eerste voorbeelden zullen in uitgebreid detail besproken worden, waarna een aantal geavanceerde voorbeelden kort besproken worden.
 
 \subsubsection{Canvas.Hs 101}
-Elke taal begint met een Hello World, voor Canvas.Hs is dat het tekenen van een rondje. In Canvas.Hs moet daarvoor een eventhandler toegevoegd worden. Eventhandlers zijn eigenlijk functies die vanuit Canvas.HS uitgevoerd worden, als er events gebeuren op het canvas zal de eventhandler aangeroepen worden. De eventhandler moet van het type \inlinecode{handler :: State -> Event -> (State, Output)} zijn, hierin is State een type dat zelf bepaald mag worden, de state zal elke keer dat er een event gebeurt automatisch aan de handler functie gegeven worden.
+Elke taal begint met een Hello World, voor Canvas.hs is dat het tekenen van een rondje. In Canvas.Hs moet daarvoor een eventhandler toegevoegd worden. Eventhandlers zijn eigenlijk functies die vanuit Canvas.hs uitgevoerd worden, als er events gebeuren op het canvas zal de eventhandler aangeroepen worden. De eventhandler moet van het type \inlinecode{handler :: State -> Event -> (State, Output)} zijn, hierin is State een type dat zelf bepaald mag worden, de state zal elke keer dat er een event gebeurt automatisch aan de handler functie gegeven worden.
 
 \lstinputlisting[style=densecode]{Examples/CanvasHs101.hs}
 

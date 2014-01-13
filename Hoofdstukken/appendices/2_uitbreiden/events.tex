@@ -1,10 +1,10 @@
 % !TEX spellcheck = nl_NL
 \section{Events}
-In deze sectie zal beschreven worden hoe Events kunnen worden toegevoegd aan de Canvas.HS-library.
+In deze sectie zal beschreven worden hoe Events kunnen worden toegevoegd aan de Canvas.hs library.
 
 Met een event kan input van de client-side worden afgevangen, vervolgens zou er vanuit Haskell-code een nieuwe staat kunnen worden gepresenteerd. Events zorgen dus eigenlijk voor het afhandelen van gebruikersinput. Standaard zijn events voor muis, keyboard en window invoer.
 
-Canvas.hs kan uitgebreid worden zodat specifieke invoer aan de JavaScript kant kan worden doorgegeven middels een Event naar Haskell. Hieronder wordt beschreven hoe het \inlinecode{WindowResize} event is toegevoegd aan de Canvas.HS library.
+Canvas.hs kan uitgebreid worden zodat specifieke invoer aan de JavaScript kant kan worden doorgegeven middels een Event naar Haskell. Hieronder wordt beschreven hoe het \inlinecode{WindowResize} event is toegevoegd aan de Canvas.hs library.
 \subsection{JavaScript}
 Als er een event toegevoegd moet worden zal eerst het protocol uitgebreid moeten worden. Het protocol beschrijft hoeft Haskell met de JavaScript moet communiceren en vise versa. Op de pagina \url{http://canvashs.github.io/protocol.html} kan gezien worden hoe het protocol van de huidige versie gedefinieerd is. In het geval van \inlinecode{WindowResize} is een gelijknamig event toegevoegd. De \emph{JSON} representatie ziet er dan uit zoals hieronder weergegeven.
 \begin{lstlisting}[language=JavaScript]
@@ -34,7 +34,7 @@ function sendWindowResizeEvent(width,height) {
     }));
 }
 \end{lstlisting}
-Vervolgens zal de functie \inlinecode{sendWindowResizeEvent(width,height)} aangeroepen moeten worden op het juiste moment. Aangezien Canvas.HS werkt met de \emph{jQuery} library kunnen we gebruik maken van \inlinecode{$(window).resize()}, dit wordt dan ook gedaan.
+Vervolgens zal de functie \inlinecode{sendWindowResizeEvent(width,height)} aangeroepen moeten worden op het juiste moment. Aangezien Canvas.hs werkt met de \emph{jQuery} library kunnen we gebruik maken van \inlinecode{$(window).resize()}, dit wordt dan ook gedaan.
 \begin{lstlisting}[language=JavaScript]
 ...
     $(window).resize(function() {
@@ -61,7 +61,7 @@ makeEvent "windowresize"
     (JSONEventData{width = Just w, height = Just h})
         = WindowResize w h
 \end{lstlisting}
-Nu is de implementatie van \inlinecode{WindowResize} helemaal afgerond, kan het event gebruikt worden in een programma dat de Canvas.HS library importeert. Dit kan bijvoorbeeld op de hieronder uitgewerkte methode.
+Nu is de implementatie van \inlinecode{WindowResize} helemaal afgerond, kan het event gebruikt worden in een programma dat de Canvas.hs library importeert. Dit kan bijvoorbeeld op de hieronder uitgewerkte methode.
 \begin{lstlisting}[language=Haskell]
 main = installEventHandler h (St{windowWidth=900, windowHeight=600})
  
