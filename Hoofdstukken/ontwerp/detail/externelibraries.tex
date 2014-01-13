@@ -1,6 +1,8 @@
 \subsection{Externe libraries}
 \label{subsec:externe_libraries}
-\todo{blabla libraie sgebruikt mege leuk}
+Bij de ontwikkeling van Canvas.hs is gebruik gemaakt van een aantal externe software bibliotheken. Voor veel van de zaken die in het Canvas.hs pakket moeten gebeuren zijn uitstekende bibliotheken beschikbaar. Hieronder worden de gekozen externe bibliotheken toegelicht.\todo{PJ:Voordelen van het gebruik van externe bibliotheken onderschrijven? lijkt me niet toch?}
+
+\todo{Doen we hier referenties naar de hackage-paginas ofzo?}
 
 \subsubsection{HTTP-server}
 Bij het starten van een applicatie met Canvas.hs wordt automatisch een browserscherm met daarop het canvas geopend. Deze pagina wordt samen met de benodigde javascript bestanden aan de browser geserveerd als statische content. Om deze content te kunnen serveren is een HTTP-server nodig. In Canvas.hs hebben we gekozen voor de ``warp'' module. De voornaamste redenen hiervoor zijn dat Warp lichtgewicht, goed gedocumenteerd en eenvoudig in gebruik is. Andere alternatieven zijn ``hapstack'', ``hyeana'' en ``snap server''. Deze bieden allen veel meer dan alleen de mogelijkheid om via HTTP bestanden te serveren en waren daardoor te veel en te ingewikkeld voor Canvas.hs
@@ -11,5 +13,10 @@ In Canvas.hs wordt het resultaat van de user applicatie naar de javascript appli
 \subsubsection{JSON}
 Voor het encoderen en decoderen van en naar JSON wordt in de Canvas.hs module de ``Aeson'' gebruikt. Hiermee is het relatief eenvoudig om datastructuren in Haskell om te encoderen naar JSON en vice-versa. Er is voor Aeson gekozen omdat deze goed gedocumenteerd is. Een alternatief voor Aeson was ``Text.JSON'', deze is niet gebruikt, omdat deze gebrekkig gedocumenteerd is.
 
-\todo{Hier toevoegen over jQuery}
-\todo{Hier toevoegen over Kinetic.js}
+\subsubsection{jQuery}
+Voor de interactie met de webpagina vanuit de JavaScriptapplicatie is gekozen voor ``jQuery''. jQuery is een volwassen, lichte en snelle bibliotheek die veel gebruikt wordt en goed wordt onderhouden. jQuery verbergt veel van de fouten en inconsequenties die er tussen verschillende browsers bestaan. 
+\todo{Moet er nog iets gezged worden over jQuery}
+
+\subsubsection{KineticJS}
+Voor de interactie tussen de JavaScriptapplicatie en het canvas is gekozen voor ``KineticJS''. KineticJS biedt ondersteuning voor het tekenen en groeperen van verschillende vormen en biedt bovenal ondersteuning om gebeurtenissen (zoals muisklikken) die op deze groepen van vormen plaatsvinden als zodanig te identificeren. Dit geeft de mogelijkheid om in Canvas.hs aan de eventHandler door te geven op welke \inlinecode{Shape} een \inlinecode{Event} plaatsvond.
+\todo{Moet er nog meer gezegd worden over KinetixJS?}
