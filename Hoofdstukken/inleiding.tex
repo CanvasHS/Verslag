@@ -1,24 +1,21 @@
 % !TEX spellcheck = nl_NL
 \chapter{Inleiding}
-Bij het informatica-keuzevak Functioneel Programmeren gebruiken studenten Haskell om fundamentele concepten van functioneel programmeren te bestuderen. Hierbij wordt door de studenten veel gebruik gemaakt van grafische weergaven om de werking van hun code inzichtelijk te maken. Het gebruik van Haskell voor het maken van grafische weergaven blijkt vaak redelijk gecompliceerd en limiteert studenten doordat zij zich bezig moeten houden met minder intuïtieve en minder essentiële aspecten van Haskell.
+Bij het informatica-vak Functioneel Programmeren, gegeven aan de Universiteit Twente, gebruiken studenten Haskell om fundamentele concepten van functioneel programmeren te bestuderen. Hierbij wordt door de studenten veel gebruik gemaakt van grafische weergaven om de werking van hun code inzichtelijk te maken. Het gebruik van Haskell voor het maken van grafische weergaven blijkt vaak redelijk gecompliceerd en limiteert studenten doordat zij zich bezig moeten houden met minder intuïtieve en minder essentiële aspecten van Haskell.
 
-Om de focus binnen Functioneel Programmeren op de essentie te houden, is een grafische omgeving ontwikkeld op basis van de Gloss grafische bibliotheek. De interface tussen de code van de student en de grafische interface is eenvoudig en bruikbaar, het bevat alleen een aantal nadelen. Het werkt niet goed op ieder platform, mist een aantal functionaliteiten en de prestatie is niet uitstekend. In \autoref{hoofdstuk:requirements} wordt uitgebreid ingegaan op de requirements.
+Om de focus binnen Functioneel Programmeren op de essentie te houden, is een grafische omgeving ontwikkeld op basis van de Gloss grafische library. De interface tussen de code van de student en de grafische interface is eenvoudig en bruikbaar, het bevat alleen een aantal nadelen. Het werkt niet goed op ieder platform, mist een aantal functionaliteiten en de prestatie is niet uitstekend. Vanuit de tekortkomingen van het oude systeem zijn requirements geformuleerd voor een nieuwe library die de oude op termijn zou moeten vervangen. In \autoref{hoofdstuk:requirements} wordt uitgebreid ingegaan op de requirements.
 
 \subsubsection{Canvas.hs}
-In dit ontwerpproject is \emph{Canvas.hs} ontwikkeld; een omgeving die Haskell-gebruikers in staat stelt op eenvoudige wijze grafische elementen op een HTML5 canvas te presenteren. Canvas.hs is ontwikkeld met het oog op gebruiksgemak en eenvoud zonder de mogelijkheid tot uitbreiding en het toevoegen van geavanceerde functionaliteit onnodig te beperken.
+Het resultaat van dit ontwerpproject is \emph{Canvas.hs}; een omgeving die Haskell-gebruikers in staat stelt op eenvoudige wijze grafische elementen op een HTML5 canvas te presenteren. Canvas.hs is ontwikkeld met het oog op gebruiksgemak en eenvoud zonder de mogelijkheid tot uitbreiding en het toevoegen van geavanceerde functionaliteit onnodig te beperken.
 
-\emph{Canvas.hs} is als library te installeren via \emph{Cabal}, de package manager voor Haskell programma's. In \fullref{sec:gebruikershandleiding} kan gelezen worden hoe de library gebruikt kan worden. Indien de libaray correct door een Haskell programma wordt aangeroepen zal door de library een zeer lichte \emph{HTTP} server en een \emph{Websocket} server opgestart worden. Waarna de library een browser zal opstarten en laten wijzen naar de zojuist opgestarte lokale \emph{HTTP} server. De browser toont vervolgens een \emph{HTML5 canvas} waar op getekend kan worden door de library op de juiste wijze aan te roepen.
+\emph{Canvas.hs} is als library te installeren via \emph{Cabal}, de package manager voor Haskell programma's. In \fullref{sec:gebruikershandleiding} kan gelezen worden hoe de library gebruikt kan worden. Als een Haskell programma, via de aangeboden \emph{API}, de library aanroept zal een zeer lichte \emph{HTTP} en \emph{Websocket} server opgestart worden. Waarna de library een browser zal opstarten. Deze browser laad de \emph{JavaScript} code van de library in en toont vervolgens een \emph{HTML5 canvas} waar op getekend kan worden door het Haskell programma dat gebruik maakt van Canvas.hs. In \autoref{hoofdstuk:ontwerp} wordt het ontwerp van Canvas.hs beschreven.
 
- In  \autoref{hoofdstuk:ontwerp} wordt het ontwerp van Canvas.hs beschreven. Dit hoofdstuk is onderverdeeld in de secties: \halfref{sec:globaal}, \halfref{sec:detail}, \halfref{sec:testplan} en \halfref{sec:testresultaten}.
+De ontwikkelde library is uitgebreid getest. Dit geldt zowel voor de geschreven Haskell code als de JavaScript code. In \autoref{hoofdstuk:resultaten} kan hier meer over gelezen worden.
 
-\subsubsection{Verslagstructuur}
-  \autoref{hoofdstuk:conclusie} beschrijft de conclusies van dit project en in \autoref{hoofdstuk:evaluatie} wordt dit project met zijn uitkomsten geëvalueerd. Vervolgens wordt in \fullref{sec:gebruikershandleiding} een handleiding gepresenteerd die gebruikers van Canvas.hs aanwijzingen geeft over hoe de omgeving gebruikt en uitgebreid kan worden.
+\subsubsection{Organisatie}
+Bij de ontwikkeling van Canvas.hs is er gewerkt volgens eens vooraf vastgestelde afspraken. Daarnaast is er tooling toegepast om de samewerking tussen ontwikkelaars te stroomlijnen. In \autoref{hoofdstuk:organisatie} kan gelezen worden hoe dit alles is ingericht. Verder kan in \autoref{hoofdstuk:evaluatie} gelezen worden hoe de afspraken en tools uiteindelijk zijn toegepast.
 
-\subsubsection{Het project}
-\todo{uitbreiden met grove structuur van het project}
-
-\subsubsection{Conclusie}
-
+\subsubsection{Uitbreiden}
+Er zijn aanbevelingen voor de verdere verbetering van Canvas.hs. Hier wordt op in gegaan in \autoref{hoofdstuk:evaluatie} en \autoref{hoofdstuk:conclusie}. Verder is Canvas.hs opgezet zodat deze gemakkelijk is uit te breiden. In de \fullref{sec:uitbreiden} is te lezen hoe dit gedaan kan worden.
 
 
 

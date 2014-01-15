@@ -1,0 +1,10 @@
+\subsection{Performance analyse}
+Tijdens de ontwikkeling van de library is duidelijk geworden dat de performance van de geschreven programma's niet altijd optimaal is. Met name bij programma's die gebruik maken van \emph{timers} en bij programma's met grote \emph{shape grafen}.\todo{shape graph eerder introduceren}
+
+\todo{uitleggen}
+
+Er waren vermoedens dat de oorzaak gevonden kon worden in het omzetten van \inlinecode{Strings} naar \inlinecode{ByteSrings} en vice versa.
+
+Na het analyseren van de JavaScript performance bleek dat het opnieuw bouwen van de stage vanuit de \emph{shape graph} een grote deuk in de performance oplevert. Het vervolgens tekenen van de nieuwe inhoud van het Canvas duurde relatief minder lang. Bijvoorbeeld in ons testprogramma duurde het opnieuw bouwen van de stage ±6 ms waar het opnieuw teken ±0.5 ms duurde.
+
+

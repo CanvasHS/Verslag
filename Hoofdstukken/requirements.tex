@@ -1,106 +1,112 @@
 \chapter{Requirements} \label{hoofdstuk:requirements}
+Canvas.hs dient te voldoen aan verschillende requirements. Initieel is een lijst met requirements opgesteld; die deels zijn voortgekomen uit functionaliteit van de oude, op Gloss gebaseerde, grafische omgeving. Gedurende het ontwikkelproces zijn onder meer op basis van feedback van de opdrachtgever nieuwe requirements aan de orde gekomen. In dit hoofdstuk worden zowel oorspronkelijke als toegevoegde requirements opgenoemd en toegelicht.
 
-
-Het systeem bestaat uit een browseromgeving dat door middel van HTML en JavaScript een gebruikersinterface toont. Door middel van een verbinding tussen de browseromgeving en het Haskell-programma kan er vanuit het Haskell-programma output gegenereerd worden in de browser en kunnen er events verstuurd worden vanuit de browseromgeving naar het Haskell-programma.
-
-Initieel is een lijst met requirements opgesteld. Gedurende het ontwikkelproces zijn onder andere op basis van feedback van de opdrachtgever nieuwe requirements aan de orde gekomen; deze requirements zijn in deze lijst opgenomen.
+In het kort dient de library te bestaan uit een browseromgeving die door middel van HTML en JavaScript een gebruikersinterface toont. Op deze gebruikersinterface moeten verschillende standaard figuren te tekenen zijn. En met de gebruikersinterface dient geinteracteerd te kunnen worden middels standaard invoer als toetsenbord en muis. Via een verbinding tussen de browseromgeving en de library kan er vanuit een Haskell-programma output gegenereerd worden in de browser en kunnen er events verstuurd worden vanuit de browseromgeving naar een Haskell-programma. Het deel van de library dat de verbinding met de browseromgeving opzet en onderhoudt wordt vanaf nu de \emph{module} genoemd. De module zal volledig geschreven zijn in Haskell.
 
 De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen essenti\"ele, niet-essenti\"ele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essenti\"ele functionaliteit ge\"implementeerd is. Er wordt gebruik gemaakt van ``dient'' voor essenti\"ele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements. In de traceability matrix in \autoref{sec:traceability} wordt het eindproduct beoordeeld op basis van de requirements.
 
-\todo{Iets meer uitleggen over waarom requirements nodig zijn (bijv. t.b.v. gebruikerservaring of zat ook in Gloss-oplossing)}
 \subsubsection{Functionele requirements}
-\paragraph{Basisfunctionaliteit} In de basis zal Canvas.hs dezelfde functionaliteit moeten ondersteunen als de oude practicumomgeving die gebruik maakt van de Gloss library, zodat de programmeur met de library minstens even veel kan weergeven in zijn interface. Om extra mogelijkheden te bieden dient het systeem ook animaties mogelijk te maken.
+In de basis zal Canvas.hs dezelfde functionaliteit ondersteunen als de oude grafische omgeving die gebruik maakt van de Gloss library. De programmeur zou met deze library minstens even veel moeten kunnen weergeven. Om extra mogelijkheden te bieden dient de library ook animaties mogelijk te maken.
 
 \newcounter{startvalue}
 \begin{enumerate}[label={R\arabic*}]
-	\item \label{req:prim} Het systeem dient grafische primitieven zoals cirkels, rechthoeken, lijnen, Bézier curves, n-hoeken en tekst moeten op een simpele manier getekend kunnen worden vanuit het Haskell-programma van de student.
+	\item \label{req:prim} De library dient grafische primitieven zoals cirkels, rechthoeken, lijnen, Bézier curves, n-hoeken en tekst moeten op een simpele manier getekend kunnen worden vanuit het Haskell-programma van de student.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item \label{req:circle} Het systeem dient cirkels te kunnen tekenen.
-		\item \label{req:rect} Het systeem dient rechthoeken te kunnen tekenen.
-		\item \label{req:lines} Het systeem dient lijnen te kunnen tekenen.
-		\item \label{req:bezier} Het systeem dient Bézier curves te kunnen tekenen.
-		\item \label{req:text} Het systeem dient tekst te kunnen tekenen.
+		\item \label{req:circle} De library dient cirkels te kunnen tekenen.
+		\item \label{req:rect} De library dient rechthoeken te kunnen tekenen.
+		\item \label{req:lines} De library dient lijnen te kunnen tekenen.
+		\item \label{req:bezier} De library dient Bézier curves te kunnen tekenen.
+		\item \label{req:text} De library dient tekst te kunnen tekenen.
 		\begin{enumerate}[label={R\arabic{enumi}.\arabic{enumii}.\arabic*}]
-			\item Het systeem dient verschillende fonts te ondersteunen.
-			\item Het systeem dient bold en italic tekst te ondersteunen.
-			\item Het systeem dient verschillende font sizes te ondersteunen.
+			\item De library dient verschillende fonts te ondersteunen.
+			\item De library dient bold en italic tekst te ondersteunen.
+			\item De library dient verschillende font sizes te ondersteunen.
 		\end{enumerate}
-		\item \label{req:pictures} Het systeem kan eventueel plaatjes inladen op het canvas.
+		\item \label{req:pictures} De library kan eventueel plaatjes inladen op het canvas.
 	\end{enumerate}
-	\item Het systeem dient vul- en lijnkleuren van grafische componenten instelbaar te maken.
+	\item De library dient vul- en lijnkleuren van grafische componenten instelbaar te maken.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item \label{req:colors:lines} Het systeem dient lijnkleuren instelbaar te maken.
-		\item \label{req:colors:fill} Het systeem dient vulkleuren instelbaar te maken.
-		\item \label{req:colors:fill:gradient} Het systeem kan eventueel gradients als vulkleur gebruiken.
+		\item \label{req:colors:lines} De library dient lijnkleuren instelbaar te maken.
+		\item \label{req:colors:fill} De library dient vulkleuren instelbaar te maken.
+		\item \label{req:colors:fill:gradient} De library kan eventueel gradients als vulkleur gebruiken.
 	\end{enumerate}
-	\item Het systeem dient events vanuit JavaScript door te geven aan het Haskell-programma van de student.
+	\item De library dient events vanuit JavaScript door te geven aan het Haskell-programma van de student.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item \label{req:event:key} Het systeem dient toetsaanslagen vanuit de browser door te geven.
-		\item \label{req:event:mouse} Het systeem dient muisklikken vanuit de browser door te geven.
-		\item \label{req:event:scroll} Het systeem dient scroll-events vanuit de browser door te geven.
+		\item \label{req:event:key} De library dient toetsaanslagen vanuit de browser door te geven.
+		\item \label{req:event:mouse} De library dient muisklikken vanuit de browser door te geven.
+		\item \label{req:event:scroll} De library dient scroll-events vanuit de browser door te geven.
 	\end{enumerate}
 	\item Een programmeur moet grafische componenten aan kunnen passen zonder zijn programma te hoeven hercompileren.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item \label{req:action:animate} Het systeem kan eventueel stapsgewijze aanpassingen geanimeerd weergeven.
-		\item \label{req:zoom} Het systeem kan eventueel zoomen en geschoven worden op de canvas.
+		\item \label{req:action:animate} De library kan eventueel stapsgewijze aanpassingen geanimeerd weergeven.
+		\item \label{req:zoom} De library kan eventueel zoomen en geschoven worden op de canvas.
 	\end{enumerate}
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
-\paragraph{Acties} In de oude practicumomgeving worden een aantal acties ondersteund die buiten de grafische output om werken. Deze acties bieden complexe functionaliteit versimpeld aan de gebruiker aan, waaronder een tekstinvoerpop-up, en de mogelijkheid om bestanden te verwerken. Hierdoor hoeft de gebruiker zelf geen I/O te gebruiken in Haskell wat het instapniveau van de gebruiker vergemakkelijkt. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
+\paragraph{Acties} In de oude grafische omgeving worden een aantal \emph{acties} ondersteund die buiten de grafische output om werken. Acties worden gedefineerd als: vanuit de \emph{module} aangeroepen gebeurtenissen. Deze acties bieden complexe functionaliteit versimpeld aan de gebruiker aan. Hierbij kan gedacht worden aan: het openen van een tekstinvoerpop-up en de mogelijkheid om bestanden te verwerken. Door het gebruik van acties hoeft de gebruiker zelf geen I/O te gebruiken in zijn Haskell programma. Dit verlaagt het instapniveau om aan de gang te gaan met Haskell en een grafische omgeving. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
-	\item Het systeem kan acties ondersteunen die in de client of door de module worden uitgevoerd.
+	\item De library kan acties ondersteunen die in de client of door de module worden uitgevoerd.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item \label{req:action:prompt} Het systeem kan eventueel tekstinvoer vragen met een pop-up.
-		\item \label{req:action:fullscreen} Het systeem kan eventueel fullscreen getoond worden.
-		\item \label{req:action:localfiles} Het systeem dient lokale bestanden te kunnen verwerken.
+		\item \label{req:action:prompt} De library kan eventueel tekstinvoer vragen met een pop-up.
+		\item \label{req:action:fullscreen} De library kan eventueel fullscreen getoond worden.
+		\item \label{req:action:localfiles} De library dient lokale bestanden te kunnen verwerken.
 		\begin{enumerate}[label={R\arabic{enumi}.\arabic{enumii}.\arabic*}]
-			\item Het systeem dient lokale bestanden te kunnen openen via een functie die aangeboden wordt in de Haskell-module.
-			\item Het systeem dient lokale bestanden te kunnen wijzigen via een functie die aangeboden wordt in de Haskell-module.
+			\item De library dient lokale bestanden te kunnen openen via een functie die aangeboden wordt in de Haskell-module.
+			\item De library dient lokale bestanden te kunnen wijzigen via een functie die aangeboden wordt in de Haskell-module.
 		\end{enumerate}
 		
-		\item \label{req:action:userfiles} Het systeem kan eventueel bestanden die de gebruiker aanbied verwerken.
+		\item \label{req:action:userfiles} De library kan eventueel bestanden die de gebruiker aanbied verwerken.
 	\end{enumerate}
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
-\paragraph{Gebruiksvriendelijkheid} Een van de voornaamste problemen met de oude practicumomgeving is de gebruiksvriendelijkheid van het systeem. Wanneer er een fout in het programma zat werd het direct afgesloten zonder daarbij een foutmelding te geven. Dit maakt het lastig om fouten in de programmatuur te vinden. Canvas.hs heeft daarom als doelstelling om een gebruiksvriendelijke omgeving aan te bieden die de programmeur duidelijke foutmeldingen geeft.
+\paragraph{Gebruiksvriendelijkheid} Een van de voornaamste problemen met de oude grafische omgeving is de gebruiksvriendelijkheid van de library. Wanneer er een fout in het programma zat werd het direct afgesloten zonder daarbij een foutmelding te geven. Dit maakt het lastig om fouten in de programmatuur te vinden. Canvas.hs heeft daarom als doelstelling om een gebruiksvriendelijke omgeving aan te bieden die de programmeur duidelijke foutmeldingen geeft.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
-	\item \label{req:errors} Het systeem dient duidelijke errors te genereren.
+	\item \label{req:errors} De library dient duidelijke errors te genereren.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item Als de verbinding tussen JavaScript en Haskell verbroken wordt dient het systeem een error te tonen aan de gebruiker. 
-		\item Het systeem dient een error te tonen wanneer een functionaliteit in een onverwachte staat komt.
+		\item Als de verbinding tussen JavaScript en Haskell verbroken wordt dient de library een error te tonen aan de gebruiker. 
+		\item De library dient een error te tonen wanneer een functionaliteit in een onverwachte staat komt.
 	\end{enumerate}
-	\item \label{req:launchbrowser} Het systeem dient automatisch een browser te starten bij het draaien van het programma.
-	\item \label{req:reload} Het systeem dient de browseromgeving opnieuw te laden als het Haskell-programma opnieuw gecompileerd wordt.
+	\item \label{req:launchbrowser} De library dient automatisch een browser te starten bij het draaien van het programma.
+	\item \label{req:reload} De library dient de browseromgeving opnieuw te laden als het Haskell-programma opnieuw gecompileerd wordt.
 	\item \label{req:debug} De JavaScript-omgeving dient een simpele debug-console te bevatten.
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
 \subsubsection{Niet functionele requirements}
-Een van de problemen met de oude practicumomgeving is dat het niet goed werkt op alle systemen. Hier moet Canvas.hs verandering in brengen. Door gebruik te maken van HTML standaarden zal het systeem een goede basis hebben om platform onafhankelijk te werken. Om er voor te zorgen dat het systeem goed werkt en te onderhouden blijft dient het te voldoen aan een aantal kwaliteitseisen.
+Operating systemen incompatibility was een ander probleem met de oude grafische omgeving. Hier moet Canvas.hs verandering in gaan brengen. Door gebruik te maken van HTML standaarden zal de library een goede basis hebben om platform onafhankelijk te werken. Om er voor te zorgen dat de library goed werkt en te onderhouden blijft dient het te voldoen aan een aantal kwaliteitseisen.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
-	\item \label{req:multiplatform} Het systeem dient multiplatform te werken.
+	\item \label{req:multiplatform} De library dient multiplatform te werken.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item Het systeem dient te werken in de laatste versie van Internet Explorer, Firefox, Chrome en Safari.
-		\item Het systeem dient te werken op een Linux, OS X en Windows.
-		\item Het systeem dient te werken op een computer met een hoge pixeldichtheid.
+		\item De library dient te werken in de laatste versie van Internet Explorer, Firefox, Chrome en Safari.
+		\item De library dient te werken op Linux, OS X en Windows.
+		\item De library dient te werken op een computer met een hoge pixeldichtheid.
 	\end{enumerate}
-	\item \label{req:performance} Het systeem dient gemakkelijk en snel te gebruiken te zijn.
+	\item \label{req:performance} De library dient gemakkelijk en snel te gebruiken te zijn.
 	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item Het systeem dient eenvoudig te installeren zijn.
-		\item Het systeem dient makkelijk af te sluiten te zijn.
+		\item De library dient eenvoudig te installeren zijn.
+		\item De library dient makkelijk af te sluiten te zijn.
 	\end{enumerate}
-	\item \label{req:maintenance} Het systeem dient makkelijk te onderhouden zijn.
-	\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
-		\item Het systeem dient gedocumenteert te zijn.
-		\item Het systeem dient modulair opgebouwd te zijn.
-	\end{enumerate}
-	\item \label{req:coverage} Het systeem dient getest te zijn met 70\% code coverage (exclusief frameworks).
+	\item \label{req:coverage} De library dient getest te zijn met 70\% code coverage (exclusief frameworks).
+\end{enumerate}
+
+\paragraph{Gebruiksvriendelijke API}
+In eerste instantie zullen studenten van het vak Functioneel Programmeren gebruik maken van de library. Omdat studenten bij het vak voor het eerst in aanraking komen met een functionele taal is werken met Monads buiten de scope van het vak gehouden. Bij het programmeren van een Haskell programma dat om kan gaan met reguliere I/O zijn Mondas nodig. Daarom zal Canvas.hs moeten werken met I/O zonder monadische functies aan te bieden via zijn API.
+
+\begin{enumerate}[label={R\arabic*}]
+\setcounter{enumi}{\value{startvalue}}
+		\item \label{req:mondadisch} De library dient zonder monadische functies te gebruiken te zijn.
+		\item \label{req:maintenance} De library dient makkelijk te onderhouden zijn.
+		\begin{enumerate}[label={R\arabic{enumi}.\arabic*}]
+			\item De library dient gedocumenteert te zijn.
+			\item De library dient modulair opgebouwd te zijn.
+		\end{enumerate}
+	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
