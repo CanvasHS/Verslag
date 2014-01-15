@@ -1,5 +1,5 @@
 \section{Globaal ontwerp}  \label{sec:globaal}
-Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de \emph{API} die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs focust zich op elementaire input en heeft geen ondersteuning heeft voor high level interface elementen zoals knoppen en textgebeiden. Deze elementen zijn met behulp van Canvas.hs gemakklijk te implementeren.
+Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de \emph{API} die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs focust zich op elementaire input en heeft geen ondersteuning voor high level interface elementen zoals knoppen en textgebeiden. Deze elementen zijn met behulp van Canvas.hs gemakklijk te implementeren.
 
 \autoref{fig:overzicht_architectuur} geeft een overzicht van de architectuur. Canvas.hs bestaat uit een \emph{module} en een \emph{client}. De module is een library die de programmeur in zijn programma importeert. Bij het starten van de module start een \emph{HTTP} server, een WebSocket-server en wordt de webpagina van de client automatisch gestart. De client bestaat uit een browserpagina met onder andere een canvaselement. De module communiceert met de client via een \emph{WebSocket} verbinding om grafische elementen op de canvas in de client te tekenen.
 
@@ -42,11 +42,11 @@ rectangle :: State -> Shape
 rectangle i = Rect (10*i, 10*i) 10 10
 \end{lstlisting}
 
-Een gedetailleerde handleiding over Events, Shapes, Actions in het algemeen het gebruik van Canvas.hs kan gevonden worden in \autoref{sec:gebruikershandleiding}: gebruikerhandleiding.
+Een gedetailleerde handleiding over Events, Shapes, Actions in het algemeen het gebruik van Canvas.hs kan gevonden worden in \fullref{sec:gebruikershandleiding}.
 
 \paragraph{Shapes}
 \label{par:globaal_shapes}
-Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en rotaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muiklikken, die plaatsheben op de Shape. In \autoref{dia:grafische_boom} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de translaties altijd één Shape als subboom.
+Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en rotaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muisklikken, die plaats hebben op de Shape. In \autoref{dia:grafische_boom} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de translaties altijd één Shape als subboom.
 
 \begin{diagram}
 \Tree [.Container [.Fill [.Rotate [.{Event mouseClick=True} Rect ] ] ] [.Translate Text ] [.Stroke [.Container [.Circle ] [.Line ] [.Circle ] ] ] ]
