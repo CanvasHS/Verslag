@@ -1,11 +1,11 @@
 \subsection{Grafische bibliotheek} \label{subsec:grafische_bibliotheek}
 
-Binnen de library zijn een aantal ontwerpkeuzes moeten maken. Ten eerste moeten kiezen hoe de gebruiker tekent, maar ook hoe events op elementen geplaatst worden en hoe de gebruiker laten omgaan met IO.
+Binnen de library zijn een aantal ontwerpkeuzes moeten maken. Ten eerste moest er gekozen worden hoe de gebruiker tekent, hoe events op elementen geplaatst worden en hoe de gebruiker om moet gaan met IO.
 
 \subsubsection{Grafisch}
 De meest belangrijke keuze die gemaakt is, is hoe er getekend wordt. Voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGl. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
 
-De tegenhanger van deze methode is het absoluut tekenen van alle elementen. Voor het tekenen van kleine grafische interfaces is dit erg eenvoudig, teken gewoon een paar vierkantjes op arbitraire locaties op het canvas. Het nadeel van deze methode is dat als er meerdere vormen verplaatst moeten worden, dit stuk voor stuk moet gebeuren. Daarnaast is het invullen van een vorm een attribuut van de vorm, en daartoe is het niet mogelijk om meerdere elementen tegelijk van kleur te voorzien. Dat probleem zou opgelost kunnen worden door functies binnen de module te defini\"eren die op een lijst van shape een translatie kan toepassen.
+De tegenhanger van deze methode is het absoluut tekenen van alle elementen. Voor het tekenen van kleine grafische interfaces is dit erg eenvoudig, teken gewoon een paar vierkantjes op arbitraire locaties op het canvas. Het nadeel van deze methode is dat als er meerdere vormen verplaatst moeten worden, dit stuk voor stuk moet gebeuren. Daarnaast is het invullen van een vorm een attribuut van de vorm, en daartoe is het niet mogelijk om meerdere elementen tegelijk van kleur te voorzien. Dat probleem zou opgelost kunnen worden door functies binnen de module te defini\"eren die op een lijst van shapes een translatie kan toepassen.
 
 Er is ook het tekenmodel van de Javascript library, Kinetic. Deze tekent alles absoluut, maar ondersteunt lagen die afzonderlijk geschaald kunnen worden. Er is besloten zo min mogelijk protocollen te willen, daartoe is er eerst gekeken naar het doortrekken van het Kinetic model naar het grafisch model van de Canvas.Hs module, vooral zodat er maar een echt datamodel zou zijn, en omdat de client dan triviaal in elkaar gezet kon worden.
 
