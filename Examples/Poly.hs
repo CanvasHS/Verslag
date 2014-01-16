@@ -14,8 +14,8 @@ main = installEventHandler handler 0
 
 -- de functie die vanuit Canvas.hs aangeroepen wordt
 handler :: State -> Event -> (State, Output)
-handler state StartEvent = (state, actions $ [Timer 50 "hellotimer"])
-
 handler state (Tick "hellotimer")
     | state < (length hello) = (state + 1, shape $ Container 900 600 [Translate 100 100 $ Stroke (0,0,0,1.0) 5 $ Line (take state hello)])
     | otherwise = (state,actions $ [StopTimer "hellotimer"])
+
+handler state _ = (state, actions $ [Timer 50 "hellotimer", Debug False])
