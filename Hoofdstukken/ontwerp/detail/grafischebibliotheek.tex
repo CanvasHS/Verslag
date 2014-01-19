@@ -1,20 +1,28 @@
-\subsection{Grafische bibliotheek} \label{subsec:grafische_bibliotheek}
+\subsection{Haskell Interface} \label{subsec:grafische_bibliotheek} \todo{Titel kiezen die dezelfde lading dekt, maar minder engels is}
+\todo{Deze subsection moet denk ik voor de 'problemen' subsection}
 
-Binnen de library zijn een aantal ontwerpkeuzes moeten maken. Ten eerste moest er gekozen worden hoe de gebruiker tekent, hoe events op elementen geplaatst worden en hoe de gebruiker om moet gaan met IO.
+Onder \fullref{subsec:module} is toegelicht hoe de Canvas.hs-module is opgebouwd en hoe deze gebruikt kan worden. Een uitgebreide toelichting over het gebruik van Canvas.hs is te vinden in \fullref{sec:gebruikershandleiding}. Hieronder zullen enkele belangrijke ontwerpkeuzes voor de module worden toegelicht. Deze keuzes hebben grote invloed op de wijze waarop de module gebruikt moet worden. 
 
-\subsubsection{Grafisch}
-De meest belangrijke keuze die gemaakt is, is hoe er getekend wordt. Voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGl. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
+Hieronder zal o.a. worden toegelicht hoe tot de keuze voor de verschillende typen grafische elementen is gekomen, hoe gebeurtenissen aan deze elementen worden gekoppeld en hoe de acties die de gebruiker kan uitvoeren zijn opgebouwd.
 
-De tegenhanger van deze methode is het absoluut tekenen van alle elementen. Voor het tekenen van kleine grafische interfaces is dit erg eenvoudig, teken gewoon een paar vierkantjes op arbitraire locaties op het canvas. Het nadeel van deze methode is dat als er meerdere vormen verplaatst moeten worden, dit stuk voor stuk moet gebeuren. Daarnaast is het invullen van een vorm een attribuut van de vorm, en daartoe is het niet mogelijk om meerdere elementen tegelijk van kleur te voorzien. Dat probleem zou opgelost kunnen worden door functies binnen de module te defini\"eren die op een lijst van shapes een translatie kan toepassen.
+\subsubsection{Grafische elementen}
+De te tekenen grafische elementen zijn voor de gebruiker het belangrijkste onderdeel van Canvas.hs, er is daarom goed nagedacht over hoe de te tekenen grafische elementen worden gerepresenteerd. 
 
-Er is ook het tekenmodel van de Javascript library, Kinetic. Deze tekent alles absoluut, maar ondersteunt lagen die afzonderlijk geschaald kunnen worden. Er is besloten zo min mogelijk protocollen te willen, daartoe is er eerst gekeken naar het doortrekken van het Kinetic model naar het grafisch model van de Canvas.Hs module, vooral zodat er maar een echt datamodel zou zijn, en omdat de client dan triviaal in elkaar gezet kon worden.
+Grafische elementen worden in Canvas.hs gerepresenteerd door het \inlinecode{Shape}type. Dit type representeert alle mogelijk te tekenen grafische elementen en alle mutaties die daarop mogelijk zijn. Hier is al het e.e.a. over toegelicht onder \fullref{par:globaal_shapes}.
 
-Uiteindelijk is het een compromis geworden tussen het datamodel van Kinetic en van Gloss. De gebruiker tekent het overgrote gedeelte van de elementen absoluut, maar kan elementen groeperen in een \inlinecode{Container}. Binnen een \inlinecode{Container} is wederom een absoluut co"ordinatenstelsel, waar de gebruiker dan shapes in kan tekenen. Verder zijn er translaties mogelijk op shapes, zo kan de gebruiker een vorm roteren, en deze translaties werken ook op Containers. Wil de gebruiker bijvoorbeeld een knop met een pijltje draaien, dan kan deze in een container geplaatst worden, en in zijn geheel geroteerd worden.
+\paragraph{Mutaties}
+Door deze representatie ontstaat een boom van shapes (\autoref{dia:grafische_boom}) waarin er shapes zijn die mutaties uitvoeren op andere shapes (zoals bijvoorbeeld \inlinecode{Rotate}) en primitieve shapes (zoals bijvoorbeeld \inlinecode{Rect} of \inlinecode{Circle}). Die mutaties die op shapes kunnen worden uitgevoerd worden dus zelf gerepresenteerd door een shape.
 
-Dit datamodel combineert dus de goede kanten van Kinetic (het snel absoluut kunnen tekenen van vormen) met de voordelen van Gloss (het makkelijk kunnen verplaatsen, kleuren, roteren etc. van meerdere shapes).
-\todo{Afkortingen verwijderen?}
+Een alternatief hiervoor is het uitvoeren van mutaties m.b.v. functies. Er zou dan bijvoorbeeld een functie \inlinecode{rotate :: Int -> Shape -> Shape} bestaan die een shape aanpast zodat deze geroteerd is. shapes zouden dan gerepresenteerd worden door een record-type waarin de functie aanpassingen maakt. 
 
-Om deze keuze te illustreren volgt een ``Mickey Mouse'' vorm die gedraaid en gekleurd is. Hier is goed te zien hoe binnen de Container een absoluut co\"ordinatenstelsel heerst, terwijl erbuiten relatieve bewerkingen uitgevoerd worden.
+De huidige oplossing had echter de voorkeur aangezien deze, in tegenstelling tot de oplossing m.b.v. functies, niet destructief is. Het is mogelijk om de mutaties weer uit de grafische boom te verwijderen en ze op deze manier ongedaan te maken. Daarnaast zou het gebruik van records voor de shapes voor problemen kunnen zorgen doordat de labels van velden in records in Haskell worden omgezet in functies. Hierdoor kan de gebruiker geen functies meer defini\"eren die de labels van record velden delen.
+
+\paragraph{Positionering}
+Voor het positioneren van grafische elementen op het canvas zijn vele mogelijkheden. In canvas.hs hebben we ervoor gekozen dat elk element relatief aan de bovenliggende \inlinecode{Container} wordt gepositioneerd. De bovenstaande \inlinecode{Container} wordt dan weer relatief aan het canvas gepositioneerd. 
+
+Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elementen, zoals knoppen e.d., te creeëren. Een functie levert een \inlinecode{Container} op die de knap bevat. Alle elementen van de knop (de text, de vorm van de knop zelf, etc.) zijn relatief aan die Container gepositioneerd. Door de Container vervolgens te positioneren worden alle elementen van de knop met deze container mee verplaatst. 
+
+De keuze voor mutaties als shapes en relatieve positionering wordt hieronder geïllustreerd met een ``Mickey Mouse''-vorm die gedraaid en gekleurd is. De cirkels worden relatief aan de container gepositioneerd, vervolgens wordt de container zelf 100 pixels in de x en y richting verschoven m.b.v. de \inlinecode{Translate-Shape}. 
 
 \begin{lstlisting}[style=densecode, language=Haskell]
 Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
@@ -24,39 +32,39 @@ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
         ]
 \end{lstlisting}
 
-\subsection{Protocol}
-Uiteindelijk is ervoor gekozen om het protocol gelijkend aan Kinetic op te bouwen, zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.Hs module een op een te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren (Een goed voorbeeld hiervan is de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar Kinetic verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier hoe Kinetic omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol).
-\todo{Niet zo veel tussen haakjes zetten}
+
+\subsubsection{Defaults}
+Bij de \inlinecode{Text-} en \inlinecode{Event-Shape} wordt gebruik gemaakt van een record om opties mee te geven. In het geval van Text om bijvoorbeeld aan te geven of text dik- of schuingedruk moet worden en in het geval van Events om aan te geven in wat voor type Events interesse is. 
+
+Een belangrijke overweging hierin was dat het voor de gebruiker mogelijk moet zijn om aan te geven dat er interesse is in bijvoorbeeld een mouseClick zonder expliciet aan te moeten geven dat er geen interesse is in bijvoorbeeld een mouseDrag. Met alleen records zou dit wel nodig zijn, aangezien daarbij van elk veld expliciet moet worden aangegeven welke waarde het heeft.
+
+Dit probleem is opgelost met een \inlinecode{Defaults}-typeklasse. Deze definieert één enkele functie (\inlinecode{defaults :: a}) die een default waarde voor het gegeven type dient op te leveren. De gebruiker kan dan m.b.v. deze functie eenvoudig alleen de velden aanpassen waarin hij geïnteresseerd is. In het geval van Events zal de defaultsfunctie een record opleveren waarin voor elk type event stgaat de shape er niet in geïnteresserd is. 
+
+In \autoref{mickey_event} wordt dat geïllustreerd. We breiden onze eerder gebruikte Mickey-vorm nu uit met een interesse in Events. met behulp van de defaultsfunctie krijgen we een record waarin voor elk event staat aangegeven dat er geen interesse in is. Vervolgens passen we dit record aan en geven we aan dat er interesse is in muiskliks.
 
 \subsubsection{ID's}
-Er is besloten events te ondersteunen, de bestaande Functioneel Programmeren module geeft de gebruiker een (x,y) co"ordinaat maar geen direct event. De library zoekt zelf uit op welk element er geklikt is en vuurt bijvoorbeeld een MouseClick met een identifier. Hiertoe moest er besloten worden hoe identifiers uitgegeven worden, er is gekozen om de gebruiker hier verantwoordelijk voor te maken, de gebruiker besluit of een shape ge"interesseerd moet zijn in events en voegt hier een (unieke) naam aan toe, als het event dan gevuurd wordt, kan de gebruiker patternmatchen op zijn eigen uniek gekozen naam, en er worden nooit meer events over de lijn verstuurd dan de gebruiker om gevraagd heeft.
+Om op een praktische manier gebruik te kunnen maken van events worden deze aan shapes gekoppeld. Events die daadwerkelijk op een shape gebeuren (zoals muiklikken) kunnen dan ook identificeren op welke shape dat was. Hiertoe moeten shapes die geïnteresserd zijn in events geïdentificeerd kunnen worden. In Canvas.hs is besloten om de gebruiker, bij het aangeven van interesse in een event, een identifier mee te laten geven voor de shape. Hierdoor is het voor de gebruiker eenvoudig te zien op welke shape het event plaatsvond.
 
-Wederom een kleine illustratie, hier wordt een event toegevoegd aan ``Mickey Mouse''
+In \autoref{mickey_event} wordt dit geïllustreerd. Aan de eerder gedefiniëerde Mickey-vorm wordt interesse in een Event toegevoegd. De events die plaatsvinden op deze vorm zullen geïdentificeerd worden met de identifier "mickey".
 
-\begin{lstlisting}[style=densecode, language=Haskell]
-Event defaults{eventId="mickey", mouseClick = True} $ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
+\begin{lstlisting}[style=densecode, language=Haskell, caption=Mickey met interesse in een Event, label=mickey_event]
+Event defaults{eventId="mickey", mouseClick=True} $ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
             Circle (70, 130) 20,
             Circle (100, 100) 50,
             Circle (130, 130) 20
         ]
 \end{lstlisting}
 
-En later in de handler kan dan een specifieke patternmatch toevoegen voor mouseclicks op ons ``Mickey Mouse'' element.
+Later in de handler zal de gebruiker bij events die op de Mickey plaatsvinden deze identifier meekrijgen en hier bijvoorbeeld op kunnen patternmatchen, zoals in onderstaande code geïllustreerd.
+
 \begin{lstlisting}[style=densecode, language=Haskell]
 handler :: State -> Event -> Output
 (..)
 handler state (MouseClick (x,y) "mickey") = -- Do something useful
 \end{lstlisting}
 
-\subsubsection{Defaults}
-Een belangrijke discussie was dat de gebruiker niet meer data moet geven dan strict noodzakelijk. Stel dat een gebruiker een MouseClick event wil toevoegen aan een rechthoek, dan moet hij niet expliciet aangeven dat hij geen MouseDrag event wil. Een na"ive oplossing zou een datastructuur definieren in haskell waar de gebruiker elke mogelijkheid expliciet van waarde moet voorzien.
 
-De oplossing is een \inlinecode{Default} typeklasse, een Event heeft een record met velden voor het ID en een aantal booleans voor of hij geinteresseerd is in Events, dit record derived \inlinecode{Defaults} en die typeklasse heeft een functie \inlinecode{defaults}. Deze functie geeft een standaard record terug die leeg is, het ID is leeg en de shape is (met dat record) niet geinteresseerd in events, de gebruiker kan dan die defaults bewerken om de shape een ID te geven en geinteresseerd te laten zijn in events. Een voorbeeld hiervan is hierboven al gegeven, het record gegeven door de \inlinecode{defaults} record is bewerkt en het eventId is "mickey" geworden, verder is de vorm nu geinteresseerd in muiskliks.
-
-Naast dat een gebruiker geen overbodige waarden moet opgeven als hij wel ge"interesseerd is in events, hoeft hij ook geen overbodige Events te defini"eren. Er is een tijd sprake geweest dat Events op een Shape zou werken, zo zou de rechthoek een \inlinecode{Maybe Event} hebben. Doordat er besloten is dat Event een node is in de grafische boom hoeft de gebruiker geen onnodige Nothings aan te geven als een shape niet geinteresseerd is in events, hij voegt gewoon geen Event nodes toe.
-
-\todo{Ontwerpkeuze: Hulpfuncties zoals shape}
-\todo{Ontwerpkeuze: Toelichten acties}
-%\todo{Ontwerpkeuze: Toelichten van de keuze voor Fullwindow Zie https://drive.google.com/#folders/0B97Qa5VgdaDNWjBiOGFEa3JMZHc}
-\todo{Toelichten waarom we blocking actions hebben}
-\todo{Ontwerpkeuze toelichten: Super key wordt niet als modifier gezien}
+\subsection{Protocol}
+Uiteindelijk is ervoor gekozen om het protocol gelijkend aan Kinetic op te bouwen, zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.Hs module een op een te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren (Een goed voorbeeld hiervan is de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar Kinetic verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier hoe Kinetic omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol).
+\todo{Niet zo veel tussen haakjes zetten}
+\todo{dit aanpassen, ook stukje JSON toevoegen}

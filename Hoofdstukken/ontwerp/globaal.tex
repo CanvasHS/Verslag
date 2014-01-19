@@ -46,7 +46,7 @@ Een gedetailleerde handleiding over Events, Shapes, Actions in het algemeen het 
 
 \paragraph{Shapes}
 \label{par:globaal_shapes}
-Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal translaties zoals verschuivingen en rotaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muisklikken, die plaats hebben op de Shape. In \autoref{dia:grafische_boom} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de translaties altijd één Shape als subboom.
+Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal mutaties zoals verschuivingen en rotaties die op een primitieve worden toegepast. Daarnaast wordt via het Shapetype ook aangegeven of er interesse is in events, zoals muisklikken, die plaats hebben op de Shape. In \autoref{dia:grafische_boom} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de mutaties altijd één Shape als subboom.
 
 \begin{diagram}
 \Tree [.Container [.Fill [.Rotate [.{Event mouseClick=True} Rect ] ] ] [.Translate Text ] [.Stroke [.Container [.Circle ] [.Line ] [.Circle ] ] ] ]
