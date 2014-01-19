@@ -33,3 +33,5 @@
 *.ini
 *.~vsd
 verslag.pdf
+
+.DS_Store
