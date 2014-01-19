@@ -1,17 +1,17 @@
 \subsection{Grafische bibliotheek} \label{subsec:grafische_bibliotheek}
 
-Binnen de library zijn een aantal ontwerpkeuzes moeten maken. Ten eerste moest er gekozen worden hoe de gebruiker tekent, hoe events op elementen geplaatst worden en hoe de gebruiker om moet gaan met IO.
+Voor het aanbieden van een API aan de gebruiker van de library moesten een aantal ontwerpkeuzes gemaakt worden. Ten eerste moest er gekozen worden hoe de gebruiker tekent, hoe events op elementen geplaatst worden en hoe de gebruiker met IO moet omgaan.
 
 \subsubsection{Grafisch}
-De meest belangrijke keuze die gemaakt is, is hoe er getekend wordt. Voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGl. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
+De meest belangrijke keuze die gemaakt is, is hoe er getekend wordt. Voorheen werd er binnen het vak Functioneel Programmeren gebruik gemaakt van Gloss. Binnen Gloss wordt alles relatief getekend en dan getransleerd, op een manier gelijkend aan OpenGL. Deze manier van tekenen is gestructureerd, maar zeker niet eenvoudig. Het tekenen van elementen op arbitraire plaatsen van het scherm heeft zowel een shape als een translatie nodig.
 
 De tegenhanger van deze methode is het absoluut tekenen van alle elementen. Voor het tekenen van kleine grafische interfaces is dit erg eenvoudig, teken gewoon een paar vierkantjes op arbitraire locaties op het canvas. Het nadeel van deze methode is dat als er meerdere vormen verplaatst moeten worden, dit stuk voor stuk moet gebeuren. Daarnaast is het invullen van een vorm een attribuut van de vorm, en daartoe is het niet mogelijk om meerdere elementen tegelijk van kleur te voorzien. Dat probleem zou opgelost kunnen worden door functies binnen de module te defini\"eren die op een lijst van shapes een translatie kan toepassen.
 
-Er is ook het tekenmodel van de Javascript library, Kinetic. Deze tekent alles absoluut, maar ondersteunt lagen die afzonderlijk geschaald kunnen worden. Er is besloten zo min mogelijk protocollen te willen, daartoe is er eerst gekeken naar het doortrekken van het Kinetic model naar het grafisch model van de Canvas.Hs module, vooral zodat er maar een echt datamodel zou zijn, en omdat de client dan triviaal in elkaar gezet kon worden.
+Het tekenmodel van de Javascript library, Kinetic.JS tekent absoluut. Daarbij ondersteunt Kinetic.JS lagen die afzonderlijk geschaald kunnen worden. Er is besloten om het vertalen van de datastructuren te beperken. Daartoe is er eerst gekeken naar het doortrekken van het Kinetic.JS model naar het grafisch model van de Canvas.hs module. Vooral zodat er maar een echt datamodel zou zijn, en omdat de client dan zonder vertaling van datastructeren in elkaar gezet kon worden.
 
-Uiteindelijk is het een compromis geworden tussen het datamodel van Kinetic en van Gloss. De gebruiker tekent het overgrote gedeelte van de elementen absoluut, maar kan elementen groeperen in een \inlinecode{Container}. Binnen een \inlinecode{Container} is wederom een absoluut co"ordinatenstelsel, waar de gebruiker dan shapes in kan tekenen. Verder zijn er translaties mogelijk op shapes, zo kan de gebruiker een vorm roteren, en deze translaties werken ook op Containers. Wil de gebruiker bijvoorbeeld een knop met een pijltje draaien, dan kan deze in een container geplaatst worden, en in zijn geheel geroteerd worden.
+Uiteindelijk is het datamodel dat Canvas.hs aanbiedt een vermenging geworden tussen het datamodel van Kinetic.JS en van Gloss. De gebruiker tekent het overgrote gedeelte van de elementen absoluut, maar kan elementen groeperen in een \inlinecode{Container}. Binnen een \inlinecode{Container} is wederom een absoluut co"ordinatenstelsel, waar de gebruiker dan shapes in kan tekenen. Verder zijn er translaties mogelijk op shapes, zo kan de gebruiker een vorm roteren, en deze translaties werken ook op Containers. Wil de gebruiker bijvoorbeeld een knop met een pijltje draaien, dan kan deze in een container geplaatst worden, en in zijn geheel geroteerd worden.
 
-Dit datamodel combineert dus de goede kanten van Kinetic (het snel absoluut kunnen tekenen van vormen) met de voordelen van Gloss (het makkelijk kunnen verplaatsen, kleuren, roteren etc. van meerdere shapes).
+Dit datamodel combineert dus de goede kanten van Kinetic.JS (het snel absoluut kunnen tekenen van vormen) met de voordelen van Gloss (het makkelijk kunnen verplaatsen, kleuren, roteren etc. van meerdere shapes).
 \todo{Afkortingen verwijderen?}
 
 Om deze keuze te illustreren volgt een ``Mickey Mouse'' vorm die gedraaid en gekleurd is. Hier is goed te zien hoe binnen de Container een absoluut co\"ordinatenstelsel heerst, terwijl erbuiten relatieve bewerkingen uitgevoerd worden.
@@ -25,8 +25,35 @@ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
 \end{lstlisting}
 
 \subsection{Protocol}
-Uiteindelijk is ervoor gekozen om het protocol gelijkend aan Kinetic op te bouwen, zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.Hs module een op een te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren (Een goed voorbeeld hiervan is de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar Kinetic verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier hoe Kinetic omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol).
-\todo{Niet zo veel tussen haakjes zetten}
+Om het omschrijven van datastructuren in de client te beperken worden gegevens al klaargemaakt voor Kinetic.JS in de module. Het protocol dat de verbinding tussen de module en de client beschrijft heeft hierdoor sterke gelijkenissen met de Kinetic.JS API. Zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.hs module één op één te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren. Een goed voorbeeld hiervan zijn de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar Kinetic.JS verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier hoe Kinetic.JS omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol.
+
+\begin{lstlisting}[style=densecode, language=JavaScript]
+{"shape": {
+    "type": "container",
+    "data": {
+        "x": 100,
+        "y": 100,
+        "width": 200,
+        "height": 200,
+        "rotationDeg": 90
+    },
+    "children" : [
+        {
+            "type": "circle",
+            "data": {
+                "x": 70,
+                "y": 130,
+                "radius": 20,
+                "fill": {"r":0, "g":0, "b":0, "a":1}
+            }
+        },
+        ...
+    ]
+},
+"actions": [{
+    ...
+}]}
+\end{lstlisting}
 
 \subsubsection{ID's}
 Er is besloten events te ondersteunen, de bestaande Functioneel Programmeren module geeft de gebruiker een (x,y) co"ordinaat maar geen direct event. De library zoekt zelf uit op welk element er geklikt is en vuurt bijvoorbeeld een MouseClick met een identifier. Hiertoe moest er besloten worden hoe identifiers uitgegeven worden, er is gekozen om de gebruiker hier verantwoordelijk voor te maken, de gebruiker besluit of een shape ge"interesseerd moet zijn in events en voegt hier een (unieke) naam aan toe, als het event dan gevuurd wordt, kan de gebruiker patternmatchen op zijn eigen uniek gekozen naam, en er worden nooit meer events over de lijn verstuurd dan de gebruiker om gevraagd heeft.
