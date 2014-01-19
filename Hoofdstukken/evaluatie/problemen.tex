@@ -1,4 +1,5 @@
 \section{Problemen}
+\todo{Nog veel rewrites}
 \subsection{IO Monad afsplitsen}
 
 \todo{Onderstaande had ik (Pim) origineel geschreven voor het problemenstuk (in ontwerp), het moet nog aangevuld/afgemaakt worden e.d., maar dat is iets wat bij evaluatie kan. Het is over de problemen die we hadden omdat we relatief weinig haskell-kennis hadden}
@@ -8,9 +9,8 @@ Bij het begin van het Canvas.Hs-project was de kennis over Haskell en functionee
 
 Naarmate het project vorderde vorderde ook onze kennis van Haskell, hierdoor maakt de uiteindelijke versie van Canvas.Hs goed gebruik van de mogelijkheden van o.a. monadisch programmeren en Haskells threadsysteem. 
 \paragraph{Monads}
-Zoals gezegd kent Haskell het concept van monads. Één van de doelen van CanvasHs is om dit concept niet te hoeven gebruiken voor grafische weergave bij het vak functioneel programmeren. Dit betekent dat ook wij, de ontwikkelaars, weinig kennis over dit concept hadden voor aan het project begonnen werd. Doordat we 
-Denk aan do-notatie, binds (>>=
->>) en eigen monad voor de Server (state)
+Zoals gezegd kent Haskell het concept van monads. Één van de doelen van CanvasHs is om dit concept niet te hoeven gebruiken voor grafische weergave bij het vak functioneel programmeren. Dit betekent dat ook wij, de ontwikkelaars, weinig kennis over dit concept hadden voor aan het project begonnen werd.
+Denk aan do-notatie, binds (>>=>>) en eigen monad voor de Server (state)
 \todo{onvoldoende toegelicht}
 \paragraph{Threads}
 Denk aan geziek met netjes de WebSockets en http-threads afsluiten en Timer-threads die nu doorlopen
@@ -19,6 +19,6 @@ Denk aan geziek met netjes de WebSockets en http-threads afsluiten en Timer-thre
 \subsubsection{Records}
 Binnen Haskell is het zo dat elke sleutel van een record waarde een functie is. Als er een record gedefinieerd wordt met een sleutel ``sleutel'' bestaat er automatisch een functie \inlinecode{sleutel}. Hoewel dit op het eerste gezicht handig lijkt, betekend dit wel dat alle sleutels uniek moeten zijn. Het is zelfs zo dat sleutels globaal uniek moeten zijn, het is niet mogelijk twee records te maken (die niet in hetzelfde \inlinecode{data} element zitten) die dezelfde sleutel hebben.
 
-De meestgebruike JSON libraries gebruiken records die daarna naar JSON vertaald worden, dit bleek problematisch. Omdat er meerdere records waren met dezelfde veldnamen moesten er handmatig toJSON instanties geschreven werden waar interne veldnamen omgezet werden in externe veldnamen. Uiteindelijk is er een oplossing gevonden in de vorm van Template Haskell, als de toJSON instances gemaakt worden door toJSON kan je aangeven dat veldnamen aangepast moeten worden, alle records zijn daartoe voorzien van een prefix die er door Template Haskell afgehaald wordt.
+De meestgebruike JSON libraries gebruiken records die daarna naar JSON vertaald worden, dit bleek problematisch. Omdat er meerdere records waren met dezelfde veldnamen moesten er handmatig toJSON instanties geschreven werden waar interne veldnamen omgezet werden in externe veldnamen. Uiteindelijk is er een oplossing gevonden in de vorm van Template Haskell. Door toJSON kan je aangeven dat veldnamen aangepast moeten worden, alle records zijn daartoe voorzien van een prefix die er door Template Haskell afgehaald wordt.
 
 
