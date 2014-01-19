@@ -32,9 +32,8 @@ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
         ]
 \end{lstlisting}
 
-
 \subsubsection{Defaults}
-Bij de \inlinecode{Text-} en \inlinecode{Event-Shape} wordt gebruik gemaakt van een record om opties mee te geven. In het geval van Text om bijvoorbeeld aan te geven of text dik- of schuingedruk moet worden en in het geval van Events om aan te geven in wat voor type Events interesse is. 
+Bij de \inlinecode{Text-} en \inlinecode{Event-Shape} wordt gebruik gemaakt van een record om opties mee te geven. In het geval van Text om bijvoorbeeld aan te geven of tekst dik- of schuingedruk moet worden en in het geval van Events om aan te geven in wat voor type Events interesse is. 
 
 Een belangrijke overweging hierin was dat het voor de gebruiker mogelijk moet zijn om aan te geven dat er interesse is in bijvoorbeeld een mouseClick zonder expliciet aan te moeten geven dat er geen interesse is in bijvoorbeeld een mouseDrag. Met alleen records zou dit wel nodig zijn, aangezien daarbij van elk veld expliciet moet worden aangegeven welke waarde het heeft.
 
@@ -65,6 +64,32 @@ handler state (MouseClick (x,y) "mickey") = -- Do something useful
 
 
 \subsection{Protocol}
-Uiteindelijk is ervoor gekozen om het protocol gelijkend aan Kinetic op te bouwen, zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.Hs module een op een te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren (Een goed voorbeeld hiervan is de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar Kinetic verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier hoe Kinetic omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol).
-\todo{Niet zo veel tussen haakjes zetten}
-\todo{dit aanpassen, ook stukje JSON toevoegen}
+Om het omschrijven van datastructuren in de client te beperken worden gegevens al klaargemaakt voor KineticJS in de module. Het protocol dat de verbinding tussen de module en de client beschrijft heeft hierdoor sterke gelijkenissen met de KineticJS API. Zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.hs module één op één te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren. Een goed voorbeeld hiervan zijn de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar KineticJS verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier waarop KineticJS omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol.
+
+\begin{lstlisting}[style=densecode, language=JavaScript]
+{"shape": {
+    "type": "container",
+    "data": {
+        "x": 100,
+        "y": 100,
+        "width": 200,
+        "height": 200,
+        "rotationDeg": 90
+    },
+    "children" : [
+        {
+            "type": "circle",
+            "data": {
+                "x": 70,
+                "y": 130,
+                "radius": 20,
+                "fill": {"r":0, "g":0, "b":0, "a":1}
+            }
+        },
+        ...
+    ]
+},
+"actions": [{
+    ...
+}]}
+\end{lstlisting}
