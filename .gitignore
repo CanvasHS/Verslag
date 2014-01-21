@@ -33,5 +33,6 @@
 *.ini
 *.~vsd
 verslag.pdf
+*.fls
 
 .DS_Store
