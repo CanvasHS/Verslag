@@ -1,29 +1,29 @@
 \section{Basis Instructies}
 
-Om een Canvas.hs applicatie te schrijven zijn een aantal dingen nodig, zo moet de gebruiker een handler functie schrijven die events gaat opvangen, een handlerfunctie heeft als type \inlinecode{handler :: a -> Event -> (a, Output)}. Als er even beter gekeken wordt naar dit signatuur is te zien dat er twee \inlinecode{a}'s in staan, dit is een zogenaamde \inlinecode{State}. Elke keer als de library een event binnenkrijgt zal de handler functie van de gebruiker aangeroepen worden met de state. Zoals het typesignatuur laat zien is de gebruiker ook verplicht deze state terug te geven zodat Canvas.hs hem kan opslaan.
+Om een Canvas.hs applicatie te schrijven moet de programmeur een handlerfunctie schrijven die events opvangt. Een handlerfunctie heeft als type \inlinecode{handler :: a -> Event -> (a, Output)}. De \inlinecode{a}'s in dit signatuur zijn \inlinecode{State}'s. Elke keer dat de library een event binnenkrijgt zal de handlerfunctie van de programmeur aangeroepen worden met de state. Zoals de typesignatuur laat zien, is de programmeur verplicht deze state terug te geven zodat Canvas.hs hem op kan slaan.
 
 \subsection{Termen}
 Binnen deze handleiding zullen een aantal termen gebruikt worden.
 \begin{itemize}
 	\item Output
-De gebruiker is verandwoorderlijk voor het produceren van output, meestal zal de gebruiker een Shape en een lijst van Actions geven maar ook een BlockingAction is mogelijk.
+De programmeur is verandwoorderlijk voor het produceren van output, meestal zal de programmeur een Shape en een lijst van Actions geven maar ook een BlockingAction is mogelijk.
 	\item Shape
 Binnen Canvas.hs is vrijwel alles een shape, maar binnen deze handleiding zal er onderscheid gemaakt worden tussen primaire shapes (Circle, Rect, etc.), containers (een shape die een aantal kinderen heeft) of modifiers (bewerkingen op een shape).
 	\item Modifiers
-Modifiers zijn bewerkingen op een Shape, zo is Rotate een modifier. Karaktiristiek aan een modifier is dat het een element is die als argument een shape neemt.
+Modifiers zijn bewerkingen op een Shape, zo is Rotate een modifier. Karaktiristiek aan een modifier is dat het als argument een shape neemt.
 	\item Containers
-Containers zijn speciale shapes die meerdere shapes kunnen bevatten, zo kan de gebruiker elementen groeperen.
+Containers zijn shapes die meerdere shapes kunnen bevatten, zo kan de programmeur elementen groeperen.
 	\item Action
-Soms zal de gebruiker een IO bewerking willen uitvoeren, zoals het downloaden van een file, dit is binnen Canvas.hs gemodelleerd als een action
+Soms zal de programmeur een IO bewerking willen uitvoeren, zoals het downloaden van een file. Dit is binnen Canvas.hs gemodelleerd als een action.
 	\item BlockingAction
-Er zijn bepaalde acties die de uitvoer van het programma blokkeren, zoals het laden van een file. Het voornaamste voor de gebruiker is dat het niet mogelijk is zowel een BlockingAction als een Shape terug te geven. Het laden van bestanden is bijvoorbeeld een blocking action.
+Er zijn bepaalde acties die de uitvoer van het programma blokkeren, zoals het laden van een file. Het belangrijk voor de programmeur is dat het niet mogelijk is om zowel een BlockingAction als een Shape terug te geven. 
 \end{itemize}
 
 \subsection{Canvas.Hs 101}
-Om deze termen even te laten bezinken is hier een voorbeeld. Voor elke programmeertaal schrijft men als eerste een ``Hello World'''' programma, omdat Canvas.hs een grafische bibliotheek is, is een rondje meer toepasselijk. Zoals uitgelegd moet daarvoor een handler gedefineerd worden, en zal de handler zijn state samen met een output moeten returnen.
+Om te beginnen introduceren we hier eerst een voorbeeld van een programma dat een rondje tekent. Zoals hierboven uitgelegd moet eerst een handler gedefinieerd worden. Deze zal zijn state samen met een output moeten teruggeven.
 
 \lstinputlisting[style=densecode]{Examples/CanvasHs101.hs}
 
-Er wordt hier dus een handler gemaakt, en in de main functie wordt uit de module CanvasHs de functie installEventHandler aangeroepen, daarmee weet Canvas.Hs welke functie aan te roepen als er een event plaatsvind. Als Canvas.hs dan een StartEvent vuurt moet de handler een state en een output returnen. Als state is een simpel getalletje gekozen, en de output is in dit geval slechts een Shape. Deze code tekent een zwarte cirkel met radius 50 op (200,200).
+In het voorbeeld wordt een handler gemaakt. Hiervoor wordt in de main functie, de functie installEventHandler uit de module CanvasHs aangeroepen. Daardoor weet Canvas.hs welke functie het aan moet roepen als er een event plaatsvind. Als Canvas.hs dan een StartEvent vuurt, moet de handler een state en een output teruggeven. Als state is een simpele integer gekozen en de output is in dit geval slechts een Shape. Deze code tekent een zwarte cirkel met radius 50 op punt (200,200).
 
-Dit voorbeeld heeft geen modifiers, er zijn geen Shapes die werken op andere shapes. Daarnaast zijn er in dit eenvoudig voorbeeld geen Actions gebruikt, er wordt uit de module CanvasHs een functie shape gebruikt, die een Shape aanneemt, en een Output met alleen Shape teruggeeft.
+Dit voorbeeld heeft geen modifiers, er zijn geen Shapes die werken op andere shapes. Daarnaast zijn er in dit eenvoudige voorbeeld geen Actions gebruikt. Er wordt uit de module CanvasHs wel een functie shape gebruikt, die een Shape aanneemt en een Output met alleen Shape teruggeeft.
