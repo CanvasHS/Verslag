@@ -1,17 +1,5 @@
 \chapter{Testplan} \label{hoofdstuk:testplan}
-Gedurende het gehele ontwikkelingstraject moeten tests ontwikkeld worden. Voor elke requirement, feature en elk object moet een bijbehorende test worden ontwikkeld. Om voldoende test coverage te garanderen moet alle ontwikkelde code gecontroleerd zijn op het hebben van tests voordat het in de centrale development branch geplaatst mag worden. Dit gebeurt door middel van feature branches  Iedere feature wordt in een aparte branch ontwikkeld, voordat een feature gemerged mag worden naar de dev branch moet een pull request gemaakt worden op github. Deze pull request wordt dan beoordeeld door twee andere personen op code coverage, code netheid, documentatie en de requirements. Wanneer dit in orde is wordt de code gemerged naar de dev branch. Zie  \autoref{fig:branching} voor de branchingstrategie.
-
-\begin{figure}
-\begin{center}
-\includegraphics[keepaspectratio,width=\textwidth]{./images/branching.pdf}
-\caption{Branching strategie van Canvas.hs}
-\label{fig:branching}
-\end{center}
-\end{figure}
-
-Door deze manier van werken is altijd de development branch goed getest en is het altijd mogelijk om een nieuwe release uit te brengen met de op dat moment volledig geteste features. Iedere release wordt in de master branch uitgebracht.
-
-\todo{staat die hele branchingstrategie niet in hoofdstuk 2, hier alleen even kort herhalen?}
+Gedurende het gehele ontwikkelingstraject moeten tests ontwikkeld worden. Voor elke requirement, feature en elk object moet een bijbehorende test worden ontwikkeld. In dit hoofdstuk staat hoe het testen is opgezet. Samen met de branchingstrategie in \autoref{sec:technische_organisatie} kan voldoende code coverage gegarandeerd worden.
 
 \section{Cabal}
 De buildconfiguratie en testconfiguraties worden in de cabal file bijgehouden. Met het commando cabal test kunnen alle tests van het project uitgevoerd worden. Op de website van Canvas.hs staan uitgebreide instructies over het uitvoeren van tests.
