@@ -25,6 +25,11 @@ Het implementeren van nieuwe shapes wordt in een van de appendices uitgebreid be
 Binnen Canvas.hs kan tot op heden alleen met vaste keuren gevuld worden, voor het tekenen van knoppen is het vaak gewenst iets van een kleurverloop te gebruiken. Een kleurverloop kan namelijk diepte bieden aan een grafisch element. Het ondersteunen van kleurverlopen is ook niet lastig, de clientside Javascript library (Kinetic) ondersteunt al kleurverlopen, dus het is een kwestie van het toevoegen en implementeren van een API voor de gebruiker.
 
 \subsubsection{Grafische toolkit}
+
 \subsubsection{Delta updates}
 Op dit moment wordt de client behandeld alsof het stateless is, de module stuurt na elke verandering de hele grafische boom op en de client gooit zijn hele interne boom weg en accepteerd de nieuwe. Deze manier van werken is vanuit een Haskell oogpunt logisch, maar door het gebrek aan caching is het in Javascript traag. Daartoe is het handig om delta updates te sturen, zo kan er opgestuurd worden dat een rondje drie keer zo groot geworden is. Helaas is dit nog niet triviaal, er moet bijvoorbeeld rekening gehouden worden met identieke nodes (bijvoorbeeld een cirkel op (0,0) met radius 10)
+
 \subsubsection{FPprac module}
+
+\subsubsection{Statelessness} \label{conclusie:statelessness}
+\todo{In \ref{par:statelessness} wordt gezegd dat hier teruggeblikt zal worden op de nadelen van geen state bijhouden.}
