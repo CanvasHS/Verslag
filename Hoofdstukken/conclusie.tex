@@ -8,6 +8,30 @@ In \autoref{hoofdstuk:requirements} staan de requirements die aan de ontworpen o
 
 \todo{Voltooi Conclusie}
 
-Hieronder worden aspecten besproken die nog missen in Canvas.hs. Ook wordt per feature aangegeven hoe ondersteuning voor die feature toegevoegd kan worden in toekomstige versies.
+Hieronder worden aspecten besproken die nog missen in Canvas.hs. 
 
-\input{./Hoofdstukken/evaluatie/aanbevelingen.tex}
+\section{Aanbevelingen}
+Canvas.hs is bedoeld als vervanging voor de vorige omgeving die bij het vak Functioneel Programmeren gebruikt werd. Zodoende brengt Canvas.hs voordelen met zich mee over dat systeem. Er zijn echter nog mogelijkheden voor andere features. Wij, als ontwikkelaars van Canvas.hs, zetten hieronder enkele features neer die momenteel niet in het project meegenomen zijn, maar die in toekomstige versies toegevoegd zouden kunnen worden. Ook wordt per feature aangegeven hoe ondersteuning voor die feature toegevoegd kan worden.
+
+\subsubsection{Image type}
+Canvas.hs ondersteunt een breed scala aan grafische primitieven, zo goed als alle vectortekeningen zijn te maken met deze library. Helaas mist er ondersteuning voor plaatjes, zo kan de gebruiker bijvoorbeeld geen fotoalbum in Haskell/Canvas.hs schrijven.
+
+Het toevoegen van een \inlinecode{Image} type is daarentegen redelijk triviaal, al zal er nog wel over peformance nagedacht moeten worden. De eerste optie is dat de gebruiker het plaatje inleest (middels de \inlinecode{LoadFileBinary}) en vervolgens een \inlinecode{Image} node toevoegt die als argument een ByteString neemt, en dit aanbiedt aan Canvas.hs. Een andere optie is de foto te serveren vanuit de server, dus de gebruiker moet een image in een bepaalde map zetten, en de webserver serveert dat image dan op een statische manier.
+
+Een groot nadeel aan de eerste methode is dat het plaatje steeds opnieuw naar base64 gedecodeerd moet worden, en over de socket gestuurd moet worden. Verder moet de gebruiker de bytestring van het plaatje bewaren, ander zou die steeds opnieuw ingeladen moeten worden. De tweede methode is flexibeler, Canvas.Hs stuurt alleen een locatie op naar de client, en de client kan zelfs cachen waar de foto opgeslagen is. Helaas betekent dit wel dat de gebruiker de foto waarschijnlijk in een specifiek mapje moet plaatsen.
+
+Het implementeren van nieuwe shapes wordt in een van de appendices uitgebreid besproken.
+
+\subsubsection{Kleurverlopen}
+Binnen Canvas.hs kan tot op heden alleen met vaste keuren gevuld worden, voor het tekenen van knoppen is het vaak gewenst iets van een kleurverloop te gebruiken. Een kleurverloop kan namelijk diepte bieden aan een grafisch element. Het ondersteunen van kleurverlopen is ook niet lastig, de clientside Javascript library (Kinetic) ondersteunt al kleurverlopen, dus het is een kwestie van het toevoegen en implementeren van een API voor de gebruiker.
+
+\subsubsection{Grafische toolkit}
+\todo{Hier iets schrijven}
+
+\subsubsection{Delta updates}
+Op dit moment wordt de client behandeld alsof het stateless is, de module stuurt na elke verandering de hele grafische boom op en de client gooit zijn hele interne boom weg en accepteerd de nieuwe. Deze manier van werken is vanuit een Haskell oogpunt logisch, maar door het gebrek aan caching is het in Javascript traag. Daartoe is het handig om delta updates te sturen, zo kan er opgestuurd worden dat een rondje drie keer zo groot geworden is. Helaas is dit nog niet triviaal, er moet bijvoorbeeld rekening gehouden worden met identieke nodes (bijvoorbeeld een cirkel op (0,0) met radius 10)
+
+\subsubsection{FPprac module}
+
+\subsubsection{Statelessness} \label{conclusie:statelessness}
+\todo{In \ref{par:statelessness} wordt gezegd dat hier teruggeblikt zal worden op de nadelen van geen state bijhouden.}
