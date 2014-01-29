@@ -3,6 +3,8 @@
 \usepackage{graphicx}
 \usepackage{todonotes}
 \usepackage[dutch]{babel} 
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage[utf8]{inputenc} % Set input to UTF-8 to enable easy input of umlauts etc.
 \usepackage{hyperref} % Turn references into links.
@@ -23,6 +25,7 @@
 \usepackage{newfloat} %used to draw trees (qtree) in a floating enviroment for captions
 \usepackage[a4paper]{geometry}
 \usepackage{subcaption}
+\usepackage{epstopdf}
 
 \providetoggle{longTests}
 \DeclareFloatingEnvironment[fileext=lod]{diagram} %create a floating enviroment for qtree
@@ -86,6 +89,7 @@
            {.7}{{{\color[HTML]{009999}{.7}}}}{1}
            {.8}{{{\color[HTML]{009999}{.8}}}}{1}
            {.9}{{{\color[HTML]{009999}{.9}}}}{1}
+           {`}{${}^\backprime$}1
            {"}{\textquotedbl}1
            {'}{\textquotesingle}1
 }
