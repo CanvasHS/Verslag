@@ -2,7 +2,7 @@
 
 Canvas.hs is een Haskell bibliotheek om op een simpele manier grafische elementen vanuit een Haskell programma weer te geven en te reageren op input vanuit de gebruiker. Met behulp van een webbrowser, met JavaScript en canvaselement worden de primitieven getekend, en wordt op gebruikersinput gereageerd.
 
-Canvas.hs maakt het mogelijk om interactie te hebben met de gebruiker, het bestandssysteem en andere elementen uit de zogenaamde ``echte wereld'' zonder gebruik te hoeven maken van de IO Monad. Op deze manier is het voor beginnende Haskell-programmeurs mogelijk om grafische programma's te schrijven zonder begrip te hebben van monads en monadische computaties.
+Canvas.hs maakt het mogelijk om interactie te hebben met de gebruiker, het bestandssysteem en andere elementen uit de ``echte wereld'' zonder gebruik te hoeven maken van de IO Monad. Op deze manier is het voor beginnende Haskell-programmeurs mogelijk om grafische programma's te schrijven zonder begrip te hebben van monads en monadische computaties.
 
 Om dit alles te bereiken wordt gebruik gemaakt van event-driven-IO. De programmeur schrijft een handler-functie die elk event (bijvoorbeeld een klik van de gebruiker) afhandelt en daaruit een nieuwe output (bestaande uit een aantal te tekenen objecten en uit te voeren acties) oplevert. De bibliotheek maakt het daarnaast mogelijk voor de handler om een state bij te houden en deze bij elk event te lezen en aan te passen. 
 
