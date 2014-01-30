@@ -13,7 +13,7 @@ Er waren vermoedens dat de oorzaak gevonden kon worden in het omzetten van \inli
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio,width=0.8\textwidth]{./images/actionsDemoAfterByteStrings.eps}
+\includegraphics[keepaspectratio,width=0.8\textwidth]{./images/actionsDemoBeforeByteStrings.eps}
 \caption{Heap profile voor de wijziging}
 \label{fig:sub1}
 \end{center}
@@ -27,4 +27,6 @@ Er waren vermoedens dat de oorzaak gevonden kon worden in het omzetten van \inli
 \end{center}
 \end{figure}
 
-\todo{Schrijven over de wijziging's impact}
+Uiteindelijk blijkt deze wijziging weinig verschil gemaakt te hebben, het heeft vooral de code leesbaarder gemaakt. Wel is te zien dat in het eerste figuur de garbage collecting van Haskell aggresiever lijkt, dus allicht wordt zonder de wijziging toch meer memory tijdelijk gebruikt en vervolgens direct weer vrijgegeven. Verder valt er meteen op dat na de wijziging waar \inlinecode{Text} verwijderd wordt uit de Canvas.hs code er toch weer \inlinecode{Text} in de heap profile staat. Dit is vermoederlijk omdat een van de libraries die gebruikt wordt door Canvas.hs daar intern gebruik van maakt.
+
+Voor dit specifieke geval zijn de heap profiles niet interessant, het grootste gedeelte van de data is zogenaamde PINNED data, dit zijn vooral Bytestrings. Gezien Canvas.hs (de haskell zijde van het verhaal) vooral een translator is van het protocol naar een aantal bytestrings is dit niet verrassend. Wel bieden dit soort grafieken duidelijk inzicht in of er geheugenlekken zijn en of er onnodige conversies gemaakt worden, voor grote projecten zijn dit soort grafiekjes zeker nuttig.
