@@ -1,0 +1,5 @@
+Hallo,
+Dit is de content van de file,
+zelfs newlines werken hierin
+helaas kan een Text element niet automatisch de regel afkappen :(
+Maar voor de rest zou je best tekst uit een bestandje kunnen laden.
