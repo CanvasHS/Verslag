@@ -8,7 +8,7 @@ height = 600
 
 initState = 0
 
-main = installEventHandler handler 0
+main = installEventHandler handler initState
 
 handler :: State -> Event -> (State, Output)
 handler state (MouseClick (x,y) "download") = 

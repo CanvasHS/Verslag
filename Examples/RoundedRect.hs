@@ -10,6 +10,8 @@ handler i StartEvent = (i, shape $
                          Stroke red 1 $ Fill green $ roundedRect (300, 300) 200 100 15
                     ])
 
+handler i _ = (i, nothing)
+
 roundedRect :: (Int, Int) -> Int -> Int -> Int -> Shape
 roundedRect (x, y) width height radius = Translate x y $ Container width height [
     -- The top left rounded corner

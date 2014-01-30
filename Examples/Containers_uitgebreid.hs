@@ -10,7 +10,7 @@ height = 600
 initState = 0
 
 -- registreer jezelf bij Canvas.hs met de functie handler en de initiele state 0
-main = installEventHandler handler 0
+main = installEventHandler handler initState
 
 -- de functie die vanuit Canvas.hs aangeroepen wordt
 handler :: State -> Event -> (State, Output)
@@ -33,6 +33,8 @@ handler state StartEvent = (state, shape $
             Rotate 270 $
                 Fill pastelBlue $ mickey
     ])
+
+handler state _ = (state, nothing)
 
 -- een kleine hulpfunctie die een mickey mouse vorm teruggeeft
 mickey :: Shape

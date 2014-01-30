@@ -20,7 +20,9 @@ main = installEventHandler handler initState
 handler :: State -> Event -> (State, Output)
 handler state StartEvent = (state, shape $ Container 900 600 [
     Text (middleX, middleY - 25) "Hello World!" defaults{alignment=AlignCenter, size=50},
-    Rotate 90 $ Text (middleX, middleY + 16) "Bold" defaults{bold=True, size = 32},
+    Rotate 90 $ Text (middleX, middleY - 16) "Bold" defaults{bold=True, size = 52},
     Text (middleX, middleY + 25) "Times New Roman" defaults{font="Times New Roman", size=42},
     Text (middleX- 100, middleY - (25 + 44)) "Italic" defaults{size=44, italic=True}
  ])
+
+handler i _ = (i, nothing)
