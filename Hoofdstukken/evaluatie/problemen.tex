@@ -19,8 +19,13 @@ Denk aan gezeik met netjes de WebSockets en http-threads afsluiten en Timer-thre
 
 
 \subsubsection{Records} \todo{Hier is een stukje over het recordprobleem, maar waar het heen moet weet ik niet}
-Binnen Haskell is het zo dat elke sleutel van een record waarde een functie is. Als er een record gedefinieerd wordt met een sleutel ``sleutel'' bestaat er automatisch een functie \inlinecode{sleutel}. Hoewel dit op het eerste gezicht handig lijkt, betekend dit wel dat alle sleutels uniek moeten zijn. Het is zelfs zo dat sleutels globaal uniek moeten zijn, het is niet mogelijk twee records te maken (die niet in hetzelfde \inlinecode{data} element zitten) die dezelfde sleutel hebben.
+Binnen Haskell is het zo dat elke sleutel van een record waarde een functie is. Als er een record gedefinieerd wordt met een sleutel ``sleutel'' bestaat er automatisch een functie \inlinecode{sleutel}. Hoewel dit op het eerste gezicht handig lijkt, betekend dit wel dat alle sleutels uniek moeten zijn. Het is zelfs zo dat sleutels globaal uniek moeten zijn, het is niet mogelijk twee records te maken (die niet in hetzelfde \inlinecode{data} element zitten) die dezelfde sleutel hebben. Hieronder staat een stukje code die dit probleem illustreerd, op de tweede statement zal de Haskell compiler een foutmelding geven.
 
-De meestgebruikte JSON libraries gebruiken records die daarna naar JSON vertaald worden, maar dit bleek problematisch. Omdat er meerdere records waren met dezelfde veldnamen, moesten er handmatig toJSON instanties geschreven worden waar interne veldnamen omgezet werden in externe veldnamen. Uiteindelijk is er een oplossing gevonden in de vorm van Template Haskell. Door toJSON kan aangegeven worden dat veldnamen aangepast moeten worden. Alle records worden daardoor voorzien van een prefix die er door Template Haskell afgehaald wordt.
+\begin{lstlisting}[language=Haskell]
+data FirstRecord = Fst { key :: String }
+data SecondRecord = Snd { key :: String }
+\end{lstlisting}
+
+De meestgebruikte JSON libraries gebruiken records die daarna naar JSON vertaald worden, maar dit bleek problematisch. Omdat er zowel in het input als in het output record een veld met de naam ID was, moesten er handmatig toJSON instanties geschreven worden waar interne veldnamen omgezet werden in externe veldnamen. Deze wijziging leverde heel veel code op, daarnaast was er nog een probleem dat de JSON library (Aeson) geen lege (\inlinecode{ field = Nothing }) velden weggooide.  Uiteindelijk is er een oplossing gevonden in de vorm van Template Haskell. De Template Haskell functies voor Aeson bieden de mogelijkheid om \inlinecode{Nothing}'s te verwijderen, en daarnaast is het mogelijk om de veldnamen van de records aan te passen. Binnen de code zijn dus alle veldnamen van records voorzien van een prefix (shape, event, etc.) die er door Template Haskell weer afgehaald wordt.
 
 
