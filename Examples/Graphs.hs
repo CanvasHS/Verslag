@@ -2,6 +2,7 @@ import CanvasHs
 import CanvasHs.Data
 import Commons
 import Debug.Trace
+import Prelude
 
 -- Onze state is een getal
 data State = State { width :: Int, height :: Int, off :: (Int, Int), selected :: Selected, nodes :: [Node], edges :: [Edge], startNode :: Node }
