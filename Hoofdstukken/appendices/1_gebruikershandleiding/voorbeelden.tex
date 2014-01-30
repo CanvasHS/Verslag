@@ -5,7 +5,6 @@ We hebben eerder gedefinieerd wat modifiers zijn, een modifier neemt een shape a
 
 \lstinputlisting[style=densecode]{Examples/Modifiers.hs}
 
-
 \subsubsection{Events}
 \todo{Defaults}
 Stel dat we het rondje van kleur willen laten veranderen als er op geklikt wordt, dan moet het rondje zich interesseren voor klikevents, verder moeten we een case toevoegen aan onze handler om te specificeren wat er moet gebeuren als er op het rondje geklikt wordt. Belangrijk om te zien hier is dat er een default gebruikt wordt. Voor events is de default een record zonder ID die niet geinteresseerd is in events. Als we het standaardrecord gebruiken voor een element reageert dit element nerges op. We moeten dit standaardrecord dus vullen, er moet een eventId bedacht worden en er moet aangegeven worden waar deze shape naar wil luisteren. Hieronder hebben we het rondje een eventId circle gegeven, en aangegeven dat we ge"interesseerd zijn in muiskliks.
@@ -52,7 +51,7 @@ Soms willen we dat er iets regelmatig iets gebeurd op het canvas, daarvoor hebbe
 De hierboven geschreven voorbeelden zijn specifiek voor deze handleiding gemaakt, daarnaast zijn er een aantal voorbeelden geschreven voor het testen van de Canvas.hs code. Deze voorbeelden zijn vaak ingewikkelder en minder net opgezet maar geven wel een goed beeld van hoe Canvas.hs gebruikt kan worden voor een project.
 
 \begin{itemize}
-    \item Containers_uitgebreid.hs
+    \item Containers\_uitgebreid.hs
 Dit is een variatie op het container voorbeeld hierboven, deze bevat naast de mickey mouse figuren ook nog achtergronden.
     \item Graphs.hs
 Dit is een demo van hoe een graaf getekend kan worden in Canvas.hs, deze applicatie is relatief ingewikkeld omdat er relatief veel state is in deze applicatie.
