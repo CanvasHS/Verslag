@@ -38,5 +38,27 @@ Tot nu toe hebben we alles op vaste size canvas getekend, het is echter mogelijk
 
 \lstinputlisting[style=densecode]{Examples/Resize.hs}
 
-\subsubsection{Timers}
-\todo{doe hier iets neerzetten}
+\subsubsection{Blocking Output}
+Binnen Canvas.hs zijn er een aantal acties blocking. Bij deze acties kan geen shape of andere acties meegestuurd worden. Deze blocking actie wordt aan de serverkant uitgevoerd en levert een event op. Omdat de acties op deze manier lokaal uitgevoerd worden, zou er als we een shape mee konden geven een kans bestaan dat we twee shape outputs geven, die Canvas.hs dan opeens beide zou moeten tekenen. Het onderstaande voorbeeld leest een bestandje en zet het resultaat op het canvas, hierbij wordt gebruik gemaakt van de \inlinecode{nothing} functie uit \inlinecode{CanvasHs}, deze functie returnt simpelweg een lege output zodat het canvas niet veranderd.
+
+\lstinputlisting[style=densecode]{Examples/Blocking.hs}
+
+\subsubsection{Timers 101}
+Soms willen we dat er iets regelmatig iets gebeurd op het canvas, daarvoor hebben we Timers, een \inlinecode{Timer} is een actie die zorgt dat er elke n milliseconde een event plaatsvind in de haskell code, hierop kunnen we reageren door gewoon simpelweg andere output terug te geven. Dit eenvoudige voorbeeld hieronder reageert op een \inlinecode{Tick} event door simpelweg een getal op het canvas met een te verhogen.
+
+\lstinputlisting[style=densecode]{Examples/Timers.hs}
+
+\subsubsection{Meegeleverde voorbeelden}
+De hierboven geschreven voorbeelden zijn specifiek voor deze handleiding gemaakt, daarnaast zijn er een aantal voorbeelden geschreven voor het testen van de Canvas.hs code. Deze voorbeelden zijn vaak ingewikkelder en minder net opgezet maar geven wel een goed beeld van hoe Canvas.hs gebruikt kan worden voor een project.
+
+\begin{itemize}
+    \item Containers_uitgebreid.hs
+Dit is een variatie op het container voorbeeld hierboven, deze bevat naast de mickey mouse figuren ook nog achtergronden.
+    \item Graphs.hs
+Dit is een demo van hoe een graaf getekend kan worden in Canvas.hs, deze applicatie is relatief ingewikkeld omdat er relatief veel state is in deze applicatie.
+    \item Chart.hs
+Deze demo kan een cirkeldiagram tekenen op het canvas, daarnaast gaat deze demo goed om met resize events en wordt er getoont hoe een menuutje kan animeren met een timer.
+    \item kaart.hs
+Deze demo toont een kaart van nederland, hierop kan ingezoomd en verplaatst worden, en daarnaast kan met het zoekvakje gezocht worden naar een stad, de code van deze demo is erg complex maar toont wel hoe Canvas.hs ook in grotere projecten gebruikt kan worden.
+\end{itemize}
+
