@@ -1,3 +1,14 @@
+\section{Installatie}
+
+Het installeren van Canvas.hs is eenvoudig, eerst moet GHC en cabal geinstalleerd worden, daarna kan Canvas.hs via cabal gecompileerd worden.
+
+\begin{itemize}
+    \item Download en installeer de nieuwste GHC van \url{http://www.haskell.org/ghc/} of gebruik een package manager (apt, brew, yum, pacman etc.)
+    \item Voer \inlinecode{cabal update} uit, dit commando haalt de lijst met packages op van hackage.
+    \item Voer \inlinecode{cabal install Canvas.hs} uit, dit commando download zowel Canvas.hs als de afhankelijkheden op van hackage. Daarna compileert en installeert cabal deze.
+    \item Test een van de meegeleverde demos om te controleren of Canvas.hs werkt
+\end{itemize}
+
 \section{Basisinstructies}
 
 Om een Canvas.hs-applicatie te schrijven moeten we een handlerfunctie schrijven die events afhandelt. Een handlerfunctie heeft als type \inlinecode{handler :: a -> Event -> (a, Output)}. De \inlinecode{a}'s in dit signatuur zijn \inlinecode{State}'s. Elke keer dat de library een event binnenkrijgt zal onze handlerfunctie aangeroepen worden met de laatste state. Zoals de typesignatuur laat zien, zijn we verplicht deze state terug te geven zodat Canvas.hs hem op kan slaan.
