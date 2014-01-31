@@ -1,6 +1,6 @@
 \begin{enumerate}[label={T\arabic*}]
 	\setcounter{enumi}{\value{startvaluetest}}
-	\item InputSpec
+	\item \label{test:haskell:mouse} InputSpec
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
 		\item mousedown event
 		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
@@ -27,22 +27,22 @@
 			\item can decode a mouseout event
 			\item can decode *arbitrary* mouseout event
 		\end{enumerate}}{}
-		\item keydown event
+		\item \label{test:haskell:keydown} keydown event
 		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
 			\item can decode a keydown event
 			\item can decode *arbitrary* keydown event
 		\end{enumerate}}{}
-		\item keypress event
+		\item \label{test:haskell:keypress} keypress event
 		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
 			\item can decode a keypress event
 			\item can decode *arbitrary* keypress event
 		\end{enumerate}}{}
-		\item keyup event
+		\item \label{test:haskell:keyup} keyup event
 		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
 			\item can decode a keyup event
 			\item can decode *arbitrary* keyup event
 		\end{enumerate}}{}
-		\item scroll event
+		\item \label{test:haskell:scroll} scroll event
 		\iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
 			\item can decode a scroll event
 			\item can decond an *arbitrary* scroll event
@@ -68,15 +68,15 @@
         \end{enumerate}
 	    \item Protocol.encode for shapes
 	    \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
-	        \item encode basic shapes
-	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
-            	\item can encode proper Rectangles
-            	\item can encode proper Circles
-            	\item can encode proper Arcs
-            	\item can encode proper Lines
-            	\item can encode proper Polygons
-            \end{enumerate}}{}
-	        \item Containers
+	        \item \label{test:haskell:shapes} encode basic shapes
+	        \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
+            	\item \label{test:haskell:rect} can encode proper Rectangles
+            	\item \label{test:haskell:circle} can encode proper Circles
+            	\item \label{test:haskell:arc} can encode proper Arcs
+            	\item \label{test:haskell:line} can encode proper Lines
+            	\item \label{test:haskell:polygon} can encode proper Polygons
+            \end{enumerate}
+	        \item \label{test:haskell:containers}  Containers
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can be an empty container
             	\item can place a basic shape in a container
@@ -99,13 +99,13 @@
             	\item can rotate a container
             	\item can rotate a negative angle
             \end{enumerate}}{}
-	        \item Translate
+	        \item \label{test:haskell:translate} Translate
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can translate a basic shape
             	\item can translate a container
             	\item can translate a neagtive amount
             \end{enumerate}}{}
-	        \item Scale
+	        \item \label{test:haskell:scale} Scale
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can scale basic shapes
             	\item can scale containers
@@ -115,7 +115,7 @@
             	\item can set offset on a basic shape
             	\item can set offset on a container
             \end{enumerate}}{}
-	        \item Text
+	        \item \label{test:haskell:text}  Text
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can encode simple text
             	\item can encode with different font family
@@ -141,7 +141,7 @@
         \end{enumerate}
 	    \item Protocol.encode for Actions
 	    \begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic*}]
-	        \item Debugger
+	        \item \label{test:haskell:debugger} Debugger
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can enable debugger
             	\item can disable debugger
@@ -158,11 +158,12 @@
             	\item can set the DisplayType to FulWindow
             	\item can set the DisplayType to FullScreen
             \end{enumerate}}{}
-            \item Download
+            \item \label{test:haskell:download} Download
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can offer a file for download
 	            \item RequestUpload
             \end{enumerate}}{}
+            \item \label{test:haskell:upload} Upload
 	        \iftoggle{longTests}{\begin{enumerate}[label={T\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}]
             	\item can request uploading a single file
             	\item can request uploading multiple files

@@ -39,8 +39,10 @@ Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Bl
 	\end{enumerate}
 	\item Draw elements
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
+		\item \label{test:js:draw:line} draws a line
 		\item \label{test:js:draw:rect} draws a rectangle
 		\item \label{test:js:draw:polygon} draws a polygon
+		\item \label{test:js:draw:arc} draws an arc
 		\item \label{test:js:draw:circle} draws a circle (using rgb)
 		\item \label{test:js:draw:circle:alpha} draws a circle with stroke alpha zero
 		\item \label{test:js:draw:text} draws text
@@ -48,13 +50,13 @@ Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Bl
 		\item \label{test:js:draw:container:clipping} draws container with clipping
 	\end{enumerate}
 
-	\item Mouse events
+	\item \label{test:js:mouse} Mouse events
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
 		\item \label{test:js:mouse:no} no event handlers
 		\item \label{test:js:mouse:create} creating mouse event handlers
 		\item \label{test:js:mouse:drag} creating mousedrag event handler (special case compared to other mouse event handlers)
 	\end{enumerate}
-	\item Draw elements to test event handling
+	\item \label{test:js:mouse:draw} Draw elements to test event handling
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
 		\item \label{test:js:draw:mousedown} message after mousedown event
 		\item \label{test:js:draw:mouseclick} message after mouseclick event
@@ -88,21 +90,33 @@ Er zijn non-functionele requirements opgesteld in \autoref{hoofdstuk:requirement
 \subsubsection{Testcases}
 \begin{enumerate}[label={T\arabic*}]
 	\setcounter{enumi}{\value{startvaluetest}}
-	\item Multiplatform, bij deze test wordt getest of de demoapplicatie werkt op ieder besturingssysteem.
+	\item \label{test:blackbox:demo} Door middel van demoapplicaties zijn de volgende functionaliteiten getest
+    \begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
+		\item \label{test:blackbox:keyevents} toetsaanslagen
+		\item \label{test:blackbox:scrollevents} scrollen op elementen
+		\item \label{test:blackbox:prompt} tekstinvoer met een popup
+		\item \label{test:blackbox:lokalebestanden} verwerken van lokale bestanden
+		\item \label{test:blackbox:animatie} animaties
+		\item \label{test:blackbox:download} download naar de client
+		\item \label{test:blackbox:upload} upload vanaf de client
+		\item \label{test:blackbox:error} foutmeldingen
+		\item \label{test:blackbox:debug} debugconsole
+	\end{enumerate}
+	\item \label{test:blackbox:multiplatform} Multiplatform, bij deze test wordt getest of de demoapplicatie werkt op ieder besturingssysteem.
     \begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
     	\item de demoapplicatie kan gedraaid worden in Windows
     	\item de demoapplicatie kan gedraaid worden in Linux
     	\item de demoapplicatie kan gedraaid worden in OS X
     	\item de demoapplicatie kan gedraaid worden in OS X met retina display
     \end{enumerate}
-	\item Browser onafhankelijk, bij deze test wordt getest of de demoapplicatie werkt in de laatste versies van iedere browser.
+	\item \label{test:blackbox:browser} Browser onafhankelijk, bij deze test wordt getest of de demoapplicatie werkt in de laatste versies van iedere browser.
     \begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
     	\item de demoapplicatie kan gedraaid worden in Chrome 32
     	\item de demoapplicatie kan gedraaid worden in Firefox 26
     	\item de demoapplicatie kan gedraaid worden in Internet Explorer 11
     	\item de demoapplicatie kan gedraaid worden in Safari 7
     \end{enumerate}
-	\item Het controlleren van de code coverage voor de testen geschreven voor JavaScript en Haskell
+	\item \label{test:blackbox:coverage} Het controlleren van de code coverage voor de testen geschreven voor JavaScript en Haskell
 \end{enumerate}
 
 Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 70 \% dekken en de Haskell code voor 80 \%. \todo{Getallen kloppend maken} 
