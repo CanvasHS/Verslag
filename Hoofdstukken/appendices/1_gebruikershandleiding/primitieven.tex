@@ -553,11 +553,11 @@ data Event =
 	\item \type{[Modifier]}, de modifiertoetsen die waren ingedrukt terwijl de toets werd losgelaten
 \end{itemize}
 
-\myparagraph{KeyClick}
+\myparagraph{KeyPress}
 Dit \type{Event} ontstaat als een gebruiker een toets aanslaat (indrukt en loslaat)
 \begin{lstlisting}
 data Event = ...
-			| KeyClick String [Modifier]
+			| KeyPress String [Modifier]
 \end{lstlisting}
 \begin{itemize}
 	\item \type{String}, de toets die werd aangeslagen
