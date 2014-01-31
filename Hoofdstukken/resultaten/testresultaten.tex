@@ -11,19 +11,19 @@ Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Bl
 \begin{enumerate}[label={T\arabic*}]
 	\item Execute actions
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
-		\item set fixed proportions
-		\item set fluid proportions
-		\item set window display type fixed
-		\item set window display type fluid
-		\item open control window
-		\item close control window
+		\item \label{test:js:execute:actions:fixedsize} set fixed proportions
+		\item \label{test:js:execute:actions:fluidsize} set fluid proportions
+		\item \label{test:js:execute:actions:displayfixed} set window display type fixed
+		\item \label{test:js:execute:actions:displayfluid} set window display type fluid
+		\item \label{test:js:execute:actions:opencontrol} open control window
+		\item \label{test:js:execute:actions:closecontrol} close control window
 	\end{enumerate}
 	\item Parse and run actions
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
-		\item parse no actions
-		\item parse fixedsize action
-		\item parse fluidsize action
-		\item parse fullscreen action
+		\item \label{test:js:parse:actions:no} parse no actions
+		\item \label{test:js:parse:actions:fixedsize} parse fixedsize action
+		\item \label{test:js:parse:actions:fluidsize} parse fluidsize action
+		\item \label{test:js:parse:actions:fullscreen} parse fullscreen action
 	\end{enumerate}
 	\item Convert colors
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
@@ -48,28 +48,28 @@ Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Bl
 		\item \label{test:js:draw:container:clipping} draws container with clipping
 	\end{enumerate}
 
-	\item Click events
+	\item Mouse events
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
-		\item no event handlers
-		\item creating mouse event handlers
-		\item creating mousedrag event handler (special case compared to other mouse event handlers)
+		\item \label{test:js:mouse:no} no event handlers
+		\item \label{test:js:mouse:create} creating mouse event handlers
+		\item \label{test:js:mouse:drag} creating mousedrag event handler (special case compared to other mouse event handlers)
 	\end{enumerate}
 	\item Draw elements to test event handling
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
-		\item message after mousedown event
-		\item message after mouseclick event
-		\item message after mouseup event
-		\item message after mousedoubleclick event
-		\item message after mouseover event
-		\item message after mouseout event
-		\item message after mousedrag event
-		\item drag end after change of shape
-		\item no drag end after change of shape type
+		\item \label{test:js:draw:mousedown} message after mousedown event
+		\item \label{test:js:draw:mouseclick} message after mouseclick event
+		\item \label{test:js:draw:mouseup} message after mouseup event
+		\item \label{test:js:draw:mousedoubleclick} message after mousedoubleclick event
+		\item \label{test:js:draw:mouseover} message after mouseover event
+		\item \label{test:js:draw:mouseout} message after mouseout event
+		\item \label{test:js:draw:mousedrag} message after mousedrag event
+		\item \label{test:js:draw:mousedragend} drag end after change of shape
+		\item \label{test:js:draw:mousenodragend} no drag end after change of shape type
 	\end{enumerate}
 	\item Test realX and realY functions
 	\begin{enumerate}[label={T\arabic{enumi}.\arabic*}]
-		\item realX function
-		\item realY function
+		\item \label{test:js:func:realX} realX function
+		\item \label{test:js:func:realY} realY function
 	\end{enumerate}
 	\setcounter{startvaluetest}{\value{enumi}}
 \end{enumerate}
