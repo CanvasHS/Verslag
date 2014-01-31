@@ -1,8 +1,6 @@
 % !TEX spellcheck = nl_NL
 \chapter{Conclusie \& Toekomstig werk} \label{hoofdstuk:conclusie}
-Dit project had als doel om een nieuwe omgeving te ontwikkelen die beginnende Haskell-programmeurs, zoals studenten van het vak Functioneel Programmeren, in staat stelt om grafische weergaven te maken en te manipuleren met eenvoudige, zelfgeschreven Haskell-code. Deze omgeving zou bovendien op alle gangbare platformen moeten draaien terwijl de installatie van de omgeving niet onredelijk ingewikkeld moest zijn.
-
-Canvas.hs, de ontwikkelde omgeving die in dit verslag gepresenteerd is, is de vervulling van dit doel en in de volgende secties worden conclusies getrokken over in hoeverre deze doelen behaald zijn en aanbevelingen voor toevoegingen aan toekomstige versies.
+Dit project had als doel om een nieuwe omgeving te ontwikkelen die beginnende Haskell-programmeurs, zoals studenten van het vak Functioneel Programmeren, in staat stelt om grafische weergaven te maken en te manipuleren met eenvoudige, zelfgeschreven Haskell-code. Deze omgeving zou bovendien op alle gangbare platformen moeten draaien terwijl de installatie van de omgeving niet onredelijk ingewikkeld moest zijn. Canvas.hs, de ontwikkelde library die in dit verslag beschreven staat, is de vervulling van dit doel. In dit hoofdstuk worden ten eerste conclusies getrokken aan de hand van eerder uiteengezette testresultaten en evaluaties. Ten tweede worden aanbevelingen gedaan voor de doorontwikkeling van de library.
 
 \section{Conclusie} \label{sec:conclusie}
 In \autoref{hoofdstuk:requirements} staan de requirements die aan de ontworpen omgeving gesteld werden en de traceability matrix in \autoref{sec:traceability} geeft aan welke requirements door welke tests geverifieerd worden.
@@ -11,7 +9,7 @@ De traceability matrix geeft aan dat alle van tevoren opgestelde requirements ge
 
 Deze laatste drie requirements zijn niet-essentiële requirements die eventueel geïmplementeerd hadden kunnen worden, maar vanwege tijdgebrek vooruit geschoven zijn. De requirement om Bézier curves te kunnen tekenen op het canvas was beschreven als een essentiële requirement, maar aangezien Bézier curves niet standaard als shape ondersteund worden in KineticJS, zou de implementatie daarvan relatief veel tijd kosten. Er is daarom gekozen om arcs te implementeren als shape in plaats van Bézier curves aangezien arcs wel standaard ondersteund worden als shape in KineticJS.
 
-Alle opgestelde, essentiële requirements voor Canvas.hs --zowel de functionele als de niet functionele-- zijn dus behaald. De enige uitzondering hierop is het kunnen tekenen van Bézier curves. Daarnaast zijn ook bijna alle niet-essentiële requirements behaald.
+Alle opgestelde, essentiële requirements voor Canvas.hs--zowel de functionele als de niet functionele--zijn dus behaald. De enige uitzondering hierop is het kunnen tekenen van Bézier curves. Daarnaast zijn ook bijna alle niet-essentiële requirements behaald.
 
 Canvas.hs werkt multi-platform en is gemakkelijk te gebruiken om grafische weergaven te maken met relatief simpele Haskell-code. We kunnen dus concluderen dat Canvas.hs het doel dat aan dit project gesteld is, heeft vervuld.
 
