@@ -1,23 +1,23 @@
-\section{Basis Instructies}
+\section{Basisinstructies}
 
-Om een Canvas.hs applicatie te schrijven moeten we een handlerfunctie schrijven die events opvangt. Een handlerfunctie heeft als type \inlinecode{handler :: a -> Event -> (a, Output)}. De \inlinecode{a}'s in dit signatuur zijn \inlinecode{State}'s. Elke keer dat de library een event binnenkrijgt zal onze handlerfunctie aangeroepen worden met de state. Zoals de typesignatuur laat zien, zijn we verplicht deze state terug te geven zodat Canvas.hs hem op kan slaan.
+Om een Canvas.hs-applicatie te schrijven moeten we een handlerfunctie schrijven die events afhandelt. Een handlerfunctie heeft als type \inlinecode{handler :: a -> Event -> (a, Output)}. De \inlinecode{a}'s in dit signatuur zijn \inlinecode{State}'s. Elke keer dat de library een event binnenkrijgt zal onze handlerfunctie aangeroepen worden met de laatste state. Zoals de typesignatuur laat zien, zijn we verplicht deze state terug te geven zodat Canvas.hs hem op kan slaan.
 
 \subsection{Termen}
 Binnen deze handleiding zullen een aantal termen gebruikt worden, deze worden hieronder gedefinieerd.
 \begin{itemize}
 	\item Output
 De programmeur is verandwoorderlijk voor het produceren van output, meestal zal de programmeur een Shape en een lijst van Actions geven maar ook een BlockingAction is mogelijk.
-	\item Shape
+	\item[Shape]
 Binnen Canvas.hs is vrijwel alles een shape, maar binnen deze handleiding zal er onderscheid gemaakt worden tussen primaire shapes (Circle, Rect, etc.), containers (een shape die een aantal kinderen heeft) of modifiers (bewerkingen op een shape).
-	\item Modifiers
+	\item[Modifiers]
 Modifiers zijn bewerkingen op een Shape, zo is Rotate een modifier. Karaktiristiek aan een modifier is dat het als argument een shape neemt.
-	\item Containers
+	\item[Containers]
 Containers zijn shapes die meerdere shapes kunnen bevatten, zo kan de programmeur elementen groeperen.
-	\item Action
-Soms zal de programmeur een IO bewerking willen uitvoeren, zoals het downloaden van een file. Dit is binnen Canvas.hs gemodelleerd als een action.
-	\item BlockingAction
-Er zijn bepaalde acties die de uitvoer van het programma blokkeren, zoals het laden van een file. Het belangrijk voor de programmeur is dat het niet mogelijk is om zowel een BlockingAction als een Shape terug te geven. 
-    \item Defaults
+	\item[Action]
+Soms zal de programmeur een IO-bewerking willen uitvoeren, zoals het downloaden van een file. Dit is binnen Canvas.hs gemodelleerd als een Action.
+	\item[BlockingAction]
+Er zijn bepaalde acties die de uitvoer van het programma blokkeren, zoals het laden van een bestand. Het belangrijkste voor de programmeur is dat het niet mogelijk is om zowel een BlockingAction als een Shape terug te geven. 
+    \item[Defaults]
 Sommige elementen in de grafische boom bevatten veel mogelijkheden, zo kan tekst een ander font hebben, een andere grootte, schuin staan, dik zijn, etc. Daarom zijn er defaults gemaakt, dit is een functie die een aantal standaardwaarden teruggeeft. Voor tekst is dit bijvoorbeeld Arial, 12 pixels groot, niet bold of schuin en links uitgelijnd.
 \end{itemize}
 
@@ -26,6 +26,6 @@ Om te beginnen introduceren we hier eerst een voorbeeld van een programma dat ee
 
 \lstinputlisting[style=densecode]{Examples/CanvasHs101.hs}
 
-In het voorbeeld wordt een handler gemaakt. Hiervoor wordt in de main functie, de functie installEventHandler uit de module CanvasHs aangeroepen. Deze functie wordt ook aangeroepen als er een event plaatsvind. Als Canvas.hs dan een StartEvent vuurt, moet onze handler een state en een output teruggeven. Als state is een simpele integer gekozen en de output is in dit geval slechts een Shape. Deze code tekent een zwarte cirkel met radius 50 op punt (200,200).
+In het voorbeeld hierboven, wordt een handler gemaakt. Deze eventHandler registreren we bij Canvas.hs met de functie installEventHandler. Deze eventHandler wordt aangeroepen als er een event plaatsvind. Er is een speciaal \inlinecode{StartEvent} event en de bijbehorende handlerfunctie wordt aangeroepen als de servers succesvol gestart en verbonden is, zie \autoref{sec:handleiding_primitieven}. Als Canvas.hs een StartEvent vuurt moet onze handler een state en een output teruggeven. Als state is een simpele integer gekozen en de output is in dit geval slechts een Shape. Deze code tekent een zwarte cirkel met radius 50 op punt (200,200).
 
 Dit voorbeeld heeft geen modifiers, er zijn geen Shapes die werken op andere shapes. Daarnaast zijn er in dit eenvoudige voorbeeld geen Actions gebruikt. Er wordt uit de module CanvasHs wel een functie shape gebruikt, deze hulpfunctie returnt alleen een shape zonder acties en is daarmee gelijk aan \inlinecode{(Just shape, [])}.
