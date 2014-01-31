@@ -45,7 +45,7 @@ Bij het bouwen van software met een groep is het belangrijk dat elke ontwikkelaa
 
 Er zijn afspraken gemaakt over hoe deze versiebeheer software gebuikt moet worden. Zo is er gebruik gemaakt van het \emph{branching model} Gitflow \cite{Gitflow2010}. Als een bepaalde versie van de software op een bepaalde branch staat, zegt dit iets over de status van die versie. Zo kan er begonnen worden aan een nieuwe feature vanaf de \inlinecode{dev} branch. Terwijl een versie die op de \inlinecode{master} branch klaar is voor gebruik. Het insturen van een nieuwe versie wordt een \emph{commit} genoemd.
 
-Om voldoende code coverage te garanderen moet alle ontwikkelde code gecontroleerd zijn op het hebben van tests voordat het in de centrale development branch geplaatst mag worden. Dit gebeurt op de feature branches.  Iedere feature wordt in een aparte branch ontwikkeld en voordat een feature branch gemergd mag worden naar de dev branch, moet een pull request gemaakt worden op GitHub. Deze pull request wordt dan beoordeeld door twee andere personen op code coverage, code netheid en documentatie. Wanneer dit in orde is wordt de code gemergd naar de dev branch. Zie  \autoref{fig:branching} voor een overzicht van de branchingstrategie. Over de branchingstrategie wordt meer uitgelegd in de volgende sectie over pull requests.
+Om voldoende code coverage te garanderen moet alle ontwikkelde code gecontroleerd zijn op het hebben van tests voordat het in de centrale development branch geplaatst mag worden. Dit gebeurt op de feature branches.  Iedere feature wordt in een aparte branch ontwikkeld en voordat een feature branch gemerged mag worden naar de dev branch, moet een pull request gemaakt worden op GitHub. Deze pull request wordt dan beoordeeld door twee andere personen op code coverage, code netheid en documentatie. Wanneer dit in orde is wordt de code gemerged naar de dev branch. Zie  \autoref{fig:branching} voor een overzicht van de branchingstrategie. Over de branchingstrategie wordt meer uitgelegd in de volgende sectie over pull requests.
 
 \begin{figure}
 \begin{center}
@@ -81,7 +81,7 @@ Om het beoordelen van code gemakkelijk te maken, is er gebruik gemaakt van de \e
 \end{center}
 \end{figure}
 
-Informatie over het resultaat van een build kan gebruikt worden bij het boordelen van een pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, heeft hij een goede indicatie dat de pull request veilig gemergd kan worden.
+Informatie over het resultaat van een build kan gebruikt worden bij het boordelen van een pull request. Als een beoordelaar ziet dat de build uit een pull request succesvol is, heeft hij een goede indicatie dat de pull request veilig gemerged kan worden.
 
 Het buildscript voert naast de compilatie nog een paar functies uit. Zo genereert het buildscript ook de documentatie en uploadt het buildscript deze naar de Canvas.hs website, \url{http://canvashs.github.io}. Op de website kan de documentatie bekeken worden per build. Hierdoor hoeven ontwikkelaars zelf geen documentatie meer te genereren en hebben zij altijd de laatste documentatie.
 
