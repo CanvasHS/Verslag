@@ -1,7 +1,7 @@
 \section{Globaal ontwerp}  \label{sec:globaal}
 Canvas.hs is een library die de programmeur kan importeren in zijn programma om er daarna met de \emph{API} die Canvas.hs aanbiedt gemakkelijk een uitgebreide user interface mee te bouwen. Canvas.hs focust zich op elementaire input en heeft geen ondersteuning voor high level interface elementen zoals knoppen en textgebeiden. Deze elementen zijn met behulp van Canvas.hs gemakklijk te implementeren.
 
-\autoref{fig:overzicht_architectuur} geeft een overzicht van de architectuur. Canvas.hs bestaat uit een \emph{module} en een \emph{client}. De module is een library die de programmeur in zijn programma importeert. Bij het starten van de module start een \emph{HTTP} server, een WebSocket-server en wordt de webpagina van de client automatisch gestart. De client bestaat uit een browserpagina met onder andere een canvaselement. De module communiceert met de client via een \emph{WebSocket} verbinding om grafische elementen op de canvas in de client te tekenen.
+\autoref{fig:overzicht_architectuur} geeft een overzicht van de architectuur. Canvas.hs bestaat uit een \emph{module} en een \emph{client}. De module is een library die de programmeur in zijn programma importeert. Bij het starten van de module start een conventionele webserver, een WebSocket-server en wordt de webpagina van de client automatisch gestart. De client bestaat uit een browserpagina met onder andere een canvaselement. De module communiceert met de client via een \emph{WebSocket} verbinding om grafische elementen op de canvas in de client te tekenen.
 
 \begin{figure}[H]
 \begin{center}
