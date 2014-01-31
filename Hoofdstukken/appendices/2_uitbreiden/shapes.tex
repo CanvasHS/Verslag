@@ -46,7 +46,7 @@ function shapeFromData(message) {
 }
 \end{lstlisting}
 
-Een derde geval is dat er geen shape bestaat binnen Kinetic, zo heeft KineticJS wel een \inlinecode{Kinetic.Wedge} (Nederlands ``taartpuntje''), maar geen arc (een stuk van een cirkel). Daartoe zal KineticJS uitgebreid moeten worden met ons primitieve. Omdat JavaScript een prototypegebaseerde taal is kunnen we \inlinecode{Kinetic.Shape} uitbreiden tot onze eigen \inlinecode{CanvasHs.Arc}, daartoe bied KineticJS ons de \inlinecode{Kinetic.Util.extend} functie aan. Verder dienen we een constructor te maken voor ons object, onze superklasse aanroepen, en de tekenfunctie naar onszelf laten verwijzen.
+Een derde geval is dat er geen shape bestaat binnen Kinetic, zo heeft KineticJS wel een \inlinecode{Kinetic.Wedge} (Nederlands ``taartpuntje''), maar geen arc (een stuk van een cirkel). Daartoe zal KineticJS uitgebreid moeten worden met ons primitieve. Omdat JavaScript een prototype gebaseerde taal is kunnen we \inlinecode{Kinetic.Shape} uitbreiden tot onze eigen \inlinecode{CanvasHs.Arc}, daartoe bied KineticJS ons de \inlinecode{Kinetic.Util.extend} functie aan. Verder dienen we een constructor te maken voor ons object, onze superklasse aanroepen, en de tekenfunctie naar onszelf laten verwijzen.
 
 \begin{lstlisting}[style=densecode, language=JavaScript]
 // As this is a custom shape, we will define our own namespace

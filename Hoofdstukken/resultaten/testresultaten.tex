@@ -1,7 +1,7 @@
 \section{Testresultaten} \label{sec:testresultaten}
 Zoals in \autoref{hoofdstuk:testplan} beschreven zijn er verschillende tools en libraries gebruikt voor het automatisch testen van de functionele requirements. Daarnaast is er een aanpak voor het testen van de niet-functionele requirements. In dit hoofdstuk staan de resultaten van de tests voor zowel de functionele als niet-functionele requirements beschreven.
 
-De resultaten van de automatische tests kunnen gecontrolleerd worden door deze zelf uit te voeren. Een uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: \url{http://canvashs.github.io/test.html}.
+De resultaten van de automatische tests kunnen gecontroleerd worden door deze zelf uit te voeren. Een uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: \url{http://canvashs.github.io/test.html}.
 
 \subsection{JavaScript}
 Voor de JavaScript-code zijn unit tests ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten. Hieronder wordt de lijst met testcases weergegeven van de JavaScript-code. Alle test cases worden correct uitgevoerd.
@@ -123,7 +123,7 @@ Er zijn non-functionele requirements opgesteld in \autoref{hoofdstuk:requirement
 	\setcounter{startvaluetest}{\value{enumi}}
 \end{enumerate}
 
-Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 72\% dekken. De JavaScript code die niet door een test wordt uitgevoerd heeft vooral toepassing op invoer zoals toetsaanslagen.
+Met de code coverage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 72\% dekken. De JavaScript code die niet door een test wordt uitgevoerd heeft vooral toepassing op invoer zoals toetsaanslagen.
 
 \begin{figure}
 \begin{center}
@@ -133,7 +133,7 @@ Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben
 \end{center}
 \end{figure}
 
-De code coverage resultaten die uit een analyse van HPC komen zijn niet direct uit te drukken in één compleet getal. Zoals te zien is in \autoref{fig:hpc}, zijn er verschillende onderdelen van de code die gemeten worden, namelijk: de definieties, alternatieven en expressies. Bij het evalueren van de resultaten kijken wij naar de expressies van de modules die relevant zijn voor het gegevensmodel. Zo zijn de test-modules zelf meegenomen in de resultaten, maar deze zijn voor de resultaten niet relevant. Daarnaast zijn modules die te maken hebben met I/O en randzaken ook niet meegenomen in onze beoordeling aangezien het lastig is hiervoor betrouwbare tests te schrijven.
+De code coverage resultaten die uit een analyse van HPC komen zijn niet direct uit te drukken in één compleet getal. Zoals te zien is in \autoref{fig:hpc}, zijn er verschillende onderdelen van de code die gemeten worden, namelijk: de definities, alternatieven en expressies. Bij het evalueren van de resultaten kijken wij naar de expressies van de modules die relevant zijn voor het gegevensmodel. Zo zijn de test-modules zelf meegenomen in de resultaten, maar deze zijn voor de resultaten niet relevant. Daarnaast zijn modules die te maken hebben met I/O en randzaken ook niet meegenomen in onze beoordeling aangezien het lastig is hiervoor betrouwbare tests te schrijven.
 
 We kijken specifiek naar de \inlinecode{CanvasHs.Data}, \inlinecode{CanvasHs.Input}, \inlinecode{CanvasHs.Output}, \inlinecode{CanvasHs.ActionOutput} en \inlinecode{CanvasHs.ShapeOutput}. Hier komt het neer op 848 geteste expressies van de 1304. Dat is een resultaat van 65 \% code coverage voor de geschreven relevante Haskell-code.
 
@@ -147,7 +147,7 @@ Voor de gebruiksvriendelijkheid van de API hebben we requirements opgesteld. Dit
 \end{enumerate}
 
 \subsection{Traceability matrix} \label{sec:traceability}
-De traceability matrix laat zien of alle requirements getest zijn. Wanneer een requirement niet getest is betekent dit dat de functie niet geimplementeerd is of dat er geen test voor bestaat. Met de traceability matrix kan bijgehouden worden of alle functionaliteiten geimplementeerd zijn. Om de traceability matrix enigszins overzichtelijk te houden is slechts een deel van de testcases opgenomen in de matrix.
+De traceability matrix laat zien of alle requirements getest zijn. Wanneer een requirement niet getest is betekent dit dat de functie niet ge\"implementeerd is of dat er geen test voor bestaat. Met de traceability matrix kan bijgehouden worden of alle functionaliteiten ge\"implementeerd zijn. Om de traceability matrix enigszins overzichtelijk te houden is slechts een deel van de testcases opgenomen in de matrix.
 
 \begin{figure}
 \begin{center}

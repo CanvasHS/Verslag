@@ -3,7 +3,7 @@ Canvas.hs dient te voldoen aan verschillende requirements. Initieel is een lijst
 
 In het kort dient de library te bestaan uit een browseromgeving die door middel van HTML en JavaScript een gebruikersinterface toont. Op deze gebruikersinterface moeten verschillende standaardfiguren te tekenen zijn. En met de gebruikersinterface dient interactie mogelijk te zijn middels standaardinvoer als toetsenbord en muis. Via een verbinding tussen de browseromgeving en de library kan er vanuit een Haskell-programma output gegenereerd worden in de browser en kunnen er events verstuurd worden vanuit de browseromgeving naar een Haskell-programma. Het deel van de library dat de verbinding met de browseromgeving opzet en onderhoudt wordt vanaf nu de \emph{module} genoemd. De module is volledig geschreven in Haskell.
 
-De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen essenti\"ele, niet-essenti\"ele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essenti\"ele functionaliteit ge\"implementeerd zijn. Er wordt gebruik gemaakt van ``dient'' voor essenti\"ele requirements, ``kan eventueel'' voor niet-essentiele requirements en ``zal niet'' voor uitgesloten requirements. In de traceability matrix in \autoref{sec:traceability} en in de conclusie in \autoref{hoofdstuk:conclusie} wordt het eindproduct beoordeeld op basis van de requirements.
+De requirements zijn opgesteld met de MoSCoW-methode. Bij deze methode kunnen essenti\"ele, niet-essenti\"ele en uitgesloten requirements vastgesteld worden. Aan het eind van het project kan dan beter beoordeeld worden of alle essenti\"ele functionaliteit ge\"implementeerd zijn. Er wordt gebruik gemaakt van ``dient'' voor essenti\"ele requirements, ``kan eventueel'' voor niet-essenti\"ele requirements en ``zal niet'' voor uitgesloten requirements. In de traceability matrix in \autoref{sec:traceability} en in de conclusie in \autoref{hoofdstuk:conclusie} wordt het eindproduct beoordeeld op basis van de requirements.
 
 \subsubsection{Functionele requirements}
 In de basis zal Canvas.hs dezelfde functionaliteit ondersteunen als de oude grafische omgeving die gebruik maakt van de Gloss library. De programmeur zou met deze library minstens evenveel moeten kunnen weergeven. Om extra mogelijkheden te bieden zou de library ook animaties kunnen ondersteunen.
@@ -44,7 +44,7 @@ In de basis zal Canvas.hs dezelfde functionaliteit ondersteunen als de oude graf
 	\setcounter{startvalue}{\value{enumi}}
 \end{enumerate}
 
-\paragraph{Acties} In de oude grafische omgeving wordt een aantal \emph{acties} ondersteund die buiten de grafische output om werken. Acties zijn vanuit de \emph{module} aangeroepen gebeurtenissen. Acties bieden complexe functionaliteit versimpeld aan de gebruiker aan. Hierbij kan gedacht worden aan het openen van een tekstinvoerpop-up en de mogelijkheid om bestanden te verwerken. Door het gebruik van acties hoeft de gebruiker zelf geen I/O te gebruiken in zijn Haskellprogramma. Dit verlaagt het instapniveau om aan de gang te gaan met Haskell en een grafische omgeving. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
+\paragraph{Acties} In de oude grafische omgeving wordt een aantal \emph{acties} ondersteund die buiten de grafische output om werken. Acties zijn vanuit de \emph{module} aangeroepen gebeurtenissen. Acties bieden complexe functionaliteit versimpeld aan de gebruiker aan. Hierbij kan gedacht worden aan het openen van een tekstinvoerpop-up en de mogelijkheid om bestanden te verwerken. Door het gebruik van acties hoeft de gebruiker zelf geen I/O te gebruiken in zijn Haskell-programma. Dit verlaagt het instapniveau om aan de gang te gaan met Haskell en een grafische omgeving. Om Canvas.hs breder inzetbaar te maken dient het als extra functionaliteit ook fullscreen weergegeven te kunnen worden. Dit is bijvoorbeeld handig in een presentatie.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}
@@ -99,7 +99,7 @@ Operating systemen incompatibility was een ander probleem met de oude grafische 
 \end{enumerate}
 
 \paragraph{Gebruiksvriendelijke API}
-In eerste instantie gaan studenten van het vak Functioneel Programmeren gebruik maken van de library. Aangezien studenten bij het vak voor het eerst in aanraking komen met een functionele taal is werken met Monads buiten de scope van het vak gehouden. Bij het programmeren van een Haskellprogramma dat om kan gaan met reguliere I/O is het nodig de IO-monad te gebruiken. Daarom zal Canvas.hs zonder monadische functies moeten werken.
+In eerste instantie gaan studenten van het vak Functioneel Programmeren gebruik maken van de library. Aangezien studenten bij het vak voor het eerst in aanraking komen met een functionele taal is werken met Monads buiten de scope van het vak gehouden. Bij het programmeren van een Haskell-programma dat om kan gaan met reguliere I/O is het nodig de IO-monad te gebruiken. Daarom zal Canvas.hs zonder monadische functies moeten werken.
 
 \begin{enumerate}[label={R\arabic*}]
 \setcounter{enumi}{\value{startvalue}}

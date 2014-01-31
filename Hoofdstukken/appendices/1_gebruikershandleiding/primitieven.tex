@@ -92,7 +92,7 @@ data Shape = ...
 			| Text Point String TextData
 \end{lstlisting} 
 \begin{itemize}
-	\item \type{Point}, het punt waarop de text getekend zal worden, m.b.v. \type{TextData}~, kan dit veranderd worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
+	\item \type{Point}, het punt waarop de tekst getekend zal worden, m.b.v. \type{TextData}~, kan dit veranderd worden van de linkerbovenhoek, gecentreerd of de rechter bovenhoek.
 	\item \type{String}, de te tekenen tekst
 	\item \type{TextData}, een aantal opties om tekst anders weer te geven, zoals lettertype en lettergrootte, zie hieronder.
 \end{itemize}
@@ -358,7 +358,7 @@ data Action = ...
 \end{itemize}
 
 \myparagraph{StopTimer}
-Met de \type{StopTimer-Action} is het mogelijk om \type{Timer}s te stoppen. De timers worden hierbij geïndentificeerd aan hun naam, zoals opgegeven bij het starten van de \type{Timer}. Als een al gestopte, of niet bestaande \type{Timer} wordt gestopt heeft dit geen resultaat.
+Met de \type{StopTimer-Action} is het mogelijk om \type{Timer}s te stoppen. De timers worden hierbij ge\"identificeerd aan hun naam, zoals opgegeven bij het starten van de \type{Timer}. Als een al gestopte, of niet bestaande \type{Timer} wordt gestopt heeft dit geen resultaat.
 \begin{lstlisting}
 data Action = ...
 			| StopTimer String
@@ -512,9 +512,9 @@ data Event = ...
 			| Scroll String Int Int
 \end{lstlisting}
 \begin{itemize}
-	\item \type{String}, het id van de \shape waarin gescrolld werd
-	\item \type{Int}, de afstand die in de x-richting werd gescrolld
-	\item \type{Int}, de afstand die in de y-richting werd gescrolld
+	\item \type{String}, het id van de \shape waarin gescrold werd
+	\item \type{Int}, de afstand die in de x-richting werd gescrold
+	\item \type{Int}, de afstand die in de y-richting werd gescrold
 \end{itemize}
 
 \subsubsection{Key Events}
@@ -611,7 +611,7 @@ data Event = ...
 \end{itemize}
 
 \myparagraph{PromptRespone}
-Dit \type{Event} onstaat als de gebruiker een respons geeft op een \type{Prompt}. 
+Dit \type{Event} ontstaat als de gebruiker een respons geeft op een \type{Prompt}. 
 \begin{lstlisting}
 data Event = ...
 			| PromptResponse String
