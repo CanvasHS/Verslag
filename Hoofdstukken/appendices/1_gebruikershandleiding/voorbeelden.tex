@@ -1,20 +1,20 @@
 % !TEX spellcheck = nl_NL
 \section{Voorbeelden}
 \subsubsection{Modifiers}
-We hebben eerder gedefinieerd wat modifiers zijn, een modifier neemt een shape als argument en past daar zijn modificatie op toe, stel dat we een vierkant willen draaien, dan is dat in code: \inlinecode{Rotate 45 \$ Rect (x,y) width height}. Hieronder zijn een aantal modifiers te zien, er worden hier vier vierkantjes getekend, de eerste heeft geen modifiers, de tweede is gedraaid, de derde is vergroot en de laaste is gedraaid en geschaald.
+We hebben eerder gedefinieerd wat modifiers zijn, een modifier neemt een shape als argument en past daar zijn modificatie op toe, stel dat we een vierkant willen draaien, dan is dat in code: \mbox{\inlinecode{Rotate 45 \$ Rect (x,y) width height}.} Hieronder zijn een aantal modifiers te zien, er worden hier vier vierkantjes getekend, de eerste heeft geen modifiers, de tweede is gedraaid, de derde is vergroot en de laaste is gedraaid en geschaald.
 
 \lstinputlisting[style=densecode]{Examples/Modifiers.hs}
 
 \subsubsection{Containers}
-Containers worden gebruikt om elementen te groeperen, maar nog belangrijker, binnen een container heerst een eigen coördinatenstelsel. Er kan dus absoluut getekend worden binnen een container, en daarna kan deze container relatief verplaatst worden. Het is gebruikelijk om een container met de grootte van het canvas als root te hebben, al wordt dit niet geforceerd. Het volgende voorbeeld laat zien hoe een Mickey Mouse-figuur getekend kan worden.
+Containers worden gebruikt om elementen te groeperen. Maar nog belangrijker—binnen een container heerst een eigen coördinatenstelsel. Er kan dus absoluut getekend worden binnen een container, en daarna kan deze container relatief verplaatst worden. Het is gebruikelijk om een container met de grootte van het canvas als root te hebben, al wordt dit niet geforceerd. Het volgende voorbeeld laat zien hoe een Mickey Mouse-figuur getekend kan worden.
 
 \lstinputlisting[style=densecode]{Examples/Containers.hs}
 
 \subsubsection{Defaults} \label{subsubsec:handleiding_defaults}
-Canvas.hs definieert een nieuwe dataklasse \inlinecode{Defaults}, deze dataklasse kunnen we gebruiken om het makkelijker te maken standaardopties te definiëren voor voor ingewikkelde of uitgebreidde datastructuren. De klasse wordt gebruikt voor de \inlinecode{Text}- en \inlinecode{Event}-shapes (zie Hieronder). Deze klasse definieert één functie (\inlinecode{defaults}) die standaardwaarden voor een bepaald datatype moet opleveren. In het geval van \inlinecode{Event} is dat voor het type \inlinecode{EventData} en in het geval van \inlinecode{Text} voor het type \inlinecode{TextData}. Hoe \inlinecode{Defaults} precies gebruikt wordt wordt hieronder duidelijk.
+Canvas.hs definieert een nieuwe dataklasse \inlinecode{Defaults}, deze dataklasse kunnen we gebruiken om het makkelijker te maken standaardopties te definiëren voor voor ingewikkelde of uitgebreidde datastructuren. De klasse wordt gebruikt voor de \inlinecode{Text}- en \inlinecode{Event}-shapes, zoals beschreven in deze sectie. Deze klasse definieert de \inlinecode{defaults}-functie die standaardwaarden voor een bepaald datatype moet opleveren. In het geval van \inlinecode{Event} is dat voor het type \inlinecode{EventData} en in het geval van \inlinecode{Text} voor het type \inlinecode{TextData}. Hoe \inlinecode{Defaults} precies gebruikt wordt is te zien in de rest van de voorbeelden in deze sectie.
 
 \subsubsection{Events}
-Stel dat we het rondje van kleur willen laten veranderen als er op geklikt wordt, dan moet het rondje zich interesseren voor klikevents, verder moeten we een case toevoegen aan onze handler om te specificeren wat er moet gebeuren als er op het rondje geklikt wordt. Belangrijk om te zien hier is dat er een default gebruikt wordt (zie hierboven). Voor events is de default een record zonder ID die niet geinteresseerd is in events. Als we het standaardrecord gebruiken voor een element reageert dit element nergens op. We moeten dit standaardrecord dus vullen, er moet een eventId bedacht worden en er moet aangegeven worden waar deze shape naar wil luisteren. Hieronder hebben we het rondje een eventId circle gegeven, en aangegeven dat we ge"interesseerd zijn in muiskliks.
+Stel dat we het rondje van kleur willen laten veranderen als er op geklikt wordt, dan moet het rondje zich interesseren voor klikevents, verder moeten we een case toevoegen aan onze handler om te specificeren wat er moet gebeuren als er op het rondje geklikt wordt. Belangrijk om te zien hier is dat er een default gebruikt wordt, zie het voorbeeld hierboven. Voor events is de default een record zonder ID die niet geinteresseerd is in events. Als we het standaardrecord gebruiken voor een element reageert dit element nergens op. We moeten dit standaardrecord dus vullen, er moet een eventId bedacht worden en er moet aangegeven worden waar deze shape naar wil luisteren. Hieronder hebben we het rondje een eventId circle gegeven, en aangegeven dat we ge"interesseerd zijn in muiskliks.
 
 \lstinputlisting[style=densecode]{Examples/Events.hs}
 
@@ -22,7 +22,7 @@ Wat het meest interessante van dit voorbeeld is, is hoe de mickey mouse shapes o
 
 \subsubsection{Tekst}
 
-Canvas.hs ondersteunt ook tekst, het tekenen van tekst is speciaal omdat er veel parameters meegegeven kunnen worden. Net als bij de events kan een default (zie \fullref{subsubsec:handleiding_defaults}) waarde aangepast worden. Standaard is tekst in Canvas.hs niet onderstreept, dikgedrukt of schuin, links uitgelijnt en wordt Arial 12 als lettertype gebruikt. Belangrijk om te weten is dat als een lettertype niet aanwezig is, dat de client dan een eigen lettertype kiest (zoals elke browser dat doet).
+Canvas.hs ondersteunt ook tekst, het tekenen van tekst is speciaal omdat er veel parameters meegegeven kunnen worden. Net als bij de events kan een default waarde aangepast worden. Standaard is tekst in Canvas.hs niet onderstreept, dikgedrukt of schuin, links uitgelijnt en wordt Arial 12 als lettertype gebruikt. Belangrijk om te weten is dat als een lettertype niet aanwezig is, dat de client dan een eigen lettertype kiest (zoals elke browser dat doet).
 
 Hieronder worden alle mogelijkheden met tekst in een woordweb getoond, let vooral op hoe in de defaults steeds een bepaalde sleutel aangepast wordt.
 \lstinputlisting[style=densecode]{Examples/Text.hs}
@@ -50,7 +50,7 @@ Soms willen we dat er iets regelmatig iets gebeurd op het canvas, daarvoor hebbe
 \lstinputlisting[style=densecode]{Examples/Timers.hs}
 
 \subsubsection{Meegeleverde voorbeelden}
-De hierboven geschreven voorbeelden zijn specifiek voor deze handleiding gemaakt, daarnaast zijn er een aantal voorbeelden geschreven voor het testen van de Canvas.hs code. Deze voorbeelden zijn vaak ingewikkelder en minder net opgezet maar geven wel een goed beeld van hoe Canvas.hs gebruikt kan worden voor een project.
+De hierboven geschreven voorbeelden zijn specifiek voor deze handleiding gemaakt, daarnaast zijn er een aantal voorbeelden geschreven voor het testen van de Canvas.hs-code. Deze voorbeelden zijn vaak ingewikkelder en minder net opgezet maar geven wel een goed beeld van hoe Canvas.hs gebruikt kan worden voor een project.
 
 \begin{itemize}
     \item Containers\_uitgebreid.hs
