@@ -4,7 +4,7 @@ Zoals in \autoref{hoofdstuk:testplan} beschreven zijn er verschillende tools en 
 De resultaten van de automatische tests kunnen gecontrolleerd worden door deze zelf uit te voeren. Een uitgebreide uitleg over het uitvoeren en ontwikkelen van tests is te vinden op de website van Canvas.hs: \url{http://canvashs.github.io/test.html}.
 
 \subsection{JavaScript}
-Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten. Hieronder wordt de lijst met testcases weergegeven van de JavaScript code. Alle test cases worden correct uitgevoerd.
+Voor de JavaScript-code zijn unit tests ontwikkeld in Jasmine. Met behulp van Blanket.js is de code coverage van de tests gemeten. Hieronder wordt de lijst met testcases weergegeven van de JavaScript-code. Alle test cases worden correct uitgevoerd.
 
 \subsubsection{Testcases}
 \newcounter{startvaluetest}
@@ -75,7 +75,8 @@ Voor de JavaScript code zijn unit tests ontwikkeld in Jasmine. Met behulp van Bl
 \end{enumerate}
 
 \subsection{Haskell}
-Voor de Haskell code zijn unit tests ontwikkeld. De code coverage van de tests is gemeten met hpc waarvoor standaard een commando is meegeleverd in Cabal. Hieronder wordt een overzicht met testcases weergegeven van de Haskell code. Alle test cases worden correct uitgevoerd.
+Voor de Haskell-code zijn unit tests ontwikkeld. De code coverage van de tests is gemeten met \emph{HPC}—Haskell Program Coverage\cite{HPC}. Deze tool maakt onderdeel uit van Cabal.
+Hieronder wordt een overzicht met testcases weergegeven van de Haskell-code. Alle test cases worden correct uitgevoerd.
 
 
 \subsubsection{Testcases}
@@ -105,8 +106,19 @@ Er zijn non-functionele requirements opgesteld in \autoref{hoofdstuk:requirement
 	\item Het controlleren van de code coverage voor de testen geschreven voor JavaScript en Haskell
 \end{enumerate}
 
-Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 70 \% dekken en de Haskell code voor 80 \%. \todo{Getallen kloppend maken} 
+Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 72 \% dekken. De JavaScript code die niet door een test wordt uitgevoerd heeft vooral toepassing op invoer zoals invoer middels toetsaanslagen, al dan niet met een modifier-key als ctrl.
 
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth]{./images/haskellcoverage.png}
+\caption{Code coverage resultaten uit HPC}
+\label{fig:hpc}
+\end{center}
+\end{figure}
+
+De code coverage resultaten die uit een analyse van HPC komen zijn niet direct uit te drukken in één compleet getal. Zoals te zien is in \autoref{fig:hpc}, zijn er verschillende onderdelen van de code die gemeten worden, namelijk: de definieties, alternatieven en expressies. Bij het evalueren van de resultaten kijken wij naar de expressies van de modules die relevant zijn voor het gegevensmodel. Zo zijn de test-modules zelf meegenomen in de resultaten, maar deze zijn deze resultaten niet relevant. Daarnaast zijn modules die te maken hebben met I/O en randzaken ook niet meegenomen in onze beoordeling aangezien het lastig is hiervoor betrouwbare tests te schrijven.
+
+We kijken specifiek naar de \inlinecode{CanvasHs.Data}, \inlinecode{CanvasHs.Input}, \inlinecode{CanvasHs.Output}, \inlinecode{CanvasHs.ActionOutput} en \inlinecode{CanvasHs.ShapeOutput}. Hier komt het neer op 848 geteste expressies van de 1304. Dat is een resultaat van 65 \% code coverage voor de geschreven relevante Haskell-code.
 
 \subsection{Traceability matrix} \label{sec:traceability}
 De traceability matrix laat zien of alle requirements getests zijn. Wanneer een requirement niet getest is betekent dit dat de functie niet geimplementeerd is of dat er geen test voor bestaat. Met de traceability matrix kan bijgehouden worden of alle functionaliteit geimplementeerd is.
