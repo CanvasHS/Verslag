@@ -9,11 +9,11 @@ De te tekenen grafische elementen zijn voor de gebruiker het belangrijkste onder
 Grafische elementen worden in Canvas.hs gerepresenteerd door het \inlinecode{Shape}type. Dit type representeert alle mogelijk te tekenen grafische elementen en alle mutaties die daarop mogelijk zijn. Hier is al het e.e.a. over toegelicht onder \fullref{par:globaal_shapes}.
 
 \paragraph{Mutaties}
-Door deze representatie ontstaat een boom van shapes (\autoref{dia:grafische_boom}) waarin er shapes zijn die mutaties uitvoeren op andere shapes (zoals bijvoorbeeld \inlinecode{Rotate}) en primitieve shapes (zoals bijvoorbeeld \inlinecode{Rect} of \inlinecode{Circle}). Die mutaties die op shapes kunnen worden uitgevoerd worden dus zelf gerepresenteerd door een shape.
+Door deze representatie ontstaat een boom van shapes (\autoref{dia:grafische_boom}) waarin er shapes zijn die mutaties uitvoeren op andere shapes (zoals bijvoorbeeld \inlinecode{Rotate}) en primitieve shapes (zoals bijvoorbeeld \inlinecode{Rect} of \inlinecode{Circle}). Die mutaties die op shapes kunnen worden uitgevoerd worden dus zelf gerepresenteerd door een shape. Dit is de wijze zoals dat in Gloss gebeurd.
 
-Een alternatief hiervoor is het uitvoeren van mutaties m.b.v. functies. Er zou dan bijvoorbeeld een functie \inlinecode{rotate :: Int -> Shape -> Shape} bestaan die een shape aanpast zodat deze geroteerd is. shapes zouden dan gerepresenteerd worden door een record-type waarin de functie aanpassingen maakt. 
+Een alternatief hiervoor is het uitvoeren van mutaties m.b.v. functies. Er zou dan bijvoorbeeld een functie \inlinecode{rotate :: Int -> Shape -> Shape} bestaan die een shape aanpast zodat deze geroteerd is. shapes zouden dan gerepresenteerd worden door een record-type waarin de functie aanpassingen maakt. Zo ontstaat een boom gelijkend aan hoe Kinetic werkt.
 
-De huidige oplossing had echter de voorkeur aangezien deze, in tegenstelling tot de oplossing m.b.v. functies, niet destructief is. Het is mogelijk om de mutaties weer uit de grafische boom te verwijderen en ze op deze manier ongedaan te maken. Daarnaast zou het gebruik van records voor de shapes voor problemen kunnen zorgen doordat de labels van velden in records in Haskell worden omgezet in functies. Hierdoor kan de gebruiker geen functies meer defini\"eren die de labels van record velden delen.
+De Gloss oplossing had echter de voorkeur aangezien deze, in tegenstelling tot de oplossing m.b.v. functies, niet destructief is. Het is mogelijk om de mutaties weer uit de grafische boom te verwijderen en ze op deze manier ongedaan te maken. Daarnaast zou het gebruik van records voor de shapes voor problemen kunnen zorgen doordat de labels van velden in records in Haskell worden omgezet in functies. Hierdoor kan de gebruiker geen functies meer defini\"eren die de labels van record velden delen.
 
 \paragraph{Positionering}
 Voor het positioneren van grafische elementen op het canvas zijn vele mogelijkheden. In canvas.hs hebben we ervoor gekozen dat elk element relatief aan de bovenliggende \inlinecode{Container} wordt gepositioneerd. De bovenstaande \inlinecode{Container} wordt dan weer relatief aan het canvas gepositioneerd. 
@@ -45,11 +45,11 @@ Om op een praktische manier gebruik te kunnen maken van events worden deze aan s
 In \autoref{mickey_event} wordt dit geïllustreerd. Aan de eerder gedefiniëerde Mickey-vorm wordt interesse in een Event toegevoegd. De events die plaatsvinden op deze vorm zullen geïdentificeerd worden met de identifier "mickey".
 
 \begin{lstlisting}[style=densecode, language=Haskell, caption=Mickey-figuur met interesse in een Event, label=mickey_event]
-Event defaults{eventId="mickey", mouseClick=True} $ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
-            Circle (70, 130) 20,
-            Circle (100, 100) 50,
-            Circle (130, 130) 20
-        ]
+Event defaults{eventId="mickey", mouseClick=True} $ Fill black $ Translate 100 100 $ Rotate 90 $ Offset (80, 65) $ Container 160 130 [
+        Circle (30, 30) 30,
+        Circle (80, 80) 50,
+        Circle (130, 30) 30
+    ]
 \end{lstlisting}
 
 Later in de handler zal de gebruiker bij events die op de Mickey plaatsvinden deze identifier meekrijgen en hier bijvoorbeeld op kunnen patternmatchen, zoals in \autoref{mickey_event_handler} geïllustreerd.
