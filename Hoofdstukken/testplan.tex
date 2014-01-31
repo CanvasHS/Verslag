@@ -3,13 +3,13 @@ Gedurende het gehele ontwikkelingstraject zullen tussenreslultaten getest moeten
 
 In het eerste deel van dit hoofdstuk zal voornamelijk beschreven staan hoe de automatische testen zijn opgezet. Doordat Canvas.hs gebruik maakt van verschillende programmeer talen zijn er uiteindelijk ook meerdere testtechnieken en libraries nodig om alles goed te testen en te meten. Maar omdat sommige requirements gemakkelijker automatisch te testen zijn dan andere zullen uiteindelijk ook een aantal requirements getest worden door een gebruiker in plaats van door een computer.
 
-De geschreven tests kunnen gemakkelijk uitgevoerd worden via \emph{cabal}, een gereedschap dat gebruikt wordt bij programmeren in Haskell. Deze geschreven tests testen zowel de Haskell code als de JavaScript code. De testconfiguraties voor beide typen tests worden in een zogenaamde cabal file bijgehouden. Met het commando \inlinecode{cabal test} kunnen alle tests van het project uitgevoerd worden. Op de website van Canvas.hs staan uitgebreide instructies over het uitvoeren van tests. \url{http://canvashs.github.io/test.html}
+De geschreven tests kunnen gemakkelijk uitgevoerd worden via \emph{Cabal}, een gereedschap dat gebruikt wordt bij programmeren in Haskell. Deze geschreven tests testen zowel de Haskell code als de JavaScript code. De testconfiguraties voor beide typen tests worden in een zogenaamde Cabal file bijgehouden. Met het commando \inlinecode{Cabal test} kunnen alle tests van het project uitgevoerd worden. Op de website van Canvas.hs staan uitgebreide instructies over het uitvoeren van tests. \url{http://canvashs.github.io/test.html}
 
 \section{JavaScript} 
 Aan de client side wordt gewerkt met JavaScript. Het Jasmine\cite{Jasmine} test framework wordt gebruikt om de tests hiervoor te ontwikkelen. Door middel van PhantomJS\cite{PhantomJS} kunnen de tests vanaf de command prompt worden uitgevoerd zonder browser. Hierdoor kunnen de tests ook op de build server uitgevoerd worden. Verder wordt er gebruik gemaakt van de imagediff\cite{imagediff} library om getekende output te testen. Voor het meten van code coverage in JavaScript wordt gebruik gemaakt van Blanket.js\cite{Blanket.js}.
 
 \section{Haskell}
-De Haskell-code in Canvas.hs wordt getest met behulp van \emph{Hspec}\cite{Hspec}. Hier is voor gekozen omdat Hspec relatief eenvoudig werkt en goed integreert met cabal. Hierbij kan Hspec automatisch de verschillende tests in een bestandsmap ontdekken en uitvoeren.
+De Haskell-code in Canvas.hs wordt getest met behulp van \emph{Hspec}\cite{Hspec}. Hier is voor gekozen omdat Hspec relatief eenvoudig werkt en goed integreert met Cabal. Hierbij kan Hspec automatisch de verschillende tests in een bestandsmap ontdekken en uitvoeren.
 
 In samenwerking met Hspec wordt \emph{QuickCheck}\cite{QuickCheck} gebruikt. Dit veel gebruikte testframework maakt het mogelijk om een groot aantal willekeurige testcases uit te voeren. Dit geeft extra zekerheid over de geteste code aangezien er naast de bekende edge cases, waarvoor tests in Hspec zijn geschreven, ook een groot aantal willekeurige cases wordt getest.
 
