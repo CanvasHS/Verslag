@@ -23,11 +23,11 @@ Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elem
 De keuze voor mutaties als shapes en relatieve positionering wordt hieronder geïllustreerd met een ``Mickey Mouse''-vorm die gedraaid en gekleurd is, zie \autoref{mickey_data}. De cirkels worden relatief aan de container gepositioneerd, vervolgens wordt de container zelf 100 pixels in de x en y richting verschoven m.b.v. de \inlinecode{Translate-Shape}. 
 
 \begin{lstlisting}[style=densecode, language=Haskell, caption=Mickey-figuur volgens het Canvas.hs gegevensmodel, label=mickey_data]
-Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
-            Circle (70, 130) 20,
-            Circle (100, 100) 50,
-            Circle (130, 130) 20 
-        ]
+Fill black $ Translate 100 100 $ Rotate 90 $ Offset (80, 65) $ Container 160 130 [
+        Circle (30, 30) 30,
+        Circle (80, 80) 50,
+        Circle (130, 30) 30
+    ]
 \end{lstlisting}
 
 \subsubsection{Defaults}
