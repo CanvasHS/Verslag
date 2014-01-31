@@ -35,7 +35,7 @@ Bij de \inlinecode{Text-} en \inlinecode{Event-Shape} wordt gebruik gemaakt van 
 
 Een belangrijke overweging hierin was dat het voor de gebruiker mogelijk moet zijn om aan te geven dat er interesse is in bijvoorbeeld een mouseClick zonder expliciet aan te moeten geven dat er geen interesse is in bijvoorbeeld een mouseDrag. Met alleen records zou dit wel nodig zijn, aangezien daarbij van elk veld expliciet moet worden aangegeven welke waarde het heeft.
 
-Dit probleem is opgelost met een \inlinecode{Defaults}-typeklasse. Deze definieert één enkele functie (\inlinecode{defaults :: a}) die een default waarde voor het gegeven type dient op te leveren. De gebruiker kan dan m.b.v. deze functie eenvoudig alleen de velden aanpassen waarin hij geïnteresseerd is. In het geval van Events zal de defaultsfunctie een record opleveren waarin voor elk type event stgaat de shape er niet in geïnteresserd is. 
+Dit probleem is opgelost met een \inlinecode{Defaults}-typeklasse. Deze definieert één enkele functie (\inlinecode{defaults :: a}) die een default waarde voor het gegeven type dient op te leveren. De gebruiker kan dan m.b.v. deze functie eenvoudig alleen de velden aanpassen waarin hij geïnteresseerd is. In het geval van Events zal de defaultsfunctie een record opleveren waarin voor elk type event staat dat de shape er niet in geïnteresserd is. 
 
 In \autoref{mickey_event} wordt dat geïllustreerd. We breiden onze eerder gebruikte Mickey-vorm nu uit met een interesse in Events. met behulp van de defaultsfunctie krijgen we een record waarin voor elk event staat aangegeven dat er geen interesse in is. Vervolgens passen we dit record aan en geven we aan dat er interesse is in muiskliks.
 
