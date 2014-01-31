@@ -19,7 +19,7 @@ In de module is een optimalisatie doorgevoerd die temaken heeft met hetvertalen 
 
 Uiteindelijk blijkt deze wijziging weinig verschil gemaakt te hebben in het totale geheugengebruik. Desondanks was de optimalisatie niet voor niets gezien het de Haskell-code een stuk leesbaarder heeft gemaakt. Wel is te zien dat in het eerste figuur de garbage collecting van Haskell aggresiever lijkt, dus allicht wordt zonder de wijziging toch meer memory tijdelijk gebruikt en vervolgens direct weer vrijgegeven. Verder valt op dat na de optimalisatie er toch \inlinecode{Text} in de heap profile staat. Dit is vermoederlijk omdat een van de libraries die gebruikt wordt door Canvas.hs daar intern gebruik van maakt.
 
-Voor dit specifieke geval zijn de heap profiles niet interessant, het grootste gedeelte van de data is zogenaamde \emph{PINNED} data, dit zijn vooral \inlinecode{ByteString} allocaties. Gezien de module vooral een translator is van het protocol naar een aantal \inlinecode{ByteStrings} is dit niet verrassend. Wel bieden dit soort grafieken duidelijk inzicht in of er geheugenlekken zijn en of er onnodige conversies gemaakt worden, voor grote projecten zijn dit soort grafiekjes zeker nuttig.
+Voor dit specifieke geval zijn de heap profiles niet interessant, het grootste gedeelte van de data is \emph{PINNED} data, dit zijn vooral \inlinecode{ByteString} allocaties. Gezien de module vooral een translator is van het protocol naar een aantal \inlinecode{ByteStrings} is dit niet verrassend. Wel bieden dit soort grafieken duidelijk inzicht in of er geheugenlekken zijn en of er onnodige conversies gemaakt worden, voor grote projecten zijn dit soort grafiekjes zeker nuttig.
 
 \begin{figure}[H]
 \begin{center}
