@@ -1,32 +1,38 @@
 \section{Performance analyse} \label{sec:performance}
+
 Tijdens de ontwikkeling van de library is duidelijk geworden dat de performance van de geschreven programma's niet altijd optimaal is. Met name bij programma's die gebruik maken van \emph{timers} en bij programma's met een uitgebreidde grafische boom.
 
-Dit peformance probleem kan twee oorzaken hebben, ten eerste is het mogelijk dat de haskell zijde van de applicatie niet snel genoeg JSON-berichten kan maken en anderzijds is het mogelijk dat Javascript de binnengekomen berichten niet snel genoeg kan verwerken.
+Dit peformance probleem kan twee oorzaken hebben, ten eerste is het mogelijk dat de module van de applicatie niet snel genoeg JSON-berichten kan maken en anderzijds is het mogelijk dat de client de binnengekomen berichten niet snel genoeg kan verwerken.
 
-Eerst is gekeken naar de peformance van Haskell, hiervoor is voornamelijk gekeken naar de heap omdat het vermoeden was dat Haskell mogelijk te veel geheugen zou gebruiken (mogelijk door een geheugenlek) en voortdurend aan het garbage collecten is. Na een heap profile gemaakt te hebben bleek dat de Haskell code in totaal 600kb aan geheugen gebruikt, en dit getal stabiel is. De Haskell kant gaf dus geen problemen.
+Eerst is gekeken naar de peformance van de module, hiervoor is voornamelijk gekeken naar het geheugengebruik gezien er het vermoeden was dat de module mogelijk te veel geheugen zou gebruiken (mogelijk door een geheugenlek) en voortdurend aan het garbage collecten is. Na een heap profile gemaakt te hebben bleek dat de Haskell code in totaal 600kb aan geheugen gebruikt, en dit getal stabiel is. De Haskell kant gaf dus geen problemen.
 
-De Javascript kant van het project daarentegen geeft een groter probleem. In het ontwerp hebben we ervoor gekozen de grafische boom stateless te maken, als een nieuwe tekenactie door Haskell vertaald wordt, dan krijgt de Javascript kant de hele grafische boom. Het opnieuw  opbouwen van de stage bleek echter kostbaar te zijn en kost Kinetic ongeveer 6 ms (tegen 0.5 ms voor het opnieuw tekenen van dezelfde stage). Om de peformance problemen op te lossen is het daartoe noodzakelijk om incrementele updates te ondersteunen zodat niet steeds de hele stage opnieuw opgebouwt hoeft te worden.
+\subsection{Performance JavaScript-code}
 
-Er is nog wel een optimalisatie uitgevoerd, er was het vermoeden dat er in de Haskell code van Canvas.hs veel peformance verloren zou gaan doordat we \inlinecode{String}s naar \inlinecode{ByteStrings} naar \inlinecode{Text} vertaalde. Het bleek dat de laatste vertaalslag overbodig is, en daartoe is deze verwijderd. Hieronder volgen twee grafieken die het geheugengebruik van de Haskell kant van Canvas.hs demonstreren met en zonder de extra translaties.
+De analyse van de client van Canvas.hs brengt een groter probleem aan het licht. In het ontwerp is ervoor gekozen de grafische boom stateless te maken. Dit betekend dat, zodra een nieuwe tekenactie door de module vertaald wordt krijgt de client de hele grafische boom opnieuw doorgestuurd. In de client wordt deze grafische boom volledig opnieuw getekend. Hiervoor dient onder andere eerst een nieuwe \emph{stage} opgebouwd te worden.
+Het opbouwen van de stage bleek erg kostbaar te zijn en duurde KineticJS ongeveer 6 ms (tegen 0.5 ms voor het opnieuw tekenen van dezelfde stage). Dit hebben is gemeten met de JavaScript-profiler in Google Chrome. De exacte getallen zijn niet direct interessant bij een CPU-profiel, de verhouding daarentegen wel. Het feit dat het opbouwen van de stage twaalf maal langer duurt dan het tekenen van het test programma bevestigd het probleem.
 
-Er waren vermoedens dat de oorzaak gevonden kon worden in het omzetten van \inlinecode{Strings} naar \inlinecode{ByteSrings} en vice versa.
+In \autoref{sec:aanbevelingen} wordt een aanbeveling gedaan voor het aanpakken van dit performance probleem. Hierin wordt voogesteld updates incrementeel uit te laten voeren waarbij niet bij elk bericht van de module de stage opnieuw opgebouwt hoeft te worden. Om dit te realiseren zal wel een groot deel van de code en hoogstwaarschijnlijk ook de API aangepast moeten worden.
 
-\begin{figure}
+\subsection{Performance Haskell-code}
+
+In de module is een optimalisatie doorgevoerd die temaken heeft met hetvertalen van strings naar verschillend types. Er was het vermoeden dat er in de Haskell code van Canvas.hs veel peformance verloren zou gaan doordat we \inlinecode{String}s naar \inlinecode{ByteStrings} naar \inlinecode{Text} vertaalde. Het bleek dat de laatste vertaalslag overbodig is, en daartoe is deze verwijderd. Hieronder volgen twee grafieken, \autoref{fig:performance1} en \autoref{fig:performance2}~, die het geheugengebruik van de module van Canvas.hs demonstreren met en zonder de extra translaties.
+
+Uiteindelijk blijkt deze wijziging weinig verschil gemaakt te hebben in het totale geheugengebruik. Desondanks was de optimalisatie niet voor niets gezien het de Haskell-code een stuk leesbaarder heeft gemaakt. Wel is te zien dat in het eerste figuur de garbage collecting van Haskell aggresiever lijkt, dus allicht wordt zonder de wijziging toch meer memory tijdelijk gebruikt en vervolgens direct weer vrijgegeven. Verder valt op dat na de optimalisatie er toch \inlinecode{Text} in de heap profile staat. Dit is vermoederlijk omdat een van de libraries die gebruikt wordt door Canvas.hs daar intern gebruik van maakt.
+
+Voor dit specifieke geval zijn de heap profiles niet interessant, het grootste gedeelte van de data is zogenaamde \emph{PINNED} data, dit zijn vooral \inlinecode{ByteString} allocaties. Gezien de module vooral een translator is van het protocol naar een aantal \inlinecode{ByteStrings} is dit niet verrassend. Wel bieden dit soort grafieken duidelijk inzicht in of er geheugenlekken zijn en of er onnodige conversies gemaakt worden, voor grote projecten zijn dit soort grafiekjes zeker nuttig.
+
+\begin{figure}[H]
 \begin{center}
 \includegraphics[keepaspectratio,width=0.8\textwidth]{./images/actionsDemoBeforeByteStrings.eps}
 \caption{Heap profile voor de wijziging}
-\label{fig:sub1}
+\label{fig:performance1}
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 \includegraphics[keepaspectratio,width=0.8\textwidth]{./images/actionsDemoAfterByteStrings.eps}
 \caption{Heap profile na de wijziging}
-\label{fig:sub1}
+\label{fig:performance2}
 \end{center}
 \end{figure}
-
-Uiteindelijk blijkt deze wijziging weinig verschil gemaakt te hebben, het heeft vooral de code leesbaarder gemaakt. Wel is te zien dat in het eerste figuur de garbage collecting van Haskell aggresiever lijkt, dus allicht wordt zonder de wijziging toch meer memory tijdelijk gebruikt en vervolgens direct weer vrijgegeven. Verder valt er meteen op dat na de wijziging waar \inlinecode{Text} verwijderd wordt uit de Canvas.hs code er toch weer \inlinecode{Text} in de heap profile staat. Dit is vermoederlijk omdat een van de libraries die gebruikt wordt door Canvas.hs daar intern gebruik van maakt.
-
-Voor dit specifieke geval zijn de heap profiles niet interessant, het grootste gedeelte van de data is zogenaamde PINNED data, dit zijn vooral Bytestrings. Gezien Canvas.hs (de haskell zijde van het verhaal) vooral een translator is van het protocol naar een aantal bytestrings is dit niet verrassend. Wel bieden dit soort grafieken duidelijk inzicht in of er geheugenlekken zijn en of er onnodige conversies gemaakt worden, voor grote projecten zijn dit soort grafiekjes zeker nuttig.
