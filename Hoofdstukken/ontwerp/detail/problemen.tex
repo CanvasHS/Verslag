@@ -23,3 +23,13 @@ Er is voor gekozen om geen gebruik te maken van het Num-type uit fpprac. Zo is C
 Doordat er bij het tekenen van de grafische elementen gebruik wordt gemaakt van javascript en canvas in de browser van de gebruiker ontstaan er door inconsequenties tussen bugs in browsers en besturingssystemen een aantal problemen. Veel van deze problemen hebben we opgevangen door gebruik te maken van bibliotheken aan de Javascript kant als jQuery en KineticJS. 
 
 \paragraph{Systeemtoetsen} Echter zijn er een aantal zaken waar systemen zo in verschillen dat we deze niet voor alle mogelijke systemen hebben afgevangen in Canvas.hs. Er zijn bijvoorbeeld grote verschillen in de toetsenborden tussen verschillende systemen. Zo heeft windows een windows-toets, OS X een command-toets en noemen de meeste Linux distributies deze knop de super-toets, we hebben er in Canvas.hs voor gekozen al deze toetsen onder de naam 'superkey' te scharen.
+
+\subsubsection{Records}
+Binnen Haskell is het zo dat elke sleutel van een recordwaarde een functie is. Als er een record gedefinieerd wordt met een sleutel ``sleutel'' bestaat er automatisch een functie \inlinecode{sleutel}. Hoewel dit op het eerste gezicht handig lijkt, betekent dit wel dat alle sleutels uniek moeten zijn. Het is zelfs zo dat sleutels globaal uniek moeten zijn, het is niet mogelijk twee records te maken die dezelfde sleutel hebben. Hieronder staat een stukje code dat dit probleem illustreert, op het tweede statement zal de Haskell compiler een foutmelding geven.
+
+\begin{lstlisting}[language=Haskell]
+data FirstRecord = Fst { key :: String }
+data SecondRecord = Snd { key :: String }
+\end{lstlisting}
+
+De meestgebruikte JSON libraries vertalen records naar JSON. Hierbij nemen ze de sleutel uit het record als sleutelnaam voor de vertaalde JSON. Door bovenstaand omschreven probleem levert dit problemen op als JSON datastructuren sleutelnamen delen. Hierdoor moest handmatig toJSON instanties voor deze datastructuren geschreven worden, wat veel regels triviale code oplevert. Daarnaast wordt in de door Canvas.hs gebruikte datastructuur gebruik gemaakt van het \inlinecode{Maybe}-datatype om aan te geven of een veld van een record al dan niet gevuld is. Aeson, de in Canvas.hs gebruikte JSON-library, encodeert deze lege velden (\inlinecode{field = Nothing}) standaard als \inlinceode{null}. Het protocol vereist echter dat lege velden niet worden meegestuurd. Uiteindelijk zijn deze twee problemen overkomen door het gebruik van TemplateHaskell \cite{AesonTH}. Hiermee is het mogelijk om de \inlinecode{Nothing}-velden niet te encoderen. Daarnaast is het mogelijk om een een vast aantal karakters van de sleutels niet te encoderen, hierdoor wordt het hierboven omschreven probleem opgelost. 
