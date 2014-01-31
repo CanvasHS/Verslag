@@ -21,7 +21,7 @@ function shapeFromData(message) {
 }
 \end{lstlisting}
 
-Ter illustratie van een geavanceerder geval, is hieronder een deel van de code in de \inlinecode{shapeFromData} functie weergegeven dat een tekst-Shape maakt. In dit geval is het \inlinecode{data} JSON-object niet geheel compatibel met de representatie die Kinetic.js ondersteunt. Zo wordt in \inlinecode{data} aangegeven of een tekst-object dik- of schuingedrukt afgebeeld moet worden door de velden \inlinecode{data.bold} en respectievelijk \inlinecode{data.italic} op \inlinecode{true} ofwel \inlinecode{false} te zetten, terwijl de \inlinecode{Kinetic.Text}-constructor een \inlinecode{fontStyle}-veld verwacht met daarin een string die ``bold'' en/of ``italic'' bevat wanneer dit van toepassing is.
+Ter illustratie van een geavanceerder geval, is hieronder een deel van de code in de \inlinecode{shapeFromData} functie weergegeven dat een tekst-Shape maakt. In dit geval is het \inlinecode{data} JSON-object niet geheel compatibel met de representatie die KineticJS ondersteunt. Zo wordt in \inlinecode{data} aangegeven of een tekst-object dik- of schuingedrukt afgebeeld moet worden door de velden \inlinecode{data.bold} en respectievelijk \inlinecode{data.italic} op \inlinecode{true} ofwel \inlinecode{false} te zetten, terwijl de \inlinecode{Kinetic.Text}-constructor een \inlinecode{fontStyle}-veld verwacht met daarin een string die ``bold'' en/of ``italic'' bevat wanneer dit van toepassing is.
 
 \begin{lstlisting}[language=JavaScript]
 function shapeFromData(message) {
@@ -46,7 +46,7 @@ function shapeFromData(message) {
 }
 \end{lstlisting}
 
-Een derde geval is dat er geen shape bestaat binnen Kinetic, zo heeft KineticJS wel een \inlinecode{Kinetic.Wedge} (Nederlands ``taartpuntje''), maar geen arc (een stuk van een cirkel). Daartoe zal KineticJS uitgebreid moeten worden met ons primitieve. Omdat Javascript een prototypegebaseerde taal is kunnen we \inlinecode{Kinetic.Shape} uitbreiden tot onze eigen \inlinecode{CanvasHs.Arc}, daartoe bied KineticJS ons de \inlinecode{Kinetic.Util.extend} functie aan. Verder dienen we een constructor te maken voor ons object, onze superklasse aanroepen, en de tekenfunctie naar onszelf laten verwijzen.
+Een derde geval is dat er geen shape bestaat binnen Kinetic, zo heeft KineticJS wel een \inlinecode{Kinetic.Wedge} (Nederlands ``taartpuntje''), maar geen arc (een stuk van een cirkel). Daartoe zal KineticJS uitgebreid moeten worden met ons primitieve. Omdat JavaScript een prototypegebaseerde taal is kunnen we \inlinecode{Kinetic.Shape} uitbreiden tot onze eigen \inlinecode{CanvasHs.Arc}, daartoe bied KineticJS ons de \inlinecode{Kinetic.Util.extend} functie aan. Verder dienen we een constructor te maken voor ons object, onze superklasse aanroepen, en de tekenfunctie naar onszelf laten verwijzen.
 
 \begin{lstlisting}[style=densecode, language=JavaScript]
 // As this is a custom shape, we will define our own namespace
@@ -100,7 +100,7 @@ Binnen de haskell kan uitbreiden op twee manieren, de eerste manier is om door d
 
 Hoewel dit veel code lijkt is de meeste code het juist tekenen van een rechthoek met afgeronde hoeken. Het belangrijkste om hier te zien is dat de \inlinecode{roundedRect} voor de gebruiker een functie is in plaats van een Data constructor zoals \inlinecode{Rect}~, verder is er voor de gebruiker geen verschil. Voor de programmeur is er het overduidelijke voordeel dat de code van CanvasHs niet aangepast wordt, dit kan zelfs los van onze code in een module gestopt worden.
 
-Mocht het toch noodzakelijk zijn de CanvasHs code uit te breiden met een shape, bijvoorbeeld omdat de Javascript kant de nieuwe vorm beter kan tekenen, dan dient dit op drie plaatsen te gebeuren. Zoals hierboven uitgelegd in de Javascript code, maar ook op twee plekken in de Haskell code. Ten eerste in de module \inlinecode{CanvasHs.Data}~, hierin is een \inlinecode{data Shape} gedefinieerd en hier dient de vorm aan toegevoegd te worden, laten we hiervoor wederom de rechthoek met afgeronde hoeken nemen.
+Mocht het toch noodzakelijk zijn de CanvasHs code uit te breiden met een shape, bijvoorbeeld omdat de JavaScript kant de nieuwe vorm beter kan tekenen, dan dient dit op drie plaatsen te gebeuren. Zoals hierboven uitgelegd in de JavaScript code, maar ook op twee plekken in de Haskell code. Ten eerste in de module \inlinecode{CanvasHs.Data}~, hierin is een \inlinecode{data Shape} gedefinieerd en hier dient de vorm aan toegevoegd te worden, laten we hiervoor wederom de rechthoek met afgeronde hoeken nemen.
 
 \begin{lstlisting}[style=densecode, language=Haskell]
 data Shape =
