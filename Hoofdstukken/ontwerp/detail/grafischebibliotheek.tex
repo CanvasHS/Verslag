@@ -31,16 +31,16 @@ Fill black $ Translate 100 100 $ Rotate 90 $ Offset (80, 65) $ Container 160 130
 \end{lstlisting}
 
 \subsubsection{Defaults}
-Bij de \inlinecode{Text-} en \inlinecode{Event-Shape} wordt gebruik gemaakt van een record om opties mee te geven. In het geval van Text om bijvoorbeeld aan te geven of tekst dik- of schuingedruk moet worden en in het geval van Events om aan te geven in wat voor type Events interesse is. 
+Bij de \inlinecode{Text-} en \inlinecode{Event-Shape} wordt gebruik gemaakt van een record om opties mee te geven. In het geval van Text om bijvoorbeeld aan te geven of tekst dik- of schuingedrukt moet worden en in het geval van Events om aan te geven in wat voor type Events interesse is. 
 
 Een belangrijke overweging hierin was dat het voor de gebruiker mogelijk moet zijn om aan te geven dat er interesse is in bijvoorbeeld een mouseClick zonder expliciet aan te moeten geven dat er geen interesse is in bijvoorbeeld een mouseDrag. Met alleen records zou dit wel nodig zijn, aangezien daarbij van elk veld expliciet moet worden aangegeven welke waarde het heeft.
 
-Dit probleem is opgelost met een \inlinecode{Defaults}-typeklasse. Deze definieert één enkele functie (\inlinecode{defaults :: a}) die een default waarde voor het gegeven type dient op te leveren. De gebruiker kan dan m.b.v. deze functie eenvoudig alleen de velden aanpassen waarin hij geïnteresseerd is. In het geval van Events zal de defaultsfunctie een record opleveren waarin voor elk type event staat dat de shape er niet in geïnteresserd is. 
+Dit probleem is opgelost met een \inlinecode{Defaults}-typeklasse. Deze definieert één enkele functie (\inlinecode{defaults :: a}) die een default waarde voor het gegeven type dient op te leveren. De gebruiker kan dan m.b.v. deze functie eenvoudig alleen de velden aanpassen waarin hij geïnteresseerd is. In het geval van Events zal de defaultsfunctie een record opleveren waarin voor elk type event staat dat de shape er niet in ge\"interesserd is. 
 
 In \autoref{mickey_event} wordt dat geïllustreerd. We breiden onze eerder gebruikte Mickey-vorm nu uit met een interesse in Events. met behulp van de defaultsfunctie krijgen we een record waarin voor elk event staat aangegeven dat er geen interesse in is. Vervolgens passen we dit record aan en geven we aan dat er interesse is in muiskliks.
 
 \subsubsection{ID's}
-Om op een praktische manier gebruik te kunnen maken van events worden deze aan shapes gekoppeld. Events die daadwerkelijk op een shape gebeuren (zoals muiklikken) kunnen dan ook identificeren op welke shape dat was. Hiertoe moeten shapes die geïnteresserd zijn in events geïdentificeerd kunnen worden. In Canvas.hs is besloten om de gebruiker, bij het aangeven van interesse in een event, een identifier mee te laten geven voor de shape. Hierdoor is het voor de gebruiker eenvoudig te zien op welke shape het event plaatsvond.
+Om op een praktische manier gebruik te kunnen maken van events worden deze aan shapes gekoppeld. Events die daadwerkelijk op een shape gebeuren (zoals muiklikken) kunnen dan ook identificeren op welke shape dat was. Hiertoe moeten shapes die ge\"interesserd zijn in events geïdentificeerd kunnen worden. In Canvas.hs is besloten om de gebruiker, bij het aangeven van interesse in een event, een identifier mee te laten geven voor de shape. Hierdoor is het voor de gebruiker eenvoudig te zien op welke shape het event plaatsvond.
 
 In \autoref{mickey_event} wordt dit geïllustreerd. Aan de eerder gedefiniëerde Mickey-vorm wordt interesse in een Event toegevoegd. De events die plaatsvinden op deze vorm zullen geïdentificeerd worden met de identifier "mickey".
 

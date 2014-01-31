@@ -2,7 +2,7 @@
 
 Tijdens de ontwikkeling van de library is duidelijk geworden dat de performance van de geschreven programma's niet altijd optimaal is. Met name bij programma's die gebruik maken van \emph{timers} en bij programma's met een uitgebreidde grafische boom.
 
-Dit peformance probleem kan twee oorzaken hebben, ten eerste is het mogelijk dat de module van de applicatie niet snel genoeg JSON-berichten kan maken en anderzijds is het mogelijk dat de client de binnengekomen berichten niet snel genoeg kan verwerken.
+Dit peformance probleem kan twee oorzaken hebben, ten eerste is het mogelijk dat de module van de applicatie niet snel genoeg JSON-berichten kan coderen en anderzijds is het mogelijk dat de client de binnengekomen berichten niet snel genoeg kan verwerken.
 
 Eerst is gekeken naar de peformance van de module, hiervoor is voornamelijk gekeken naar het geheugengebruik gezien er het vermoeden was dat de module mogelijk te veel geheugen zou gebruiken (mogelijk door een geheugenlek) en voortdurend aan het garbage collecten is. Na een heap profile gemaakt te hebben bleek dat de Haskell code in totaal 600kb aan geheugen gebruikt, en dit getal stabiel is. De Haskell kant gaf dus geen problemen.
 

@@ -10,7 +10,7 @@ Naarmate het project vorderde, vorderde ook onze kennis van Haskell. Hierdoor ma
 \subsubsection{Aannamen gebruik}
 Bij het ontwerp van Canvas.hs is uitgegaan van de ervaring van de ontwerpers bij het vak functioneel programmeren. Veel ontwerpkeuzes zijn gemaakt rond het principe dat de interface van Canvas.hs zo simpel mogelijk moet zijn voor de student. Zo is er zo veel mogelijk gekozen voor simpele primitieven als String en Int. In het geval van interactie met de inhoud van bestanden, is gekozen voor het gebruik van Lazy ByteStrings om interactie met de inhoud mogelijk te maken zonder het hele bestand in het geheugen te laden.
 
-Er is voor gekozen om geen gebruik te maken van het Num-type uit fpprac. Zo is Canvas.hs ook bruikbaar zonder gebruik te maken van fpprac. Het is echter eenvoudig om in fpprac een koppeling met Canvas.hs te schrijven die gebruik maakt van het Num-type.
+Er is voor gekozen om geen gebruik te maken van het Number-type uit fpprac. Zo is Canvas.hs ook bruikbaar zonder gebruik te maken van fpprac.
 
 \subsubsection{Haskell interface}
 Doordat zowel het tekenen van grafische elementen als het uitvoeren van IO acties normaal gesproken via (een monadlaag op) de IO-monad verlopen moet Canvas.hs deze beide mogelijk maken. Hierdoor is de interface voor de user applicatie erg uitgebreid. 
