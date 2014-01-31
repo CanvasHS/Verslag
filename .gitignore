@@ -32,6 +32,10 @@
 *.ini
 *.~vsd
 verslag.pdf
-*.fls
+verslag.fls
+mk.pdf
+tmp$.@@@
+tmp$$.ps
+
 
 .DS_Store
