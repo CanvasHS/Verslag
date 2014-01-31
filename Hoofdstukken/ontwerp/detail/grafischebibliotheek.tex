@@ -18,7 +18,7 @@ De Gloss oplossing had echter de voorkeur aangezien deze, in tegenstelling tot d
 \paragraph{Positionering}
 Voor het positioneren van grafische elementen op het canvas zijn vele mogelijkheden. In Canvas.hs hebben we ervoor gekozen dat elk element relatief aan de bovenliggende \inlinecode{Container} wordt gepositioneerd. De bovenstaande \inlinecode{Container} wordt dan weer relatief aan het canvas gepositioneerd. 
 
-Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elementen, zoals knoppen en dergelijke, te creëren. Een functie levert een \inlinecode{Container} op die de knap bevat. Alle elementen van de knop (de tekst, de vorm van de knop zelf, etc.) zijn relatief aan die Container gepositioneerd. Door de Container vervolgens te positioneren worden alle elementen van de knop met deze container mee verplaatst. 
+Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elementen, zoals knoppen en dergelijke, te creëren. Een functie levert een \inlinecode{Container} op die de knop bevat. Alle elementen van de knop (de tekst, de vorm van de knop zelf, etc.) zijn relatief aan die Container gepositioneerd. Door de Container vervolgens te positioneren worden alle elementen van de knop met deze container mee verplaatst. 
 
 De keuze voor mutaties als shapes en relatieve positionering wordt hieronder geïllustreerd met een ``Mickey Mouse''-vorm die gedraaid en gekleurd is, zie \autoref{mickey_data}. De cirkels worden relatief aan de container gepositioneerd, vervolgens wordt de container zelf 100 pixels in de x en y richting verschoven m.b.v. de \inlinecode{Translate-Shape}. 
 
