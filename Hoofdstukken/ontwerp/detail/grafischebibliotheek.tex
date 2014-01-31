@@ -20,9 +20,9 @@ Voor het positioneren van grafische elementen op het canvas zijn vele mogelijkhe
 
 Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elementen, zoals knoppen e.d., te creeëren. Een functie levert een \inlinecode{Container} op die de knap bevat. Alle elementen van de knop (de text, de vorm van de knop zelf, etc.) zijn relatief aan die Container gepositioneerd. Door de Container vervolgens te positioneren worden alle elementen van de knop met deze container mee verplaatst. 
 
-De keuze voor mutaties als shapes en relatieve positionering wordt hieronder geïllustreerd met een ``Mickey Mouse''-vorm die gedraaid en gekleurd is. De cirkels worden relatief aan de container gepositioneerd, vervolgens wordt de container zelf 100 pixels in de x en y richting verschoven m.b.v. de \inlinecode{Translate-Shape}. 
+De keuze voor mutaties als shapes en relatieve positionering wordt hieronder geïllustreerd met een ``Mickey Mouse''-vorm die gedraaid en gekleurd is, zie \autoref{mickey_data}. De cirkels worden relatief aan de container gepositioneerd, vervolgens wordt de container zelf 100 pixels in de x en y richting verschoven m.b.v. de \inlinecode{Translate-Shape}. 
 
-\begin{lstlisting}[style=densecode, language=Haskell]
+\begin{lstlisting}[style=densecode, language=Haskell, caption=Mickey-figuur volgens het Canvas.hs gegevensmodel, label=mickey_data]
 Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
             Circle (70, 130) 20,
             Circle (100, 100) 50,
@@ -44,7 +44,7 @@ Om op een praktische manier gebruik te kunnen maken van events worden deze aan s
 
 In \autoref{mickey_event} wordt dit geïllustreerd. Aan de eerder gedefiniëerde Mickey-vorm wordt interesse in een Event toegevoegd. De events die plaatsvinden op deze vorm zullen geïdentificeerd worden met de identifier "mickey".
 
-\begin{lstlisting}[style=densecode, language=Haskell, caption=Mickey met interesse in een Event, label=mickey_event]
+\begin{lstlisting}[style=densecode, language=Haskell, caption=Mickey-figuur met interesse in een Event, label=mickey_event]
 Event defaults{eventId="mickey", mouseClick=True} $ Fill black $ Translate 100 100 $ Rotate 90 $ Container 200 200 [
             Circle (70, 130) 20,
             Circle (100, 100) 50,
@@ -52,9 +52,9 @@ Event defaults{eventId="mickey", mouseClick=True} $ Fill black $ Translate 100 1
         ]
 \end{lstlisting}
 
-Later in de handler zal de gebruiker bij events die op de Mickey plaatsvinden deze identifier meekrijgen en hier bijvoorbeeld op kunnen patternmatchen, zoals in onderstaande code geïllustreerd.
+Later in de handler zal de gebruiker bij events die op de Mickey plaatsvinden deze identifier meekrijgen en hier bijvoorbeeld op kunnen patternmatchen, zoals in \autoref{mickey_event_handler} geïllustreerd.
 
-\begin{lstlisting}[style=densecode, language=Haskell]
+\begin{lstlisting}[style=densecode, language=Haskell, caption=Event handler voor een specifieke shape, label=mickey_event_handler]
 handler :: State -> Event -> Output
 (..)
 handler state (MouseClick (x,y) "mickey") = -- Do something useful
@@ -64,7 +64,9 @@ handler state (MouseClick (x,y) "mickey") = -- Do something useful
 \subsection{Protocol}
 Om het omschrijven van datastructuren in de client te beperken worden gegevens al klaargemaakt voor KineticJS in de module. Het protocol dat de verbinding tussen de module en de client beschrijft heeft hierdoor sterke gelijkenissen met de KineticJS API. Zo zijn de meeste JSON berichten die gestuurd worden door de Canvas.hs module één op één te teken op het canvas. Wel zijn er hier en daar kleine verschillen, JSON-keys die net anders zijn, of er zijn andere keys gebruikt om hetzelfde te modelleren. Een goed voorbeeld hiervan zijn de kleuren, kleuren worden opgestuurd als object met r, g , b en a waarden, maar KineticJS verwacht een string met een kleur zoals hij geaccepteerd wordt door een webbrowser. De manier waarop KineticJS omgaat met een kleur is een implementatiedetail dat niet thuis hoort in een protocol.
 
-\begin{lstlisting}[style=densecode, language=JavaScript]
+In \autoref{mickey_protocol} is een voorbeeld te zien van gegevens die volgens het protocol tussen client en module verstuurd worden.
+
+\begin{lstlisting}[style=densecode, language=JavaScript, caption=Gegevens verstuurd volgens het protocol, label=mickey_protocol]
 {"shape": {
     "type": "container",
     "data": {
