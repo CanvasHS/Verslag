@@ -4,7 +4,7 @@ In deze sectie zal beschreven worden hoe Events kunnen worden toegevoegd aan de 
 
 Met een event kan input van de client-side worden afgevangen, vervolgens zou er vanuit Haskell-code een nieuwe staat kunnen worden gepresenteerd. Events zorgen dus eigenlijk voor het afhandelen van gebruikersinput. Standaard zijn events voor muis, keyboard en window invoer.
 
-Canvas.hs kan uitgebreid worden zodat specifieke invoer aan de JavaScript kant kan worden doorgegeven middels een Event naar Haskell. Hieronder wordt beschreven hoe het \inlinecode{WindowResize} event is toegevoegd aan de Canvas.hs library.
+Canvas.hs kan uitgebreid worden zodat specifieke invoer in de client kan worden doorgegeven middels een event naar de module. Hieronder wordt beschreven hoe het \inlinecode{WindowResize} event is toegevoegd aan de Canvas.hs library.
 \subsection{JavaScript}
 Als er een event toegevoegd moet worden zal eerst het protocol uitgebreid moeten worden. Het protocol beschrijft hoeft Haskell met de JavaScript moet communiceren en vise versa. Op de pagina \url{http://canvashs.github.io/protocol.html} kan gezien worden hoe het protocol van de huidige versie gedefinieerd is. In het geval van \inlinecode{WindowResize} is een gelijknamig event toegevoegd. De \emph{JSON} representatie ziet er dan uit zoals hieronder weergegeven.
 \begin{lstlisting}[language=JavaScript]
