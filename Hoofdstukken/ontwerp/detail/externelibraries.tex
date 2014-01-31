@@ -1,6 +1,6 @@
 \subsection{Externe libraries}
 \label{subsec:externe_libraries}
-Bij de ontwikkeling van Canvas.hs is gebruik gemaakt van een aantal externe software bibliotheken. Voor veel van de zaken die in het Canvas.hs pakket moeten gebeuren zijn uitstekende bibliotheken beschikbaar. Hieronder worden de gekozen externe bibliotheken toegelicht.
+Bij de ontwikkeling van Canvas.hs is gebruik gemaakt van een aantal externe softwarebibliotheken. Voor veel van de functionaliteiten die in het Canvas.hs gebruikt worden zijn uitstekende bibliotheken beschikbaar. Hieronder worden de gekozen externe softwarebibliotheken toegelicht.
 
 \subsubsection{HTTP-server}
 Bij het starten van een applicatie met Canvas.hs wordt automatisch een browserscherm met daarop het canvas geopend. Deze pagina wordt samen met de benodigde JavaScript bestanden aan de browser geserveerd als statische content. Om deze content te kunnen serveren is een HTTP-server nodig. In Canvas.hs hebben we gekozen voor de \emph{warp} \cite{Warp} module. De voornaamste redenen hiervoor zijn dat Warp lichtgewicht, goed gedocumenteerd en eenvoudig in gebruik is. Andere alternatieven zijn \emph{happstack} \cite{Happstack}, \emph{hyena} \cite{Hyena} en \emph{snap server} \cite{SnapServer}. Deze bieden allen veel meer dan alleen de mogelijkheid om via HTTP bestanden te serveren en waren daardoor te veel en te ingewikkeld voor Canvas.hs.
