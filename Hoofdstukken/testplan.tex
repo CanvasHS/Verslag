@@ -13,8 +13,6 @@ De Haskell-code in Canvas.hs wordt getest met behulp van \emph{Hspec}\cite{Hspec
 
 In samenwerking met Hspec wordt \emph{QuickCheck}\cite{QuickCheck} gebruikt. Dit veel gebruikte testframework maakt het mogelijk om een groot aantal willekeurige testcases uit te voeren. Dit geeft extra zekerheid over de geteste code aangezien er naast de bekende edge cases, waarvoor tests in Hspec zijn geschreven, ook een groot aantal willekeurige cases wordt getest.
 
-\todo{iets vertellen over hpc}
-
 \section{Continuous Integration}
 Zoals eerder genoemd in \autoref{sec:technische_organisatie} is er tijdens het project gebruik gemaakt van automatisch testen. Iedere ontwikkelaar stuurt gedurende de ontwikkeling zijn aanpassingen naar de centrale repository. Deze centrale repository is gekoppeld met Travis, een cloud-based continuous integration server. Travis voert automatisch tests uit na elke commit die naar de repository gestuurd is. Indien Travis fouten detecteert bij het draaien van de tests wordt dat aan de ontwikkelaars gemeld. Doordat de code automatisch getest wordt is altijd duidelijk welke bij welke commit fouten in worden introduceert, wat de status van iedere branch is en of een branch gemergd kan worden naar de development branch.
 
