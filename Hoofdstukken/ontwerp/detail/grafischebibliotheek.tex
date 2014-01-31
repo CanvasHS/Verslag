@@ -1,12 +1,12 @@
 \subsection{Haskell Datastructuur} \label{subsec:grafische_bibliotheek}
 Onder \autoref{subsec:module} is toegelicht hoe de Canvas.hs-module is opgebouwd en hoe deze gebruikt kan worden. Een uitgebreide toelichting over het gebruik van Canvas.hs is te vinden in \fullref{sec:gebruikershandleiding}. Hieronder zullen enkele belangrijke ontwerpkeuzes voor de module worden toegelicht. Deze keuzes hebben grote invloed op de wijze waarop de module gebruikt moet worden. 
 
-Hieronder zal o.a. worden toegelicht hoe tot de keuze voor de verschillende typen grafische elementen is gekomen, hoe gebeurtenissen aan deze elementen worden gekoppeld en hoe de acties die de gebruiker kan uitvoeren zijn opgebouwd.
+Hieronder zal onder andere worden toegelicht hoe tot de keuze voor de verschillende typen grafische elementen is gekomen, hoe gebeurtenissen aan deze elementen worden gekoppeld en hoe de acties die de gebruiker kan uitvoeren zijn opgebouwd.
 
 \subsubsection{Grafische elementen}
 De te tekenen grafische elementen zijn voor de gebruiker het belangrijkste onderdeel van Canvas.hs, er is daarom goed nagedacht over hoe de te tekenen grafische elementen worden gerepresenteerd. 
 
-Grafische elementen worden in Canvas.hs gerepresenteerd door het \inlinecode{Shape}type. Dit type representeert alle mogelijk te tekenen grafische elementen en alle mutaties die daarop mogelijk zijn. Hier is al het e.e.a. over toegelicht onder \fullref{par:globaal_shapes}.
+Grafische elementen worden in Canvas.hs gerepresenteerd door het \inlinecode{Shape}type. Dit type representeert alle mogelijk te tekenen grafische elementen en alle mutaties die daarop mogelijk zijn. Hier is al het e.e.a. over toegelicht onder \fullref{subsec:globaal_shapes}.
 
 \paragraph{Mutaties}
 Door deze representatie ontstaat een boom van shapes (\autoref{dia:grafische_boom}) waarin er shapes zijn die mutaties uitvoeren op andere shapes (zoals bijvoorbeeld \inlinecode{Rotate}) en primitieve shapes (zoals bijvoorbeeld \inlinecode{Rect} of \inlinecode{Circle}). Die mutaties die op shapes kunnen worden uitgevoerd worden dus zelf gerepresenteerd door een shape.
@@ -16,9 +16,9 @@ Een alternatief hiervoor is het uitvoeren van mutaties m.b.v. functies. Er zou d
 De huidige oplossing had echter de voorkeur aangezien deze, in tegenstelling tot de oplossing m.b.v. functies, niet destructief is. Het is mogelijk om de mutaties weer uit de grafische boom te verwijderen en ze op deze manier ongedaan te maken. Daarnaast zou het gebruik van records voor de shapes voor problemen kunnen zorgen doordat de labels van velden in records in Haskell worden omgezet in functies. Hierdoor kan de gebruiker geen functies meer defini\"eren die de labels van record velden delen.
 
 \paragraph{Positionering}
-Voor het positioneren van grafische elementen op het canvas zijn vele mogelijkheden. In canvas.hs hebben we ervoor gekozen dat elk element relatief aan de bovenliggende \inlinecode{Container} wordt gepositioneerd. De bovenstaande \inlinecode{Container} wordt dan weer relatief aan het canvas gepositioneerd. 
+Voor het positioneren van grafische elementen op het canvas zijn vele mogelijkheden. In Canvas.hs hebben we ervoor gekozen dat elk element relatief aan de bovenliggende \inlinecode{Container} wordt gepositioneerd. De bovenstaande \inlinecode{Container} wordt dan weer relatief aan het canvas gepositioneerd. 
 
-Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elementen, zoals knoppen e.d., te creeëren. Een functie levert een \inlinecode{Container} op die de knap bevat. Alle elementen van de knop (de text, de vorm van de knop zelf, etc.) zijn relatief aan die Container gepositioneerd. Door de Container vervolgens te positioneren worden alle elementen van de knop met deze container mee verplaatst. 
+Door deze manier van positioneren is het eenvoudig mogelijk om herbruikbare elementen, zoals knoppen en dergelijke, te creëren. Een functie levert een \inlinecode{Container} op die de knap bevat. Alle elementen van de knop (de tekst, de vorm van de knop zelf, etc.) zijn relatief aan die Container gepositioneerd. Door de Container vervolgens te positioneren worden alle elementen van de knop met deze container mee verplaatst. 
 
 De keuze voor mutaties als shapes en relatieve positionering wordt hieronder geïllustreerd met een ``Mickey Mouse''-vorm die gedraaid en gekleurd is, zie \autoref{mickey_data}. De cirkels worden relatief aan de container gepositioneerd, vervolgens wordt de container zelf 100 pixels in de x en y richting verschoven m.b.v. de \inlinecode{Translate-Shape}. 
 
