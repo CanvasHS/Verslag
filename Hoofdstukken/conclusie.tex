@@ -10,7 +10,7 @@ In \autoref{hoofdstuk:requirements} staan de requirements die aan de ontworpen o
 
 Hieronder worden aspecten besproken die nog missen in Canvas.hs. 
 
-\section{Aanbevelingen}
+\section{Aanbevelingen} \label{sec:aanbevelingen}
 Canvas.hs is bedoeld als vervanging voor de vorige omgeving die bij het vak Functioneel Programmeren gebruikt werd. Zodoende brengt Canvas.hs voordelen met zich mee over dat systeem. Er zijn echter nog mogelijkheden voor andere features. Wij, als ontwikkelaars van Canvas.hs, zetten hieronder enkele features neer die momenteel niet in het project meegenomen zijn, maar die in toekomstige versies toegevoegd zouden kunnen worden. Ook wordt per feature aangegeven hoe ondersteuning voor die feature toegevoegd kan worden.
 
 \subsubsection{Image type}
@@ -18,7 +18,7 @@ Canvas.hs ondersteunt een breed scala aan grafische primitieven, zo goed als all
 
 Het toevoegen van een \inlinecode{Image} type is daarentegen redelijk triviaal, al zal er nog wel over peformance nagedacht moeten worden. De eerste optie is dat de gebruiker het plaatje inleest (middels de \inlinecode{LoadFileBinary}) en vervolgens een \inlinecode{Image} node toevoegt die als argument een ByteString neemt, en dit aanbiedt aan Canvas.hs. Een andere optie is de foto te serveren vanuit de server, dus de gebruiker moet een image in een bepaalde map zetten, en de webserver serveert dat image dan op een statische manier.
 
-Een groot nadeel aan de eerste methode is dat het plaatje steeds opnieuw naar base64 gedecodeerd moet worden, en over de socket gestuurd moet worden. Verder moet de gebruiker de bytestring van het plaatje bewaren, ander zou die steeds opnieuw ingeladen moeten worden. De tweede methode is flexibeler, Canvas.Hs stuurt alleen een locatie op naar de client, en de client kan zelfs cachen waar de foto opgeslagen is. Helaas betekent dit wel dat de gebruiker de foto waarschijnlijk in een specifiek mapje moet plaatsen.
+Een groot nadeel aan de eerste methode is dat het plaatje steeds opnieuw naar base64 gedecodeerd moet worden, en over de socket gestuurd moet worden. Verder moet de gebruiker de bytestring van het plaatje bewaren, ander zou die steeds opnieuw ingeladen moeten worden. De tweede methode is flexibeler, Canvas.hs stuurt alleen een locatie op naar de client, en de client kan zelfs cachen waar de foto opgeslagen is. Helaas betekent dit wel dat de gebruiker de foto waarschijnlijk in een specifiek mapje moet plaatsen.
 
 Het implementeren van nieuwe shapes wordt in een van de appendices uitgebreid besproken.
 

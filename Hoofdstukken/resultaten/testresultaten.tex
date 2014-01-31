@@ -98,6 +98,8 @@ Er zijn non-functionele requirements opgesteld in \autoref{hoofdstuk:requirement
 		\item \label{test:blackbox:prompt} tekstinvoer met een popup
 		\item \label{test:blackbox:lokalebestanden} verwerken van lokale bestanden
 		\item \label{test:blackbox:animatie} animaties
+		\item \label{test:blackbox:browser} automatisch starten van een browser
+		\item \label{test:blackbox:automatischherstartenserver} browseromgeving word opnieuw opgestart
 		\item \label{test:blackbox:download} download naar de client
 		\item \label{test:blackbox:upload} upload vanaf de client
 		\item \label{test:blackbox:error} foutmeldingen
@@ -118,9 +120,10 @@ Er zijn non-functionele requirements opgesteld in \autoref{hoofdstuk:requirement
     	\item de demoapplicatie kan gedraaid worden in Safari 7
     \end{enumerate}
 	\item \label{test:blackbox:coverage} Het controlleren van de code coverage voor de testen geschreven voor JavaScript en Haskell
+	\setcounter{startvaluetest}{\value{enumi}}
 \end{enumerate}
 
-Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 72 \% dekken. De JavaScript code die niet door een test wordt uitgevoerd heeft vooral toepassing op invoer zoals invoer middels toetsaanslagen, al dan niet met een modifier-key als ctrl.
+Met de code covarage libraries beschreven in \autoref{hoofdstuk:testplan} hebben we vast kunnen stellen dat onze testen de in JavaScript geschreven code voor 72\% dekken. De JavaScript code die niet door een test wordt uitgevoerd heeft vooral toepassing op invoer zoals invoer middels toetsaanslagen, al dan niet met een modifier-key als ctrl.
 
 \begin{figure}
 \begin{center}
@@ -134,8 +137,17 @@ De code coverage resultaten die uit een analyse van HPC komen zijn niet direct u
 
 We kijken specifiek naar de \inlinecode{CanvasHs.Data}, \inlinecode{CanvasHs.Input}, \inlinecode{CanvasHs.Output}, \inlinecode{CanvasHs.ActionOutput} en \inlinecode{CanvasHs.ShapeOutput}. Hier komt het neer op 848 geteste expressies van de 1304. Dat is een resultaat van 65 \% code coverage voor de geschreven relevante Haskell-code.
 
+\subsection{Gebruiksvriendelijkheid API}
+Voor de gebruiksvriendelijkheid van de API hebben we requirements opgesteld. Dit zijn requirements die getoetst worden op het feit of de implementatie hieraan voldoet of niet, er is geen test voor uit te voeren.
+
+\begin{enumerate}[label={T\arabic*}]
+	\setcounter{enumi}{\value{startvaluetest}}
+	\item \label{test:opzet:monadisch} Alle functionaliteit die aangeboden wordt door Canvas.hs aan de gebruiker maakt geen gebruik van monadische constructies en voldoen daarmee aan \ref{req:monadisch}.
+	\item \label{test:opzet:modulair} Canvas.hs is modulair opgebouwd en bezit over voldoende documentatie zodat latere uitbreidingen makkelijk toegevoegd kunnen worden aan de code. Hierdoor voldoet Canvas.hs aan \ref{req:maintenance}.
+\end{enumerate}
+
 \subsection{Traceability matrix} \label{sec:traceability}
-De traceability matrix laat zien of alle requirements getests zijn. Wanneer een requirement niet getest is betekent dit dat de functie niet geimplementeerd is of dat er geen test voor bestaat. Met de traceability matrix kan bijgehouden worden of alle functionaliteit geimplementeerd is.
+De traceability matrix laat zien of alle requirements getest zijn. Wanneer een requirement niet getest is betekent dit dat de functie niet geimplementeerd is of dat er geen test voor bestaat. Met de traceability matrix kan bijgehouden worden of alle functionaliteiten geimplementeerd zijn. Om de traceability matrix enigszins overzichtelijk te houden zijn alleen een deel van de testcases opgenomen in de matrix.
 
 \begin{figure}
 \begin{center}

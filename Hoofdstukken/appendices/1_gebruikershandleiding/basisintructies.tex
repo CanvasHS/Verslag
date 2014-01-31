@@ -3,9 +3,9 @@
 Om een Canvas.hs-applicatie te schrijven moeten we een handlerfunctie schrijven die events afhandelt. Een handlerfunctie heeft als type \inlinecode{handler :: a -> Event -> (a, Output)}. De \inlinecode{a}'s in dit signatuur zijn \inlinecode{State}'s. Elke keer dat de library een event binnenkrijgt zal onze handlerfunctie aangeroepen worden met de laatste state. Zoals de typesignatuur laat zien, zijn we verplicht deze state terug te geven zodat Canvas.hs hem op kan slaan.
 
 \subsection{Termen}
-Binnen deze handleiding zullen we een aantal termen gebruiken.
-\begin{description}
-	\item[Output]
+Binnen deze handleiding zullen een aantal termen gebruikt worden, deze worden hieronder gedefinieerd.
+\begin{itemize}
+	\item Output
 De programmeur is verandwoorderlijk voor het produceren van output, meestal zal de programmeur een Shape en een lijst van Actions geven maar ook een BlockingAction is mogelijk.
 	\item[Shape]
 Binnen Canvas.hs is vrijwel alles een shape, maar binnen deze handleiding zal er onderscheid gemaakt worden tussen primaire shapes (Circle, Rect, etc.), containers (een shape die een aantal kinderen heeft) of modifiers (bewerkingen op een shape).
