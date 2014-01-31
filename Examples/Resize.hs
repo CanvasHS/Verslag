@@ -12,13 +12,13 @@ main = installEventHandler handler initState
 
 -- de functie die vanuit Canvas.hs aangeroepen wordt
 handler :: State -> Event -> (State, Output)
-handler state (KeyDown "F11" _) = (state, 
+handler state (KeyPress "F11" _) = (state, 
     Out (Just $ drawAll state, [DisplayType FullScreen]))
 
-handler state (KeyDown "f" _) = (state, 
+handler state (KeyPress "f" _) = (state, 
     Out (Just $ drawAll state, [DisplayType FullWindow]))
 
-handler state (KeyDown "w" _) = (state, 
+handler state (KeyPress "w" _) = (state, 
     Out (Just $ drawAll state, [DisplayType $ FixedSize 900 600]))
 
 handler state (WindowResize w h) = (newState, shape $ drawAll newState)
