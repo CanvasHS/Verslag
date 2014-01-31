@@ -2,13 +2,20 @@
 \chapter{Conclusie \& Toekomstig werk} \label{hoofdstuk:conclusie}
 Dit project had als doel om een nieuwe omgeving te ontwikkelen die beginnende Haskell-programmeurs, zoals studenten van het vak Functioneel Programmeren, in staat stelt om grafische weergaven te maken en te manipuleren met eenvoudige, zelfgeschreven Haskell-code. Deze omgeving zou bovendien op alle gangbare platformen moeten draaien terwijl de installatie van de omgeving niet onredelijk ingewikkeld moest zijn.
 
-Canvas.hs, de ontwikkelde omgeving die in dit verslag gepresenteerd is, is de vervulling van dit doel. 
+Canvas.hs, de ontwikkelde omgeving die in dit verslag gepresenteerd is, is de vervulling van dit doel en in de volgende secties worden conclusies getrokken over in hoeverre deze doelen behaald zijn en aanbevelingen voor toevoegingen aan toekomstige versies.
 
+\section{Conclusie} \label{sec:conclusie}
 In \autoref{hoofdstuk:requirements} staan de requirements die aan de ontworpen omgeving gesteld werden en de traceability matrix in \autoref{sec:traceability} geeft aan welke requirements door welke tests geverifieerd worden.
 
-\todo{Voltooi Conclusie}
+De traceability matrix geeft aan dat alle van tevoren opgestelde requirements gegarandeerd worden door de geschreven tests met uitzondering van requirements R1.4, R1.6, R2.3, R4.2. Dit zijn de requirements die betrekking hebben betrekking op respectievelijk het kunnen tekenen van Bézier curves, het kunnen inladen van plaatjes op het canvas, het kunnen gebruiken van gradiënten als vulkleur en het kunnen zoomen en schuiven op het canvas.
 
-Hieronder worden aspecten besproken die nog missen in Canvas.hs. 
+Deze laatste drie requirements zijn niet-essentiële requirements die eventueel geïmplementeerd hadden kunnen worden, maar vanwege tijdgebrek vooruit geschoven zijn. De requirement om Bézier curves te kunnen tekenen op het canvas was beschreven als een essentiële requirement, maar aangezien Bézier curves niet standaard als shape ondersteund worden in KineticJS, zou de implementatie daarvan relatief veel tijd kosten. Er is daarom gekozen om arcs te implementeren als shape in plaats van Bézier curves aangezien arcs wel standaard ondersteund worden als shape in KineticJS.
+
+Alle opgestelde, essentiële requirements voor Canvas.hs --zowel de functionele als de niet functionele-- zijn dus behaald. De enige uitzondering hierop is het kunnen tekenen van Bézier curves. Daarnaast zijn ook bijna alle niet-essentiële requirements behaald.
+
+Canvas.hs werkt multi-platform en is gemakkelijk te gebruiken om grafische weergaven te maken met relatief simpele Haskell-code. We kunnen dus concluderen dat Canvas.hs het doel dat aan dit project gesteld is, heeft vervuld.
+
+In de volgende sectie worden aspecten besproken die toegevoegd kunnen worden aan toekomstige versies van Canvas.hs om dit reeds goed werkende product nog beter te maken. 
 
 \section{Aanbevelingen} \label{sec:aanbevelingen}
 Canvas.hs is bedoeld als vervanging voor de vorige omgeving die bij het vak Functioneel Programmeren gebruikt werd. Zodoende brengt Canvas.hs voordelen met zich mee over dat systeem. Er zijn echter nog mogelijkheden voor andere features. Wij, als ontwikkelaars van Canvas.hs, zetten hieronder enkele features neer die momenteel niet in het project meegenomen zijn, maar die in toekomstige versies toegevoegd zouden kunnen worden. Ook wordt per feature aangegeven hoe ondersteuning voor die feature toegevoegd kan worden.
