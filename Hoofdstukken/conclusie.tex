@@ -7,11 +7,9 @@ In \autoref{hoofdstuk:requirements} staan de requirements die aan de ontworpen o
 
 De traceability matrix geeft aan dat alle van tevoren opgestelde requirements gegarandeerd worden door de geschreven tests met uitzondering van requirements R1.4, R1.6, R2.3, R4.2. Dit zijn de requirements die betrekking hebben betrekking op respectievelijk het kunnen tekenen van Bézier curves, het kunnen inladen van plaatjes op het canvas, het kunnen gebruiken van gradiënten als vulkleur en het kunnen zoomen en schuiven op het canvas.
 
-Deze laatste drie requirements zijn niet-essentiële requirements die eventueel geïmplementeerd hadden kunnen worden, maar vanwege tijdgebrek vooruit geschoven zijn. De requirement om Bézier curves te kunnen tekenen op het canvas was beschreven als een essentiële requirement, maar aangezien Bézier curves niet standaard als shape ondersteund worden in KineticJS, zou de implementatie daarvan relatief veel tijd kosten. Er is daarom gekozen om arcs te implementeren als shape in plaats van Bézier curves aangezien arcs wel standaard ondersteund worden als shape in KineticJS.
+Deze laatste drie requirements zijn niet-essentiële requirements die eventueel ge\"implementeerd hadden kunnen worden, maar vanwege tijdgebrek vooruit geschoven zijn. De requirement om Bézier curves te kunnen tekenen op het canvas was beschreven als een essentiële requirement, maar aangezien Bézier curves niet standaard als shape ondersteund worden in KineticJS, zou de implementatie daarvan relatief veel tijd kosten. In plaats van Bézier curves is er gekozen om arcs te implementeren omdat deze makkelijker te gebruiken zijn.
 
-Alle opgestelde, essentiële requirements voor Canvas.hs--zowel de functionele als de niet functionele--zijn dus behaald. De enige uitzondering hierop is het kunnen tekenen van Bézier curves. Daarnaast zijn ook bijna alle niet-essentiële requirements behaald.
-
-Canvas.hs werkt multi-platform en is gemakkelijk te gebruiken om grafische weergaven te maken met relatief simpele Haskell-code. We kunnen dus concluderen dat Canvas.hs het doel dat aan dit project gesteld is, heeft vervuld.
+Met uitzondering van Bézier curves zijn alle opgestelde, essentiële requirements voor Canvas.hs--zowel de functionele als de niet functionele--zijn dus behaald. Daarnaast zijn ook bijna alle niet-essentiële requirements behaald. Canvas.hs werkt multi-platform en is gemakkelijk te gebruiken om grafische weergaven te maken met relatief simpele Haskell-code. We kunnen dus concluderen dat Canvas.hs het doel dat aan dit project gesteld is, heeft vervuld.
 
 In de volgende sectie worden aspecten besproken die toegevoegd kunnen worden aan toekomstige versies van Canvas.hs om dit reeds goed werkende product nog beter te maken. 
 
