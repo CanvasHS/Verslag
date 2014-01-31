@@ -1,31 +1,44 @@
 \section{Problemen}
-\todo{Nog veel rewrites}
-\subsection{IO Monad afsplitsen}
 
-\todo{Onderstaande had ik (Pim) origineel geschreven voor het problemenstuk (in ontwerp). Het is over de problemen die we hadden omdat we relatief weinig haskell-kennis hadden}
+Bij het ontwerp en implementatie van het project zijn er een aantal moeilijkheden geweest die het uiteindelijke ontwerp van Canvas.hs sterk hebben beïnvloed. Deze ontstonden onder andere door het ontwijken van het gebruik van monadisch programmeren voor de student en door de samenwerking tussen Haskell en Javascript. Hieronder een kort overzicht van deze belangrijkste problemen.
 
 \subsubsection{Kennis Haskell}
-Bij het begin van het Canvas.Hs-project was de kennis over Haskell en functioneel programmeren in het algemeen beperkt tot de kennis opgedaan met het vak Functioneel programmeren. Hoewel dit een solide basis vormt is het doel van Canvas.Hs juist om een aantal concepten die niet binnen dit vak passen af te schermen van de studenten. Dit betekende dat er bij het project van deze concepten gebruik moest worden gemaakt en wij hebben ons deze eigen moeten maken. Zoals altijd bij het leren van nieuwe concepten leverde dit af en toe code die niet optimaal gebruik maakte van de beschikbare mogelijkheden.
+Bij het begin van het Canvas.hs-project was de kennis over Haskell en functioneel programmeren in het algemeen beperkt tot de kennis opgedaan met het vak Functioneel programmeren. Hoewel dit een solide basis vormt is het doel van Canvas.hs juist om een aantal concepten die niet binnen dit vak passen af te schermen van de studenten. Dit betekende dat er bij het project van deze concepten gebruik moest worden gemaakt en wij hebben ons deze eigen moeten maken. Zoals altijd bij het leren van nieuwe concepten leverde dit af en toe code die niet optimaal gebruik maakte van de beschikbare mogelijkheden.
 
-Naarmate het project vorderde, vorderde ook onze kennis van Haskell. Hierdoor maakt de uiteindelijke versie van Canvas.Hs goed gebruik van de mogelijkheden van onder andere monadisch programmeren en het threadsysteem in Haskell.
+Naarmate het project vorderde, vorderde ook onze kennis van Haskell. Hierdoor maakt de uiteindelijke versie van Canvas.Hs goed gebruik van de mogelijkheden van onder andere monadisch programmeren en het threadsysteem in Haskell. 
 
-\paragraph{Monads}
-Zoals gezegd kent Haskell het concept van monads. Één van de doelen van CanvasHs is om dit concept niet te hoeven gebruiken voor grafische weergave bij het vak functioneel programmeren. Dit betekent dat ook wij, de ontwikkelaars, weinig kennis over dit concept hadden voordat aan het project begonnen werd.
-Denk aan do-notatie, binds (>>=>>) en eigen monad voor de Server (state)
-\todo{onvoldoende toegelicht}
+\subsubsection{Aannamen gebruik}
+Bij het ontwerp van Canvas.hs is uitgegaan van de ervaring van de ontwerpers bij het vak functioneel programmeren. Veel ontwerpkeuzes zijn gemaakt rond het principe dat de interface van Canvas.hs zo simpel mogelijk moet zijn voor de student. Zo is er zo veel mogelijk gekozen voor simpele primitieven als String en Int. In het geval van interactie met de inhoud van bestanden, is gekozen voor het gebruik van Lazy ByteStrings om interactie met de inhoud mogelijk te maken zonder het hele bestand in het geheugen te laden.
 
-\paragraph{Threads}
-Denk aan gezeik met netjes de WebSockets en http-threads afsluiten en Timer-threads die nu doorlopen \todo{Dit afmaken}
+Er is voor gekozen om geen gebruik te maken van het Num-type uit fpprac. Zo is Canvas.hs ook bruikbaar zonder gebruik te maken van fpprac. Het is echter eenvoudig om in fpprac een koppeling met Canvas.hs te schrijven die gebruik maakt van het Num-type.
 
+\subsubsection{Haskell interface}
+Doordat zowel het tekenen van grafische elementen als het uitvoeren van IO acties normaal gesproken via (een monadlaag op) de IO-monad verlopen moet Canvas.hs deze beide mogelijk maken. Hierdoor is de interface voor de user applicatie erg uitgebreid. 
 
-\subsubsection{Records} \todo{Hier is een stukje over het recordprobleem, maar waar het heen moet weet ik niet}
-Binnen Haskell is het zo dat elke sleutel van een record waarde een functie is. Als er een record gedefinieerd wordt met een sleutel ``sleutel'' bestaat er automatisch een functie \inlinecode{sleutel}. Hoewel dit op het eerste gezicht handig lijkt, betekend dit wel dat alle sleutels uniek moeten zijn. Het is zelfs zo dat sleutels globaal uniek moeten zijn, het is niet mogelijk twee records te maken (die niet in hetzelfde \inlinecode{data} element zitten) die dezelfde sleutel hebben. Hieronder staat een stukje code die dit probleem illustreerd, op de tweede statement zal de Haskell compiler een foutmelding geven.
+Er moest een manier gevonden worden zodat de handler zowel acties als grafische elementen kon opleveren, en het ook mogelijk is om slechts één van beide door te geven. Dit is gedaan door deze te verpakken in een tuple van een te tekenen grafisch element en een lijst van uit te voeren acties. Helaas resulteert dit in de user application in code die niet altijd even goed leesbaar is, daarom zijn er een tweetal hulpfuncties in het leven geroepen, \inlinecode{shape} en \inlinecode{actions}, die de leesbaarheid in de user application verhogen.
+
+\paragraph{Acties met resultaat}
+Naast het bovenstaande is er nog een probleem met acties. Sommige acties hebben geen resultaat, zoals bijvoorbeeld het aanzetten van de Debug-console, of ze hebben pas later resultaat, zoals bijvoorbeeld het starten van een Timer of het vragen om een bestand van de gebruiker. Echter zijn er ook acties, zoals het openen van een bestand, die onmiddellijk resultaat opleveren. 
+
+Dit laatste type actie kan niet met een grafische boom gecombineerd worden. Als dit wel toegestaan zou zijn kan er een onduidelijkheid ontstaan. De actie zou dan worden uitgevoerd en een resultaat opleveren dat vervolgens weer door de user applicatie wordt verwerkt. Hieruit zou weer een nieuwe grafische boom kunnen komen. Er zijn dan twee aparte grafische bomen, waarvan er slechts één naar de Javascript applicatie kan worden gestuurd. De user applicatie zou zelfs weer zo'n actie op kunnen leveren, waardoor er drie te versturen grafische bomen zouden kunnen liggen, etc. 
+
+Er is daarom voor gekozen om de acties in twee types op te delen, acties die geen direct resultaat (\inlinecode{Action}) op leveren en acties die direct resultaat op leveren (\inlinecode{BlockingAction}). Van dit eerste kunnen er zoveel worden opgegeven als gewenst en deze kunnen gecombineerd worden met een te tekenen grafisch element. Het tweede type kan niet met een grafische boom gecombineerd worden en het resultaat kan ook uit slechts één zo'n actie bestaan. 
+
+\subsubsection{Verschillen systemen}
+Doordat er bij het tekenen van de grafische elementen gebruik wordt gemaakt van javascript en canvas in de browser van de gebruiker ontstaan er door inconsequenties tussen bugs in browsers en besturingssystemen een aantal problemen. Veel van deze problemen hebben we opgevangen door gebruik te maken van bibliotheken aan de Javascript kant als jQuery en KineticJS. 
+
+\paragraph{Systeemtoetsen} Echter zijn er een aantal zaken waar systemen zo in verschillen dat we deze niet voor alle mogelijke systemen hebben afgevangen in Canvas.hs. Er zijn bijvoorbeeld grote verschillen in de toetsenborden tussen verschillende systemen. Zo heeft windows een windows-toets, OS X een command-toets en noemen de meeste Linux distributies deze knop de super-toets, we hebben er in Canvas.hs voor gekozen al deze toetsen onder de naam 'superkey' te scharen.
+
+\subsubsection{Records}
+Binnen Haskell is het zo dat elke sleutel van een recordwaarde een functie is. Als er een record gedefinieerd wordt met een sleutel ``sleutel'' bestaat er automatisch een functie \inlinecode{sleutel}. Hoewel dit op het eerste gezicht handig lijkt, betekent dit wel dat alle sleutels uniek moeten zijn. Het is zelfs zo dat sleutels globaal uniek moeten zijn, het is niet mogelijk twee records te maken die dezelfde sleutel hebben. Hieronder staat een stukje code dat dit probleem illustreert, op het tweede statement zal de Haskell compiler een foutmelding geven.
 
 \begin{lstlisting}[language=Haskell]
 data FirstRecord = Fst { key :: String }
 data SecondRecord = Snd { key :: String }
 \end{lstlisting}
 
-De meestgebruikte JSON libraries gebruiken records die daarna naar JSON vertaald worden, maar dit bleek problematisch. Omdat er zowel in het input als in het output record een veld met de naam ID was, moesten er handmatig toJSON instanties geschreven worden waar interne veldnamen omgezet werden in externe veldnamen. Deze wijziging leverde heel veel code op, daarnaast was er nog een probleem dat de JSON library (Aeson) geen lege (\inlinecode{ field = Nothing }) velden weggooide.  Uiteindelijk is er een oplossing gevonden in de vorm van Template Haskell. De Template Haskell functies voor Aeson bieden de mogelijkheid om \inlinecode{Nothing}'s te verwijderen, en daarnaast is het mogelijk om de veldnamen van de records aan te passen. Binnen de code zijn dus alle veldnamen van records voorzien van een prefix (shape, event, etc.) die er door Template Haskell weer afgehaald wordt.
+De meestgebruikte JSON libraries vertalen records naar JSON. Hierbij nemen ze de sleutel uit het record als sleutelnaam voor de vertaalde JSON. Door bovenstaand omschreven probleem levert dit problemen op als JSON datastructuren sleutelnamen delen. Hierdoor moest handmatig toJSON instanties voor deze datastructuren geschreven worden, wat veel regels triviale code oplevert. Daarnaast wordt in de door Canvas.hs gebruikte datastructuur gebruik gemaakt van het \inlinecode{Maybe}-datatype om aan te geven of een veld van een record al dan niet gevuld is. Aeson, de in Canvas.hs gebruikte JSON-library, encodeert deze lege velden (\inlinecode{field = Nothing}) standaard als \inlinecode{null}. Het protocol vereist echter dat lege velden niet worden meegestuurd. Uiteindelijk zijn deze twee problemen overkomen door het gebruik van TemplateHaskell \cite{AesonTH}. Hiermee is het mogelijk om de \inlinecode{Nothing}-velden niet te encoderen. Daarnaast is het mogelijk om een een vast aantal karakters van de sleutels niet te encoderen, hierdoor wordt het hierboven omschreven probleem opgelost. 
 
 
+\paragraph{Threads}
+Bij het gebruik van Canvas.hs lopen verschillende threads om verschillende delen van het programma af te handelen. In het main thread van het haskellprogramma wordt canvas.hs aangeropen, er wordt dan vervolgens een apart thread gestart voor de HTTP-server en in het mainthread wordt de websocketsserver gestart. Deze websocketsserver zal vervolgens ook de eventHandler van de gebruiker aanroepen. Daarnaast lopen door de student gestarte \inlinecode{Timer}s ook elk in een eigen thread. Bij de originele implementatie van deze threads werden al deze extra threads niet netjes gestops als het main thread werd gestopt. Door met behulp van MVars te communiceren tussen de main thread en de extra threads worden ook deze extra threads inmiddels netjes gestopt.
