@@ -11,7 +11,7 @@ Canvas.hs is een library die de programmeur kan importeren in zijn programma om 
 \end{center}
 \end{figure}
 
-Een gebeurtenis die binnen het systeem plaatsvindt wordt een \emph{event} genoemd. Denk hierbij bijvoorbeeld aan een toetsaanslag of een muisklik. De user applicatie zal een eventHandler-functie moeten bevatten welke aangeroepen wordt na het plaatsvinden van een event. Deze eventHandler kan op basis van deze gebeurtenis een nieuwe grafische boom opleveren, hierbij kan gedacht worden aan een boom met daarin onder andere text en simpele vormen die samen een groter geheel vormen. Dit alles wordt hieronder toegelicht in \autoref{par:globaal_shapes}. De opgeleverde boom zal vervolgens op het canvas getekend worden. 
+Een gebeurtenis die binnen het systeem plaatsvindt wordt een \emph{event} genoemd. Denk hierbij bijvoorbeeld aan een toetsaanslag of een muisklik. De user applicatie zal een eventHandler-functie moeten bevatten welke aangeroepen wordt na het plaatsvinden van een event. Deze eventHandler kan op basis van deze gebeurtenis een nieuwe grafische boom opleveren, hierbij kan gedacht worden aan een boom met daarin onder andere text en simpele vormen die samen een groter geheel vormen. Dit alles wordt hieronder toegelicht in \autoref{subsec:globaal_shapes}. De opgeleverde boom zal vervolgens op het canvas getekend worden. 
 
 De eventHandler kan naast het opleveren van een nieuwe grafische boom ook nog een aantal uit te voeren acties opleveren; hierbij kan gedacht worden aan bijvoorbeeld het lezen of schrijven van bestanden. 
 
@@ -44,8 +44,8 @@ rectangle i = Rect (10*i, 10*i) 10 10
 
 Een gedetailleerde handleiding over Events, Shapes, Actions in het algemeen het gebruik van Canvas.hs kan gevonden worden in \fullref{sec:gebruikershandleiding}.
 
-\paragraph{Shapes}
-\label{par:globaal_shapes}
+\subsection{Shapes}
+\label{subsec:globaal_shapes}
 Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. Deze boom is gebasseerd op het Shapetype. Dit type definieert een aantal primitieven, zoals lijnen en vierkanten, en aantal mutaties zoals verschuivingen en rotaties die op een primitieve worden toegepast. Daarnaast wordt via het \inlinecode{Shape}-type ook aangegeven of er interesse is in events, zoals muisklikken, die plaats hebben op de Shape. In \autoref{dia:grafische_boom} is een grafische boom van Shapes weergegeven. Zoals te zien bestaan de bladen van de boom altijd uit primitieven en hebben de mutaties altijd één Shape als subboom.
 
 \begin{diagram}
@@ -54,9 +54,9 @@ Zoals hierboven aangegeven levert de eventHandler o.a. een grafische boom op. De
 \label{dia:grafische_boom}
 \end{diagram}
 
-\paragraph{Communicatie}
+\subsection{Communicatie}
 In Canvas.hs wordt de grafische weergave gedaan door het canvaselement in een webbrowser. Voor de communicatie tussen het haskellprocess en de webbrowser zijn een aantal mogelijkheden. In Canvas.hs hebben we ervoor gekozen in het Haskellprocess een server te starten die vervolgens door de webbrowser wordt aangesproken. Hier wordt over uitgeweid onder \autoref{subsec:architectuur}: architectuur.
 
-\paragraph{Externe bibliotheken}
+\subsection{Externe bibliotheken}
 Voor het opzetten van deze server zijn vele oplossingen bedacht in de vorm van modules voor Haskell. Ook voor de interactie met het canvaselement bestaan een aantal JavaScriptbibliotheken.
 In Canvas.hs hebben wij het wiel niet opnieuw uitgevonden, maar de beste van deze oplossingen geselecteerd. De gekozen bibliotheken worden verder toegelicht onder \autoref{subsec:externe_libraries}: externe bibliotheken.
